@@ -8,7 +8,7 @@ export class Modal extends HTMLElement {
     const closeModal = (e: KeyboardEvent) => {
       if (this.hidden) return;
       if ((e.key || e.code) === "Escape") {
-        this.style.display = "none";
+        this.style.setProperty("--display", "none");
         this.hidden = true;
         e.preventDefault();
       }
