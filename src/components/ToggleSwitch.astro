@@ -1,0 +1,77 @@
+---
+export interface Props {
+  id: string;
+  checked?: boolean;
+  size?: string;
+}
+const { id, checked, size = "60px" } = Astro.props;
+---
+
+<div>
+  <label for={id}>
+    <input
+      type="checkbox"
+      id={id}
+      checked={checked ? "true" : "false"}
+    />
+    <span></span>
+  </label>
+</div>
+
+<style define:vars={{ "switch-size": size }}>
+  div {
+    float: right;
+    position: fixed;
+    width: var(--switch-size);
+    left: 75%;
+    top: 24px;
+  }
+
+  div label {
+    position: absolute;
+    width: 100%;
+    height: calc(var(--switch-size) / 2);
+    border-radius: calc(var(--switch-size) / 2);
+    background-color: var(--theme-light-bg);
+    cursor: pointer;
+  }
+
+  input {
+    position: absolute;
+    display: none;
+  }
+
+  span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: calc(var(--switch-size) / 2);
+    transition: 0.3s;
+  }
+
+  div input:checked ~ span {
+    background-color: var(--theme-dark-bg);
+  }
+
+  /* Slider Circle */
+  span::before {
+    content: "";
+    position: absolute;
+    width: calc(var(--switch-size) / 2.6666666666666665);
+    height: calc(var(--switch-size) / 2.6666666666666665);
+    top: calc(var(--switch-size) / 16); /* 15.384615384615385 was used in the previous version.. Not sure why 16 works better */
+    left: calc(var(--switch-size) / 12.5);
+    border-radius: 50%;
+    /* box-shadow adds the moon */
+    /* box-shadow: inset calc(var(--switch-size)/7.142857142857143) -4px 0px 0px rgb(255, 255, 0); */
+    background-color: var(--theme-dark-bg);
+    transition: 0.3s;
+  }
+
+  /* Dark mode Slider Circle */
+  div input:checked ~ span::before {
+    transform: translateX(calc(var(--switch-size) / 2.1052631578947367));
+    background-color: var(--theme-dark-fg);
+    box-shadow: none;
+  }
+</style>

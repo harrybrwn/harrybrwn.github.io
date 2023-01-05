@@ -1,0 +1,68 @@
+---
+import Modal from "./Modal.astro";
+import Win95 from "./Win95.astro";
+export interface Props {
+  button: string;
+}
+const { button } = Astro.props;
+---
+
+<Modal id="help-window" hidden={true} buttonId={button}>
+  <Win95 title="Help" className="help-window">
+    <p>Keyboard shortcuts</p>
+    <table>
+      <tr>
+        <th>Shortcut</th>
+        <th>Action</th>
+      </tr>
+      <tr>
+        <td>?</td>
+        <td>Show the help menu</td>
+      </tr>
+      <tr>
+        <td>l</td>
+        <td>Show login window</td>
+      </tr>
+      <tr>
+        <td>t</td>
+        <td>Toggle the theme</td>
+      </tr>
+      <tr>
+        <td>esc</td>
+        <td>Close a pop-up such as this one</td>
+      </tr>
+    </table>
+  </Win95>
+</Modal>
+
+<style is:global>
+  .help-window {
+    float: left;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 32em;
+    max-height: 16em;
+    transform: translate(-50%, -50%);
+  }
+
+  .help-window .win95-window-head {
+    position: fixed;
+  }
+
+  html[data-theme="dark"] .win95-window-body :global(p),
+  :global(th),
+  :global(td) {
+    color: black;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .help-window {
+      width: 75%;
+    }
+  }
+
+  .help-window .win95-window-body {
+    margin: 0px 2em 0.8em 2em;
+  }
+</style>

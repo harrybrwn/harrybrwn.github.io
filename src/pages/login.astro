@@ -1,0 +1,52 @@
+---
+import "../styles/global.css";
+import Base from "../layouts/Base.astro";
+import Win95 from "~/components/Win95.astro";
+---
+
+<Base lang="en" title="Harry Brown | Login" description="Login to me page.">
+  <center>
+    <h1>Login</h1>
+    <Win95 title="testing" className="login-panel">
+      <h2>User Login</h2>
+      <form
+        method="POST"
+        action="/api/_token"
+        enctype="application/json"
+        id="login-form"
+      >
+        <input type="text" name="identifier" placeholder="Username or Email" />
+        <input type="password" name="password" placeholder="Password" />
+        <br />
+        <input type="submit" />
+      </form>
+    </Win95>
+  </center>
+</Base>
+
+<style>
+  .login-panel {
+    top: 27%;
+    left: 50%;
+    width: 18em;
+    text-align: center;
+    transform: translate(-50%, -50%);
+  }
+
+  .login-panel .win95-window-body p {
+    margin-top: 0.6em;
+    margin-bottom: 0.6em;
+  }
+
+  .login-panel input[type="submit"] {
+    margin: 10px;
+  }
+
+  html[data-theme="dark"] .login-panel {
+    box-shadow: 5px 5px var(--win95-bg-color);
+  }
+
+  html[data-theme="dark"] .login-panel {
+    box-shadow: 5px 5px #2c2c2c;
+  }
+</style>

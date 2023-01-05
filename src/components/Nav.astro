@@ -1,0 +1,40 @@
+---
+import type { HTMLAttributes } from "~/lib/html";
+
+export interface Props extends HTMLAttributes {
+  pages: Array<{
+    name: string;
+    href: string;
+  }>;
+}
+const { pages, id, class: className, title } = Astro.props;
+
+const totitle = (s: string): string => {
+  return s[0].toUpperCase() + s.slice(1, s.length);
+};
+---
+
+<nav id={id} class={className} title={title}>
+  <ul>
+    {
+      pages.map((p) => (
+        <li>
+          <a href={p.href}>{totitle(p.name)}</a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  nav {
+    display: flex;
+  }
+  ul {
+    list-style: none;
+  }
+  li {
+    float: left;
+    padding-right: 0.8em;
+  }
+</style>

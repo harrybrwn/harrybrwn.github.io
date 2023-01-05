@@ -1,0 +1,48 @@
+---
+import Nav from "~/components/Nav.astro";
+import Base from "~/layouts/Base.astro";
+
+export interface Props {
+  content: {
+    title: string;
+    description: string;
+    pubDate: Date;
+    tags?: string[];
+  };
+}
+const {
+  content: { title, description, tags },
+} = Astro.props;
+---
+
+<Base title={title} description={description}>
+  <main>
+    <header>
+      <Nav pages={[
+        {href: "/", name: "home"},
+        {href: "/about", name: "about"},
+        {href: "/blog", name: "blog"},
+      ]}/>
+      <h1>{title}</h1>
+      <p>{description}</p>
+    </header>
+    <hr />
+    <article>
+      <slot />
+    </article>
+    <hr />
+    <footer>
+      <pre>tags: [{tags?.join(" ")}]</pre>
+    </footer>
+  </main>
+</Base>
+
+<style is:global>
+  hr {
+    border-color: rgb(172, 172, 172);
+    max-width: 80%;
+  }
+  ul {
+    list-style: none;
+  }
+</style>

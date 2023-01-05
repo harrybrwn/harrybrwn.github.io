@@ -1,0 +1,93 @@
+{
+  "theoldnet.gif": {
+    "alt": "The Old Net",
+    "title": "Are you tired of this new Internet yet? Time to Get TheOldNet!",
+    "href": "http://www.theoldnet.com/#frombadge"
+  },
+  "geo-cities.gif": {
+	"alt": "Geo Cities",
+	"title": "Homepage of the retro internet",
+	"href": "https://geocities.restorativland.org/"
+  },
+  "siliconvalley-geocities.gif": {
+	"alt": "GeoCities Silicon Valley",
+	"title": "GeoCities Silicon Valley",
+	"href": "https://geocities.restorativland.org/SiliconValley"
+  },
+  "vscode.gif": {
+	"alt": "Visual Studio Code",
+	"title": "VS Code",
+	"href": "https://code.visualstudio.com/"
+  },
+  "linux.gif": {
+	"alt": "The Linux kernel",
+	"title": "The Linux kernel",
+	"href": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git"
+  },
+  "vim.gif": {
+	"alt": "Vim",
+	"title": "Vim",
+	"href": "https://www.vim.org/"
+  },
+  "amd_powered.gif": {
+	"alt": "Powered by AMD",
+	"title": "AMD Athlon 64 X2",
+	"href": "/static/files/amd-athlon-64-x2-datasheet.pdf"
+  },
+  "vi_now.gif": {
+	"alt": "Vi Now",
+	"title": "Vi",
+	"href": "https://en.wikipedia.org/wiki/Vi"
+  },
+  "palemoon.gif": {
+	"alt": "Palemoon web browser",
+	"title": "Palemoon",
+	"href": "https://www.palemoon.org/"
+  },
+  "madville.gif": {
+	"alt": "A beautifully retro site",
+	"title": "A beautifully retro site",
+	"href": "https://madville.neocities.org"
+  },
+  "netnow2.gif": {
+	"alt": "Netscape Navigator",
+	"title": "Netscape Navigator",
+	"href": "https://en.wikipedia.org/wiki/Netscape"
+  },
+  "88x31.gif": {
+	"alt": "Eighty eight by thirty one",
+	"title": "So many buttons!",
+	"href": "https://cyber.dabamos.de/88x31/index.html"
+  },
+  "devils-neocities.gif": {
+	"alt": "Devils",
+	"title": "",
+	"href": "https://devils.neocities.org/"
+  },
+  "rtanya.gif": {
+	"alt": "rtanya",
+	"title": "",
+	"href": "https://rtanya.com"
+  },
+
+  "get_mozilla.gif": {
+	"alt": "",
+	"title": "",
+	"href": ""
+  },
+  "netscape-now.gif": {
+	"alt": "",
+	"title": "",
+	"href": ""
+  },
+  "rfc1876-now.gif": {
+	"alt": "",
+	"title": "",
+	"href": ""
+  },
+  "sun-micro.gif": {
+	"alt": "",
+	"title": "",
+	"href": ""
+  }
+}

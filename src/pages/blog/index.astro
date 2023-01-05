@@ -1,0 +1,52 @@
+---
+import Base from "~/layouts/Base.astro";
+import path from "path";
+import BlogPosts from "~/components/BlogPosts";
+import type { MarkdownLayoutProps } from "astro";
+
+export interface Frontmatter extends Record<string, any> {
+  title: string;
+  description: string;
+  pubDate: string;
+  tags: string[];
+  draft: boolean;
+  slug?: string;
+  url?: string;
+}
+
+// TODO Build a search index for content and tags
+const posts = (
+  await Astro.glob<MarkdownLayoutProps<Frontmatter>>("./*.{md,mdx}")
+)
+  .filter(({ frontmatter }) => import.meta.env.DEV || !frontmatter.draft)
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.pubDate).valueOf() -
+      new Date(a.frontmatter.pubDate).valueOf()
+  )
+  .map((p) => {
+    if (p.url) {
+      p.frontmatter.url = p.url;
+      p.frontmatter.slug = path.basename(p.url);
+    }
+    p.frontmatter.pubDate = new Date(p.frontmatter.pubDate).toISOString();
+    return p;
+  });
+---
+
+<Base title="Harry Brown | Blog" description="The ramblings of a madman.">
+  <main>
+    <header>
+      <h1>Blog</h1>
+    </header>
+    <section>
+      <BlogPosts posts={posts.map((p) => p.frontmatter)} />
+    </section>
+  </main>
+</Base>
+
+<style is:global>
+  ul {
+    list-style: none;
+  }
+</style>

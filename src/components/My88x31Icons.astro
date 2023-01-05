@@ -1,0 +1,108 @@
+---
+import WaitWhatIcon from "../img/88x31/me/wait-what.gif";
+import MeButton from "../img/88x31/me/button.gif";
+---
+
+<>
+  <span
+    class="tooltip web-button-tooltip"
+    id="web-btn-1-tooltip"
+    data-text="Copy code"
+  >
+    <img
+      id="web-button-1"
+      src={WaitWhatIcon}
+      alt="Harry"
+      width="88"
+      height="31"
+    />
+  </span>
+  <span
+    class="tooltip web-button-tooltip"
+    id="web-btn-2-tooltip"
+    data-text="Copy code"
+  >
+    <img id="web-button-2" src={MeButton} alt="Harry" width="88" height="31" />
+  </span>
+</>
+
+<script>
+  const webButtonClipboard = (num: number) => {
+    let tooltip = document.getElementById(`web-btn-${num}-tooltip`);
+    if (tooltip == null) {
+      console.error("could not find tooltip");
+      return;
+    }
+    if (tooltip.children.length == 0 || tooltip.children[0].tagName != "IMG") {
+      throw new Error("web button tooltip has no child image");
+    }
+    let button = tooltip.children[0] as HTMLImageElement;
+
+    const defaultMsg = "Copy code";
+    const payload = `<a href="${window.origin}/">\n  <img src="${button.src}" alt="Harry Brown" width="88" height="31">\n</a>`;
+
+    tooltip.setAttribute("data-text", defaultMsg);
+    const copy = () => {
+      navigator.clipboard.writeText(payload);
+      tooltip?.setAttribute("data-text", "Code copied!");
+      fetch(`/api/ping?action=web-button-${num}-copy`);
+    };
+    button.addEventListener("click", copy);
+    button.addEventListener("mouseout", () => {
+      tooltip?.setAttribute("data-text", defaultMsg);
+    });
+  };
+  webButtonClipboard(1);
+  webButtonClipboard(2);
+</script>
+
+<style>
+  .web-button-tooltip {
+    width: 88px;
+    height: 31px;
+    cursor: pointer;
+  }
+
+  .tooltip {
+    /* making the .tooltip span a container for the tooltip text */
+    position: relative;
+  }
+
+  .tooltip:before {
+    content: attr(data-text); /* here's the magic */
+    position: absolute;
+
+    /* vertically center */
+    top: 50%;
+    transform: translateY(50%);
+
+    left: -18%;
+    margin-left: 0px;
+
+    /* basic styles */
+    width: 120%;
+    border-radius: 4px;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    font-size: 0.8em;
+    opacity: 0.8;
+
+    /* Hide by default */
+    display: none;
+  }
+
+  .tooltip:before {
+    background-color: #000;
+    color: #fff;
+  }
+
+  [data-theme="dark"] .tooltip:before {
+    background-color: #fff;
+    color: black;
+  }
+
+  .tooltip:hover:before {
+    display: block;
+  }
+</style>

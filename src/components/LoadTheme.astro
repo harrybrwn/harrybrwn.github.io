@@ -1,0 +1,50 @@
+---
+import { Theme } from "~/lib/theme";
+
+export interface Props {
+  key?: string;
+  button?: string;
+}
+const Dark = Theme.Dark;
+const Light = Theme.Light;
+
+let { key = "theme", button = "theme-toggle" } = Astro.props;
+
+if (button && !button.startsWith("#")) {
+  button = `#${button}`;
+}
+---
+
+<script is:inline define:vars={{ Dark, Light, key, button }}>
+  const asStr = (t) => (t === Dark ? "dark" : "light");
+  const load = () => {
+    let res = localStorage.getItem(key);
+    if (res === null) {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? Dark
+        : Light;
+    }
+    return parseInt(res);
+  };
+  window.theme = load();
+  if (document.firstElementChild) {
+    document.firstElementChild.setAttribute("data-theme", asStr(theme));
+  }
+
+  window.themeToggle = (toggle) => {
+    const t = theme === Dark ? Light : Dark;
+    document.firstElementChild?.setAttribute("data-theme", asStr(t));
+    localStorage.setItem(key, t.toLocaleString());
+    toggle.checked = t !== Dark;
+    theme = t;
+  };
+
+  window.onload = () => {
+    const toggle = document.querySelector(button);
+    if (!toggle) throw new Error("no toggle");
+    toggle.checked = theme !== Dark;
+    toggle.addEventListener("change", () => {
+      themeToggle(toggle);
+    });
+  };
+</script>

@@ -1,0 +1,30 @@
+---
+export interface Props {
+  hidden?: boolean;
+  id?: string;
+  className?: string;
+  buttonId?: string;
+}
+const { id, className, hidden = false, buttonId } = Astro.props;
+---
+
+<pop-up
+  data-hidden={hidden}
+  data-btnid={buttonId}
+  id={id}
+  class={`${className || ""} modal`}
+  role="dialog"
+>
+  <slot />
+</pop-up>
+
+<style define:vars={{ display: hidden ? "none" : "block" }}>
+  pop-up {
+    display: var(--display);
+  }
+</style>
+
+<script>
+  import { Modal } from "../lib/modal";
+  customElements.define("pop-up", Modal);
+</script>

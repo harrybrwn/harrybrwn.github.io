@@ -1,0 +1,62 @@
+---
+import "../font/SourceCodePro/sourcecodepro.css";
+import "../styles/global.css";
+
+import Meta, { MetaProps } from "../components/Meta.astro";
+import StarBackground from "../components/StarBackground.astro";
+import ToggleSwitch from "../components/ToggleSwitch.astro";
+import LoadTheme from "~/components/LoadTheme.astro";
+import GoofyImg from "~/img/goofy.jpg";
+
+export interface Props {
+  title: string;
+  description: string;
+  lang?: string;
+  head?: MetaProps;
+}
+
+const { lang = "en", title, description, head } = Astro.props;
+const themeId = "theme-toggle";
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <LoadTheme key="theme" button={themeId} />
+    <Meta
+      title={title}
+      description={description}
+      image={GoofyImg}
+      {...head}
+    />
+  </head>
+  <body>
+    <StarBackground />
+    <ToggleSwitch id={themeId} checked={false} size="60px" />
+    <slot />
+    <style is:global>
+      body {
+        font-family: "Source Code Pro", mono, "Liberation Mono", monospace;
+        font-size: 18px;
+        margin-right: auto;
+        margin-left: auto;
+        margin-bottom: 2em;
+        max-width: 750px;
+      }
+      #theme-toggle {
+        z-index: 9999;
+      }
+    </style>
+    <script>
+      import type { Modal } from "~/lib/modal";
+      import { listener } from "~/lib/keyboard-shortcuts";
+
+      const help = document.getElementById("help-window") as Modal | null;
+      const toggle = document.getElementById("theme-toggle");
+      document.addEventListener(
+        "keydown",
+        listener(() => window.themeToggle(toggle as HTMLInputElement), help)
+      );
+    </script>
+  </body>
+</html>

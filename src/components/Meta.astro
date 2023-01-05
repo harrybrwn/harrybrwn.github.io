@@ -1,0 +1,105 @@
+---
+interface TwitterProps {
+  username: string;
+}
+
+interface MastadonProps {
+  username: string;
+  instance: string;
+}
+
+export interface MetaProps {
+  title: string;
+  description: string;
+  author?: string;
+  image?: string;
+  favicon?: string;
+  siteName?: string;
+  twitter?: TwitterProps;
+  mastodon?: MastadonProps;
+  robots?: string[];
+  onion?: string;
+}
+
+export type Props = MetaProps;
+
+const {
+  title,
+  description,
+  author,
+  image = "/placeholder-social.jpg",
+  favicon = "/favicon.ico",
+  siteName,
+  twitter,
+  mastodon,
+  robots = ["index", "archive", "follow"],
+  onion,
+} = Astro.props;
+
+let iconType = "image/x-icon";
+if (favicon.endsWith(".svg")) {
+  iconType = "image/svg+xml";
+}
+if (twitter) {
+  if (!twitter.username.startsWith("@")) {
+    twitter.username = `@${twitter.username}`;
+  }
+}
+const url = new URL(Astro.url);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" type={iconType} href={favicon} />
+<link rel="author" href="/" />
+<link rel="index" href="/" />
+<link rel="canonical" href={canonicalURL} />
+<meta name="generator" content={Astro.generator} />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+{author && <meta name="author" content={author} />}
+
+<!-- Web Crawlers -->
+<meta name="robots" content={robots.join(", ")} />
+<meta name="googlebot" content={robots.join(", ")}/>
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(image, url)} />
+{siteName && <meta property="og:site_name" content={siteName} />}
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={new URL(image, url)} />
+<meta property="twitter:domain" content={url.hostname} />
+{
+  twitter && twitter.username && (
+    <>
+      <meta name="twitter:creator" content={twitter.username} />
+      <meta name="twitter:site" content={twitter.username} />
+    </>
+  )
+}
+
+{
+  mastodon && (
+    <link rel="me" href={`https://${mastodon.instance}/@${mastodon.username}`} />
+  )
+}
+
+{
+  onion && <meta http-equiv="onion-location" content={onion}>
+}

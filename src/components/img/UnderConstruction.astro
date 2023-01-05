@@ -1,0 +1,18 @@
+---
+import UnderConstructionIconSrc from "../../img/under_construction.gif";
+
+export interface Props {
+  width?: number;
+  height?: number;
+  id?: string;
+}
+const { width = 110, height = 60, id } = Astro.props;
+---
+
+<img
+  src={UnderConstructionIconSrc}
+  alt="Under Construction"
+  id={id}
+  width={width}
+  height={height}
+/>

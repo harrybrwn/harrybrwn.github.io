@@ -1,0 +1,25 @@
+---
+import Base from "~/layouts/Base.astro";
+import { Modal } from "../components/Modal";
+import Nav from "~/components/Nav.astro";
+---
+
+<Base title="Harry Brown | Admin" description="Admin page">
+  <main>
+    <header>
+      <h1>Hello there</h1>
+      <Nav
+        pages={[
+          { href: "/", name: "home" },
+          { href: "/about", name: "about" },
+          { href: "/blog", name: "blog" },
+        ]}
+      />
+    </header>
+    <Modal client:load open={false} heading="This is a Test">
+      <p>testing testing 123</p>
+      <a href="/admin">admin page</a>
+      <input type="email" />
+    </Modal>
+  </main>
+</Base>

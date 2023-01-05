@@ -1,0 +1,8 @@
+---
+import Base, { Props as BaseProps } from "./Base.astro";
+export type Props = BaseProps;
+---
+
+<Base {...Astro.props}>
+  <slot />
+</Base>

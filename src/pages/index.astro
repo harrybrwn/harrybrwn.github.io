@@ -1,0 +1,212 @@
+---
+import "~/styles/global.css";
+import "~/font/SourceCodePro/sourcecodepro.css";
+
+import Meta from "~/components/Meta.astro";
+import HomePageLink from "../components/HomePageLink.astro";
+import HotlineWebRing from "../components/HotlineWebRing.astro";
+import Icon88x31 from "../components/Icon88x31.astro";
+import My88x31Icons from "../components/My88x31Icons.astro";
+import WelcomeBanner from "../components/WelcomeBanner.astro";
+import ToggleSwitch from "../components/ToggleSwitch.astro";
+import Help from "../components/Help.astro";
+import StarBackground from "../components/StarBackground.astro";
+import SpinningEarth from "../components/img/SpinningEarth.astro";
+import UnderConstruction from "../components/img/UnderConstruction.astro";
+import GoofyImg from "../img/goofy.jpg";
+
+import { SITE_DESCRIPTION, links, twitterUser, mastodon } from "../config";
+import { getIcons } from "~/lib/icons";
+import LoadTheme from "~/components/LoadTheme.astro";
+
+const icons = await getIcons();
+const built = new Date();
+const themeToggle = "theme-toggle";
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <LoadTheme key="theme" button={themeToggle} />
+    <Meta
+      title="Harry Brown"
+      description={SITE_DESCRIPTION}
+      image={GoofyImg}
+      robots={["index", "archive", "follow"]}
+      twitter={{ username: twitterUser }}
+      mastodon={mastodon}
+    />
+  </head>
+  <body>
+    <StarBackground />
+    <ToggleSwitch id={themeToggle} checked={true} />
+    <main>
+      <header>
+        <center>
+          <WelcomeBanner />
+          <SpinningEarth id="show-login-btn" width={128} height={128} />
+          <p>I do computers and stuff.</p>
+        </center>
+      </header>
+
+      <section>
+        <h2>Pages</h2>
+        <ul class="pages">
+          <li>
+            <a href="/about">about</a>
+          </li>
+          <li>
+            <a href="/bookmarks">bookmarks</a>
+          </li>
+          <li>
+            <a target="_blank" href="/static/files/HarrisonBrown.pdf">resume</a>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Links</h2>
+        <ul class="links">
+          <li>
+            <HomePageLink href={links.github} title="All my random projects">
+              github
+            </HomePageLink>
+          </li>
+          <li>
+            <HomePageLink href={links.linkedin} title="My LinkedIn">
+              linkedin
+            </HomePageLink>
+          </li>
+          <li>
+            <HomePageLink href={links.mastodon} title="Mastodon">
+              mastodon
+            </HomePageLink>
+          </li>
+          <li>
+            <HomePageLink
+              href={links.worldOfText}
+              title="Write something on my wall"
+            >
+              wall
+            </HomePageLink>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>My Projects</h2>
+        <ul>
+          <li>
+            <a href="/projects/remora">remora</a>: A distributed web crawler and
+            search engine.
+          </li>
+          <li>
+            <a
+              target="_blank"
+              href="https://github.com/harrybrwn/apizza"
+              ping="/api/ping?link=https://github.com/harrybrwn/apizza"
+              rel="noopener,noreferrer">apizza</a
+            >: Download dominos pizza from the command line.
+          </li>
+          <li>
+            <a
+              target="_blank"
+              href="https://github.com/harrybrwn/yt"
+              ping="/api/ping?link=https://github.com/harrybrwn/yt"
+              rel="noopener,noreferrer"
+            >
+              yt</a
+            >: Youtube video/audio downloader.
+          </li>
+        </ul>
+      </section>
+
+      <section class="settings" id="settings">
+        <button id="help-btn">Help</button>
+      </section>
+
+      <section class="cards">
+        {
+          icons.map((icon) => (
+            <Icon88x31
+              href={icon.href}
+              title={icon.title}
+              src={icon.src || ""}
+              alt={icon.alt}
+            />
+          ))
+        }
+      </section>
+
+      <footer class="cards">
+        <section class="stats">
+          <span>Last updated: <time>{built.toDateString()}</time></span>
+        </section>
+        <HotlineWebRing />
+        <center>
+          <My88x31Icons />
+          <UnderConstruction />
+        </center>
+      </footer>
+    </main>
+
+    <Help button="help-btn" />
+
+    <script>
+      import type { Modal } from "~/lib/modal";
+      import { listener } from "~/lib/keyboard-shortcuts";
+
+      const help = document.getElementById("help-window") as Modal | null;
+      const toggle = document.getElementById("theme-toggle");
+      document.addEventListener(
+        "keydown",
+        listener(() => window.themeToggle(toggle as HTMLInputElement), help)
+      );
+    </script>
+
+    <style is:global>
+      body {
+        font-family: "Source Code Pro", mono, "Liberation Mono", monospace;
+        font-size: 18px;
+
+        margin-right: auto;
+        margin-left: auto;
+        margin-bottom: 2em;
+        max-width: 750px;
+
+        padding-left: 1em;
+        padding-right: 1em;
+      }
+
+      a:visited {
+        text-decoration: none;
+      }
+
+      .links,
+      .pages {
+        columns: 2;
+      }
+
+      .settings {
+        margin-bottom: 1.15em;
+      }
+
+      .cards a {
+        /* Hide the underlines for 88x31 cards */
+        text-decoration: none;
+      }
+
+      main ul li {
+        padding-top: 4px;
+        padding-bottom: 4px;
+      }
+
+      ::-webkit-scrollbar {
+        width: 0.5em;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: grey;
+      }
+    </style>
+  </body>
+</html>

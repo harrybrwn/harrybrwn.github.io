@@ -1,0 +1,30 @@
+<h1 class="welcome-banner"><marquee>Welcome</marquee></h1>
+
+<style is:global>
+  .welcome-banner {
+    width: 45%;
+  }
+</style>
+
+<script>
+  const welcomeBannerColors = (banner: HTMLElement | null, ms: number) => {
+    if (banner == null) {
+      return;
+    }
+    let welcomeTicker = 0;
+    let colors = [
+      "red",
+      "orange",
+      "mediumspringgreen",
+      "blue",
+      "purple",
+      "pink",
+    ];
+    const fn = () => {
+      banner.style.color = colors[welcomeTicker % colors.length];
+      welcomeTicker++;
+    };
+    setInterval(fn, ms);
+  };
+  welcomeBannerColors(document.querySelector(".welcome-banner"), 1000);
+</script>

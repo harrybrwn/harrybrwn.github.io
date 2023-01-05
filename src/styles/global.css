@@ -1,0 +1,26 @@
+/* theme */
+:root {
+  --win95-bg-color: #297f81;
+  --hacker-green: #20c20e;
+
+  --theme-dark-bg: black;
+  --theme-dark-fg: var(--hacker-green);
+  --theme-light-bg: white;
+  --theme-light-fg: black;
+}
+
+body {
+  color: var(--theme-light-fg);
+  background-color: var(--theme-light-bg);
+  transition: background 0.3s ease-in;
+}
+html[data-theme="dark"] body {
+  color: var(--theme-dark-fg);
+  background-color: var(--theme-dark-bg);
+  z-index: 10;
+}
+
+html[data-theme="dark"] a {
+  color: rgb(220, 220, 220);
+}
+/* end theme */

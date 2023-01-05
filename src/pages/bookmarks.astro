@@ -1,0 +1,57 @@
+---
+import BookmarkCard from "~/components/BookmarkCard.astro";
+import Subpage from "~/layouts/Subpage.astro";
+import Nav from "~/components/Nav.astro";
+import bookmarks from "../bookmarks.json";
+---
+
+<Subpage
+  title="Bookmarks"
+  description="Harry Brown's bookmarks and interesting sites."
+>
+  <main>
+    <header>
+      <Nav pages={[
+        {href: "/", name: "home"},
+        {href: "/about", name: "about"},
+        {href: "/blog", name: "blog"},
+      ]} />
+    </header>
+    <h2>Bookmarks</h2>
+    <section>
+      <div id="bookmarks" class="bookmarks">
+        {
+          bookmarks.links.map((b) => (
+            <BookmarkCard
+              href={b.url}
+              name={b.name}
+              description={b.description}
+              tags={b.tags}
+            />
+          ))
+        }
+      </div>
+    </section>
+  </main>
+</Subpage>
+
+<style is:global>
+  main {
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  nav ul {
+    list-style: none;
+  }
+
+  @media only screen and (min-width: 700px) {
+    .bookmarks {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      grid-auto-rows: minmax(100px, auto);
+    }
+  }
+</style>

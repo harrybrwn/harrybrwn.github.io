@@ -1,0 +1,28 @@
+---
+import Base from "~/layouts/Base.astro";
+---
+
+<Base title="Not Found" description="Not Found">
+  <header class="center">
+    <div class="block">
+      <h1>Not Found</h1>
+      <p>Unfortunately, I can't find what you are looking for.</p>
+    </div>
+  </header>
+</Base>
+
+<style is:global>
+  body {
+    font-family: "Courier New", Courier, monospace;
+  }
+  .center {
+    display: flex;
+    justify-content: center;
+  }
+  header {
+    margin-top: 2em;
+  }
+  .block {
+    display: block;
+  }
+</style>

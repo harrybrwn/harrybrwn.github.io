@@ -1,0 +1,18 @@
+---
+import SpinningEarthIconSrc from "../../img/earth.gif";
+
+export interface Props {
+  width?: number;
+  height?: number;
+  id?: string;
+}
+const { width = 128, height = 128, id } = Astro.props;
+---
+
+<img
+  src={SpinningEarthIconSrc}
+  alt="Rotating Globe"
+  id={id}
+  width={width}
+  height={height}
+/>

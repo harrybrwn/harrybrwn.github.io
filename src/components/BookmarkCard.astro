@@ -1,0 +1,45 @@
+---
+export interface Props {
+  href: string;
+  name: string;
+  description: string;
+  tags: string[];
+}
+const { href, name, description, tags } = Astro.props;
+---
+
+<style>
+  section {
+    /* top | right | bottom | left */
+    padding: 10px 5px 10px 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.1s;
+  }
+
+  section:hover {
+    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  html[data-theme="dark"] section:hover {
+    box-shadow: 0 6px 12px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  footer :global(span) {
+    font-size: 11px;
+    background-color: cadetblue;
+    color: white;
+    border-radius: 50px;
+    margin-left: 5px;
+    padding: 3px;
+  }
+</style>
+
+<section>
+  <header>
+    <a href={href} target="_blank" rel="noopener, noreferrer">{name}</a>
+  </header>
+  {description}
+  <footer>
+    {tags.map((tag) => <span>{tag}</span>)}
+  </footer>
+</section>

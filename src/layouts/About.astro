@@ -1,0 +1,19 @@
+---
+import Base, { Props as BaseProps } from "./Base.astro";
+import Nav from "~/components/Nav.astro";
+
+export type Props = BaseProps;
+---
+
+<Base {...Astro.props}>
+  <main>
+	<header>
+      <Nav pages={[
+        {href: "/", name: "home"},
+        {href: "/about", name: "about"},
+        {href: "/blog", name: "blog"},
+      ]}/>
+	</header>
+    <slot />
+  </main>
+</Base>
