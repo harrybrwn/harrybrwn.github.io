@@ -8,7 +8,7 @@ import path from "path";
 import fs from "fs";
 import { beforeCompress } from "./src/lib/configHelpers";
 
-const site = "https://hrry.me";
+const site = "https://harrybrwn.github.io";
 const outDir = "./dist";
 const cleanClassNames = {
   name: "clean-classnames",

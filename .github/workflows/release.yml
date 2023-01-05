@@ -39,6 +39,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+    - name: Setup Node
+      uses: actions/setup-node@v3
     - name: Build
       run: yarn build
     - name: Package
@@ -57,6 +59,8 @@ jobs:
     runs-on: ubuntu-22.04
     needs: [build]
     steps:
+    - name: Checkout
+      uses: actions/checkout@v3
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
       with:
