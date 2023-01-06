@@ -1,8 +1,9 @@
 name: release
 
-on:
-  tags:
-  - 'v*.*.*'
+'on':
+  push:
+    tags:
+    - 'v*.*.*'
 
 permissions:
   contents: read
