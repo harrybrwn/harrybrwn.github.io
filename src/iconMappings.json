@@ -69,6 +69,11 @@
 	"title": "",
 	"href": "https://rtanya.com"
   },
+  "sdfbanner.png": {
+	"alt": "SDF Public Access UNIX System",
+	"title": "SDF",
+	"href": "https://sdf.org/"
+  },
 
   "get_mozilla.gif": {
 	"alt": "",

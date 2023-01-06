@@ -2,6 +2,8 @@
 import "~/styles/global.css";
 import "~/font/SourceCodePro/sourcecodepro.css";
 
+import Font from "../font/SourceCodePro/SourceCodePro-latin.woff2";
+import StarsImg from "../img/stars-compressed.webp";
 import Meta from "~/components/Meta.astro";
 import HomePageLink from "../components/HomePageLink.astro";
 import HotlineWebRing from "../components/HotlineWebRing.astro";
@@ -21,7 +23,7 @@ import LoadTheme from "~/components/LoadTheme.astro";
 
 const icons = await getIcons();
 const built = new Date();
-const themeToggle = "theme-toggle";
+const themeToggle = "tt"; // theme toggle
 ---
 
 <!DOCTYPE html>
@@ -36,6 +38,8 @@ const themeToggle = "theme-toggle";
       twitter={{ username: twitterUser }}
       mastodon={mastodon}
     />
+    <link rel="preload" href={StarsImg} as="image" type="image/webp" />
+    <link rel="preload" href={Font} as="font" type="font/woff2" crossorigin />
   </head>
   <body>
     <StarBackground />
@@ -155,29 +159,30 @@ const themeToggle = "theme-toggle";
     <script>
       import type { Modal } from "~/lib/modal";
       import { listener } from "~/lib/keyboard-shortcuts";
+      import { Theme } from "~/lib/theme";
 
       const help = document.getElementById("help-window") as Modal | null;
-      const toggle = document.getElementById("theme-toggle");
+      const toggle = document.getElementById("tt") as HTMLInputElement;
       document.addEventListener(
         "keydown",
-        listener(() => window.themeToggle(toggle as HTMLInputElement), help)
+        listener(() => window.themeToggle(toggle), help)
       );
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", ({ matches: isDark }) => {
+          window.setTheme(isDark ? Theme.Dark : Theme.Light, toggle);
+        });
     </script>
 
     <style is:global>
       body {
         font-family: "Source Code Pro", mono, "Liberation Mono", monospace;
         font-size: 18px;
-
         margin-right: auto;
         margin-left: auto;
         margin-bottom: 2em;
         max-width: 750px;
-
-        padding-left: 1em;
-        padding-right: 1em;
       }
-
       a:visited {
         text-decoration: none;
       }

@@ -31,17 +31,20 @@ if (button && !button.startsWith("#")) {
     document.firstElementChild.setAttribute("data-theme", asStr(theme));
   }
 
-  window.themeToggle = (toggle) => {
-    const t = theme === Dark ? Light : Dark;
-    document.firstElementChild?.setAttribute("data-theme", asStr(t));
+  window.setTheme = (t, toggle) => {
+    const c = asStr(t);
+    document.firstElementChild?.setAttribute("data-theme", c);
     localStorage.setItem(key, t.toLocaleString());
     toggle.checked = t !== Dark;
     theme = t;
+  }
+
+  window.themeToggle = (toggle) => {
+    window.setTheme(theme === Dark ? Light : Dark, toggle);
   };
 
   window.onload = () => {
     const toggle = document.querySelector(button);
-    if (!toggle) throw new Error("no toggle");
     toggle.checked = theme !== Dark;
     toggle.addEventListener("change", () => {
       themeToggle(toggle);

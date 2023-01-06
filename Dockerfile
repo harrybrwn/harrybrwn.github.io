@@ -26,3 +26,4 @@ COPY --from=builder /opt/harrybrwn.github.io/dist /
 FROM nginx:${NGINX_VERSION} as nginx
 COPY --from=builder /opt/harrybrwn.github.io/dist /var/www/harrybrwn.github.io
 COPY config/nginx.conf /etc/nginx/nginx.conf
+#RUN sed -i 's/Server: nginx/Server: yeetyboi/g' /usr/sbin/nginx

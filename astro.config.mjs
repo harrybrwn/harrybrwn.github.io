@@ -45,7 +45,10 @@ export default defineConfig({
         output: {
           entryFileNames: "[hash].js",
           // "a" for "assets"
-          assetFileNames: "a/[name].[hash][extname]",
+          assetFileNames:
+            import.meta.env.DEBUG === "true"
+              ? "a/[name].[hash][extname]"
+              : "a/[hash][extname]",
         },
       },
       // https://github.com/Ernxst/astro-cssbundle
