@@ -16,7 +16,7 @@ export interface GetPostOptions {
 
 const getPosts = async (opts?: GetPostOptions) => {
   const posts = await import.meta.glob<MarkdownInstance<Frontmatter>>(
-    "../../content/*.md"
+    "../../content/**/*.md"
   );
   return preparePosts(
     await Promise.all(Object.values(posts).map((p) => p())),

@@ -1,8 +1,10 @@
 ---
 title: Goals for 2023
 description: ""
-pubDate: Jan 6, 2023
-tags: []
+pubDate: Jan 7, 2023
+tags:
+- journal
+- goals
 draft: true
 slug: goals-2023
 layout: "~/layouts/BlogPost.astro"
@@ -17,20 +19,21 @@ which should be interesting. Anyway, here's my list.
 My project output for 2022 has not been the same as it was for previous years.
 This is mostly because I now work full time and I don't have the same amount of
 free time as I did when I was a student. The result hasn't been terrible, I am
-still working on things and learning but I am missing a "flagship" project. Most
-of my programming and learning has been building my homelab which has been
+still working on things and learning but I am missing a [flagship project](/blog/flagship-projects).
+Most of my programming and learning has been building my homelab which has been
 really amazing for my knowledge of infrastructure but I want to have at least
 one project that I can look back on and be proud of not only learning new things
-but of building something useful. And that is going to be one of my goals for
+but of building something useful.  And that is going to be one of my goals for
 2023, build at least one cool thing.
 
 ## 2. Write more
 
-I have recently started a blog (the one you are reading now) and I think it would be great to contribute to
-it regularly. It has been a while since I have done large amounts of writing
-like this so starting out will be a little bit rough but regular contributions
-should give me enough practice.
-
-## 3.
-
-...
+I have recently started a blog (the one you are reading now) and I think it
+would be great to contribute to it regularly. It has been a while since I have
+done large amounts of writing like this so starting out will be a little bit
+rough but regular contributions should give me enough practice. I also want to
+take the [digital garden](https://maggieappleton.com/garden-history) that I have
+been cultivating in [obsidian](https://obsidian.md/) and start moving it into a
+public space where I can share my notes. There are interesting tools to do this
+such as [Quartz](https://quartz.jzhao.xyz/) but I think I want to try to have my
+own take on a public digital garden.

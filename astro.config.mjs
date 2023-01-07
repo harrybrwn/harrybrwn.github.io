@@ -4,9 +4,11 @@ import sitemap from "@astrojs/sitemap";
 import solid from "@astrojs/solid-js";
 import purgecss from "astro-purgecss";
 import compress from "./src/lib/configHelpers";
+import path from "path";
 
 const site = "https://h3y.sh";
 const outDir = "./dist";
+const filter = new Set(["admin"]);
 
 // https://astro.build/config
 export default defineConfig({
@@ -35,14 +37,7 @@ export default defineConfig({
     purgecss(),
     sitemap({
       customPages: [],
-      filter: (page) => {
-        switch (page) {
-          case `${site}/admin/`:
-            return false;
-          default:
-            return true;
-        }
-      },
+      filter: (page) => filter.has(path.basename(page)),
     }),
     compress({
       path: outDir,

@@ -21,7 +21,7 @@ const { id, checked = false, size = "60px" } = Astro.props;
 <style define:vars={{ "switch-size": size }}>
   div {
     float: right;
-    position: fixed;
+    position: absolute;
     width: var(--switch-size);
     left: 75%;
     top: 24px;

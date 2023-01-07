@@ -1,6 +1,7 @@
 ---
 import path from "path";
 import Base from "~/layouts/Base.astro";
+import Nav from "~/components/Nav.astro";
 import BlogPosts from "~/components/BlogPosts";
 import { Frontmatter, preparePosts } from "~/lib/blog";
 import GithubSlugger from "github-slugger";
@@ -24,16 +25,23 @@ const blogposts = posts.map((p) => {
 <Base title="Harry Brown | Blog" description="The ramblings of a madman.">
   <main>
     <header>
+      <Nav
+        pages={[
+          { href: "/", name: "home" },
+          { href: "/about", name: "about" },
+          { href: "/blog", name: "blog" },
+        ]}
+      />
       <h1>Blog</h1>
     </header>
-    <section>
+    <section class="posts">
       <BlogPosts posts={blogposts} />
     </section>
   </main>
 </Base>
 
 <style is:global>
-  ul {
+  .posts ul {
     list-style: none;
   }
 </style>

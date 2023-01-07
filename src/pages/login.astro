@@ -8,7 +8,7 @@ import Win95 from "~/components/Win95.astro";
   <center>
     <h1>Login</h1>
   </center>
-  <Win95 title="testing" className="login-panel">
+  <Win95 title={Astro.url.host} className="login-panel">
     <h2>User Login</h2>
     <form
       method="POST"
