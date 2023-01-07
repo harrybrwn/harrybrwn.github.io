@@ -5,7 +5,7 @@ pubDate: Jan 7, 2023
 tags:
 - journal
 - goals
-draft: true
+draft: false
 slug: goals-2023
 layout: "~/layouts/BlogPost.astro"
 ---
@@ -19,7 +19,7 @@ which should be interesting. Anyway, here's my list.
 My project output for 2022 has not been the same as it was for previous years.
 This is mostly because I now work full time and I don't have the same amount of
 free time as I did when I was a student. The result hasn't been terrible, I am
-still working on things and learning but I am missing a [flagship project](/blog/flagship-projects).
+still working on things and learning but I am missing a [flagship project](./flagship-projects).
 Most of my programming and learning has been building my homelab which has been
 really amazing for my knowledge of infrastructure but I want to have at least
 one project that I can look back on and be proud of not only learning new things
@@ -37,3 +37,20 @@ been cultivating in [obsidian](https://obsidian.md/) and start moving it into a
 public space where I can share my notes. There are interesting tools to do this
 such as [Quartz](https://quartz.jzhao.xyz/) but I think I want to try to have my
 own take on a public digital garden.
+
+## 3. Learn How to Cook
+
+I am very bad at cooking and I think I should get better at it. The issue with
+this goal is that I really really don't want to so I need to find a way to
+incorporate it into my [habit philosophy](./Building-Habits).
+
+One strategy that might work for me is to learn one recipe at a time. This
+hinges on my willingness to eat the thing meal for a week strait which I don't
+think will be a problem but I'm not sure how long I can maintain that as I
+mature.
+
+## Final Thoughts
+
+I'm largely skeptical of new year's resolutions so this is a bit of a new thing
+for me. I'll probably revisit this post in a year to evaluate the usefulness of
+making new year's goals.
