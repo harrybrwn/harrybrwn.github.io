@@ -23,13 +23,11 @@ function "tags" {
 	params = [name]
 	result = [
 		"${name}:latest",
-		regex("^v?\\d+\\.\\d+\\.\\d+$", GITHUB_REF_NAME) == GITHUB_REF_NAME
-		 ? "${name}:${regex_replace(
-			GITHUB_REF_NAME,
-			"^v",
-			""
-		   )}"
-		 : "",
+		notequal("main", GITHUB_REF_NAME) ? "${name}:${regex_replace(
+		  GITHUB_REF_NAME,
+		  "^v",
+		  ""
+		)}" : "",
 		notequal("", GITHUB_SHA) ? "${name}:${GITHUB_SHA}" : "",
 	]
 }

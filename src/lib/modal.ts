@@ -16,7 +16,6 @@ export class Modal extends HTMLElement {
 
     document.addEventListener("click", (ev: MouseEvent) => {
       if (this.hidden) {
-        console.log("modal is hidden, skipping...");
         return;
       }
       const clicked = ev.target as HTMLElement;

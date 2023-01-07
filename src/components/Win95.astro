@@ -8,40 +8,6 @@ export interface Props {
 const { title, id, className, modalID } = Astro.props;
 ---
 
-<win95-window
-  class={`win95-window ${className || ""}`}
-  id={id}
-  data-modal={modalID}
->
-  <header class="win95-window-head">
-    <p>{title}</p>
-    <button class="win95-close">&#x2715;</button>
-    <button class="win95-minimize">&#95;</button>
-  </header>
-  <section class="win95-window-body">
-    <slot />
-  </section>
-</win95-window>
-
-<script>
-  import type { Modal } from "~/lib/modal";
-
-  class Win95 extends HTMLElement {
-    constructor() {
-      super();
-      const modalID = this.dataset.modal;
-      if (modalID) {
-        const modal = document.getElementById(modalID) as Modal | null;
-        if (!modal) throw new Error("no modal");
-        this.querySelectorAll("button").forEach((btn) =>
-          btn.addEventListener("click", () => modal.toggle())
-        );
-      }
-    }
-  }
-  customElements.define("win95-window", Win95);
-</script>
-
 <style>
   win95-window {
     background-color: #c0c0c0;
@@ -84,3 +50,37 @@ const { title, id, className, modalID } = Astro.props;
     font-weight: bold;
   }
 </style>
+
+<win95-window
+  class={`win95-window ${className || ""}`}
+  id={id}
+  data-modal={modalID}
+>
+  <header class="win95-window-head">
+    <p>{title}</p>
+    <button class="win95-close">&#x2715;</button>
+    <button class="win95-minimize">&#95;</button>
+  </header>
+  <section class="win95-window-body">
+    <slot />
+  </section>
+</win95-window>
+
+<script>
+  import type { Modal } from "~/lib/modal";
+
+  class Win95 extends HTMLElement {
+    constructor() {
+      super();
+      const modalID = this.dataset.modal;
+      if (modalID) {
+        const modal = document.getElementById(modalID) as Modal | null;
+        if (!modal) throw new Error("no modal");
+        this.querySelectorAll("button").forEach((btn) =>
+          btn.addEventListener("click", () => modal.toggle())
+        );
+      }
+    }
+  }
+  customElements.define("win95-window", Win95);
+</script>
