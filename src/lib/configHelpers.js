@@ -61,28 +61,26 @@ const beforeCompress = (ast, options) => {
  * @returns {import("astro").AstroIntegration}
  */
 const compress = (settings) => {
-  if (!settings.css) {
-    settings.css = {};
-  }
+  if (!settings.css) settings.css = {};
   settings.css.beforeCompress = beforeCompress;
-  const extra = astroCompress(settings);
-  return {
-    name: "clean-classnames",
-    hooks: {
-      "astro:config:setup": (opts) => {
-        opts.config.integrations.push(extra);
-      },
-      "astro:build:done": async (opts) => {
-        await Promise.all(
-          opts.routes
-            .filter(
-              (r) => r.distURL && path.extname(r.distURL.pathname) === ".html"
-            )
-            .map(async ({ distURL }) => {
+  return [
+    astroCompress(settings),
+    {
+      name: "clean-classnames",
+      hooks: {
+        "astro:build:done": async ({ pages, dir }) => {
+          const files = pages.map(({ pathname }) => {
+            if (path.basename(pathname) === "404") {
+              return path.join(dir.pathname, "404.html");
+            }
+            return path.join(dir.pathname, pathname, "index.html");
+          });
+          await Promise.all(
+            files.map(async (f) => {
               await writeFile(
-                distURL.pathname,
+                f,
                 fs
-                  .readFileSync(distURL.pathname)
+                  .readFileSync(f)
                   .toString()
                   // This needs to be "a-" because it will also apply to astro's
                   // custom tags which breaks the html because "island" is not a
@@ -90,10 +88,11 @@ const compress = (settings) => {
                   .replaceAll(prefix, "a-")
               );
             })
-        );
+          );
+        },
       },
     },
-  };
+  ];
 };
 
 export default compress;

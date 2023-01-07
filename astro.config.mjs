@@ -37,9 +37,9 @@ export default defineConfig({
     purgecss(),
     sitemap({
       customPages: [],
-      filter: (page) => filter.has(path.basename(page)),
+      filter: (page) => !filter.has(path.basename(page)),
     }),
-    compress({
+    ...compress({
       path: outDir,
       html: {
         removeComments: true,
