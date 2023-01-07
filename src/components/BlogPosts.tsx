@@ -1,32 +1,28 @@
 import type { Component } from "solid-js";
+import type { Frontmatter } from "~/lib/blog";
 
-interface Frontmatter extends Record<string, any> {
-  title: string;
-  description: string;
-  pubDate: string;
-  tags: string[];
-  draft: boolean;
-  slug?: string;
+export interface Post {
   url?: string;
+  frontmatter: Frontmatter;
 }
 
 export interface Props {
-  posts: Frontmatter[];
+  posts: Post[];
 }
 
 const BlogPosts: Component<Props> = (props) => {
   return (
     <ul>
-      {props.posts.map((post) => (
-        <li id={post.slug}>
-          <time datetime={post.pubDate}>
-            {new Date(post.pubDate).toLocaleDateString("en-us", {
+      {props.posts.map(({ frontmatter: fm, url }) => (
+        <li id={fm.slug}>
+          <time datetime={fm.pubDate}>
+            {new Date(fm.pubDate).toLocaleDateString("en-us", {
               year: "numeric",
               month: "short",
               day: "numeric",
             })}
           </time>{" "}
-          <a href={post.url}>{post.title}</a>
+          <a href={url}>{fm.title}</a>
         </li>
       ))}
     </ul>

@@ -1,0 +1,30 @@
+---
+import type { MarkdownInstance, GetStaticPathsResult } from "astro";
+import { Frontmatter, preparePosts } from "~/lib/blog";
+import GithubSlugger from "github-slugger";
+
+export interface Props {
+  post: MarkdownInstance<Frontmatter>;
+}
+
+export const getStaticPaths = async (): Promise<GetStaticPathsResult> => {
+  const slugger = new GithubSlugger();
+  const posts = preparePosts(
+    await Astro.glob<Frontmatter>("../../../content/**/*.md")
+  );
+  return posts.map((post) => {
+    return {
+      params: {
+        slug: post.frontmatter.slug || slugger.slug(post.frontmatter.title),
+      },
+      props: { post },
+    };
+  });
+};
+
+const {
+  post: { Content },
+} = Astro.props;
+---
+
+<Content />

@@ -4,7 +4,7 @@ export interface Props {
   checked?: boolean;
   size?: string;
 }
-const { id, checked, size = "60px" } = Astro.props;
+const { id, checked = false, size = "60px" } = Astro.props;
 ---
 
 <div>
@@ -12,7 +12,7 @@ const { id, checked, size = "60px" } = Astro.props;
     <input
       type="checkbox"
       id={id}
-      checked={checked ? "true" : "false"}
+      checked={checked}
     />
     <span></span>
   </label>

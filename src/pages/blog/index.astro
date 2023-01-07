@@ -1,37 +1,24 @@
 ---
-import Base from "~/layouts/Base.astro";
 import path from "path";
+import Base from "~/layouts/Base.astro";
 import BlogPosts from "~/components/BlogPosts";
-import type { MarkdownLayoutProps } from "astro";
+import { Frontmatter, preparePosts } from "~/lib/blog";
+import GithubSlugger from "github-slugger";
 
-export interface Frontmatter extends Record<string, any> {
-  title: string;
-  description: string;
-  pubDate: string;
-  tags: string[];
-  draft: boolean;
-  slug?: string;
-  url?: string;
-}
+const content = await Astro.glob<Frontmatter>("../../../content/**/*.md");
+const posts = preparePosts(content);
+
+const slugger = new GithubSlugger();
 
 // TODO Build a search index for content and tags
-const posts = (
-  await Astro.glob<MarkdownLayoutProps<Frontmatter>>("./*.{md,mdx}")
-)
-  .filter(({ frontmatter }) => import.meta.env.DEV || !frontmatter.draft)
-  .sort(
-    (a, b) =>
-      new Date(b.frontmatter.pubDate).valueOf() -
-      new Date(a.frontmatter.pubDate).valueOf()
-  )
-  .map((p) => {
-    if (p.url) {
-      p.frontmatter.url = p.url;
-      p.frontmatter.slug = path.basename(p.url);
-    }
-    p.frontmatter.pubDate = new Date(p.frontmatter.pubDate).toISOString();
-    return p;
-  });
+const blogposts = posts.map((p) => {
+  const slug = p.frontmatter.slug || slugger.slug(p.frontmatter.title);
+  if (!p.frontmatter.slug) p.frontmatter.slug = slug;
+  return {
+    url: p.url || path.join(Astro.url.pathname, slug),
+    frontmatter: p.frontmatter,
+  };
+});
 ---
 
 <Base title="Harry Brown | Blog" description="The ramblings of a madman.">
@@ -40,7 +27,7 @@ const posts = (
       <h1>Blog</h1>
     </header>
     <section>
-      <BlogPosts posts={posts.map((p) => p.frontmatter)} />
+      <BlogPosts posts={blogposts} />
     </section>
   </main>
 </Base>

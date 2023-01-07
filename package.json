@@ -1,12 +1,12 @@
 {
-  "name": "@example/blog",
+  "name": "h3y.sh",
   "type": "module",
   "version": "0.0.1",
   "private": true,
   "author": "Harry Brown",
   "repository": {
     "type": "git",
-    "url": "https://github.com/harrybrwn/harrybrwn.github.io"
+    "url": "https://github.com/harrybrwn/harrybrwn.github.io.git"
   },
   "scripts": {
     "dev": "astro dev",
@@ -15,7 +15,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "clean": "rm -rf ./dist *.tar.gz *.zip",
-    "package": "scripts/package.sh"
+    "package": "scripts/package.sh",
+    "new": "node packages/astro/new/index.js"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^5.0.0",
@@ -24,12 +25,15 @@
     "@astrojs/rss": "^1.2.1",
     "@astrojs/sitemap": "^1.0.0",
     "@astrojs/solid-js": "^1.2.3",
+    "@astro.hrry.dev/robots.txt": "0.0.1",
+    "@astro.hrry.dev/new": "0.0.1",
     "astro": "^1.7.0",
     "astro-compress": "^1.1.24",
     "astro-purgecss": "^1.3.1",
+    "github-slugger": "^2.0.0",
     "solid-js": "^1.4.3"
   },
   "workspaces": [
-    "./packages/astro/robots.txt"
+    "./packages/astro/*"
   ]
 }

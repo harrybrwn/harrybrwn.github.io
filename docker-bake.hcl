@@ -1,5 +1,5 @@
 variable "GITHUB_REF_NAME" {
-	default = "latest"
+	default = "main"
 }
 
 variable "GITHUB_SHA" {
@@ -23,40 +23,47 @@ function "tags" {
 	params = [name]
 	result = [
 		"${name}:latest",
-		notequal("", GITHUB_REF_NAME) ? "${name}:${GITHUB_REF_NAME}" : "",
+		regex("^v?\\d+\\.\\d+\\.\\d+$", GITHUB_REF_NAME) == GITHUB_REF_NAME
+		 ? "${name}:${regex_replace(
+			GITHUB_REF_NAME,
+			"^v",
+			""
+		   )}"
+		 : "",
 		notequal("", GITHUB_SHA) ? "${name}:${GITHUB_SHA}" : "",
 	]
 }
 
+variable "NODE_VERSION" { default = "18.12.1-alpine" }
+
+variable "NGINX_VERSION" { default = "1.23.3-alpine" }
+
+function "args" {
+	params = []
+	result = {
+		NODE_VERSION    = NODE_VERSION
+		NGINX_VERSION   = NGINX_VERSION
+		GITHUB_REF_NAME = GITHUB_REF_NAME
+		GITHUB_SHA      = GITHUB_SHA
+	}
+}
+
 group "default" {
 	targets = [
-		"static"
+		"static",
 	]
-}
-
-variable "NODE_VERSION" {
-	default = "18.12.1-alpine"
-}
-
-variable "NGINX_VERSION" {
-	default = "1.23.3-alpine"
 }
 
 target "static" {
 	target = "static"
 	labels = labels()
 	tags   = tags("harrybrwn/harrybrwn.github.io")
-	args   = {
-		NODE_VERSION = NODE_VERSION
-	}
+	args   = args()
 }
 
 target "nginx" {
 	target = "nginx"
 	labels = labels()
 	tags   = tags("harrybrwn/harrybrwn.github.io-nginx")
-	args   = {
-		NODE_VERSION  = NODE_VERSION
-		NGINX_VERSION = NGINX_VERSION
-	}
+	args   = args()
 }

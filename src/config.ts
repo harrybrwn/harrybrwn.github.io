@@ -1,3 +1,5 @@
+import pkg from "../package.json";
+
 export const SITE_TITLE = "Harry Brown";
 export const SITE_DESCRIPTION =
   "The home page of a humble backend software engineer.";
@@ -15,4 +17,10 @@ export const links = {
   linkedin: "https://www.linkedin.com/in/",
   worldOfText: "https://www.yourworldoftext.com/~harrybrwn/",
   mastodon: `https://${mastodon.instance}/@${mastodon.username}`,
+};
+
+export const git = {
+  url: new URL(pkg.repository.url),
+  repo: "harrybrwn/harrybrwn.github.io",
+  branch: "main",
 };

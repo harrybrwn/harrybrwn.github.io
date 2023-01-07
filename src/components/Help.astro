@@ -8,7 +8,7 @@ const { button } = Astro.props;
 ---
 
 <Modal id="help-window" hidden={true} buttonId={button}>
-  <Win95 title="Help" className="help-window">
+  <Win95 title="Help" className="help-window" modalID="help-window">
     <p>Keyboard shortcuts</p>
     <table>
       <tr>

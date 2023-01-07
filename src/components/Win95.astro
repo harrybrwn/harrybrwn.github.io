@@ -3,30 +3,40 @@ export interface Props {
   title: string;
   id?: string;
   className?: string;
+  modalID?: string;
 }
-const { title, id, className } = Astro.props;
+const { title, id, className, modalID } = Astro.props;
 ---
 
-<win95-window class={`win95-window ${className || ""}`} id={id}>
+<win95-window
+  class={`win95-window ${className || ""}`}
+  id={id}
+  data-modal={modalID}
+>
   <header class="win95-window-head">
     <p>{title}</p>
     <button class="win95-close">&#x2715;</button>
     <button class="win95-minimize">&#95;</button>
   </header>
   <section class="win95-window-body">
-    <slot></slot>
+    <slot />
   </section>
 </win95-window>
 
 <script>
+  import type { Modal } from "~/lib/modal";
+
   class Win95 extends HTMLElement {
     constructor() {
       super();
-      let buttons = this.querySelectorAll("button");
-      let close = buttons[0];
-      let min = buttons[1];
-      close.addEventListener("click", (e: MouseEvent) => {console.log("close", this)});
-      min.addEventListener("click", (e: MouseEvent) => {console.log("minimize", this)});
+      const modalID = this.dataset.modal;
+      if (modalID) {
+        const modal = document.getElementById(modalID) as Modal | null;
+        if (!modal) throw new Error("no modal");
+        this.querySelectorAll("button").forEach((btn) =>
+          btn.addEventListener("click", () => modal.toggle())
+        );
+      }
     }
   }
   customElements.define("win95-window", Win95);
@@ -38,14 +48,11 @@ const { title, id, className } = Astro.props;
     border-width: 0.15em;
     border-color: #d8d8d8 #7a7a7a #7a7a7a #d8d8d8;
     border-style: solid;
-    /* position: relative; */
     position: fixed;
     color: black;
   }
 
   header {
-    /* top: 0px; */
-    /* position: absolute; */
     background-color: #000080;
     padding-left: 5px;
     width: calc(100% - 5px); /* Subtract the padding size */
@@ -77,4 +84,3 @@ const { title, id, className } = Astro.props;
     font-weight: bold;
   }
 </style>
-

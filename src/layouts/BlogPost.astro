@@ -18,11 +18,13 @@ const {
 <Base title={title} description={description}>
   <main>
     <header>
-      <Nav pages={[
-        {href: "/", name: "home"},
-        {href: "/about", name: "about"},
-        {href: "/blog", name: "blog"},
-      ]}/>
+      <Nav
+        pages={[
+          { href: "/", name: "home" },
+          { href: "/about", name: "about" },
+          { href: "/blog", name: "blog" },
+        ]}
+      />
       <h1>{title}</h1>
       <p>{description}</p>
     </header>
@@ -32,12 +34,13 @@ const {
     </article>
     <hr />
     <footer>
-      <pre>tags: [{tags?.join(" ")}]</pre>
+      {tags && tags.length > 0 && <pre>tags: [{tags?.join(" ")}]</pre>}
     </footer>
   </main>
 </Base>
 
 <style is:global>
+  body { font-size: 16px; }
   hr {
     border-color: rgb(172, 172, 172);
     max-width: 80%;

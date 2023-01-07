@@ -7,11 +7,13 @@ RUN apk update && apk upgrade && npm update -g npm
 WORKDIR /opt/harrybrwn.github.io
 COPY ./package.json ./yarn.lock .
 COPY packages/astro/robots.txt/package.json packages/astro/robots.txt/package.json
+COPY packages/astro/new/package.json packages/astro/new/package.json
 RUN yarn install
 COPY astro.config.mjs tsconfig.json .
 COPY src/ src
 COPY public/ public
 COPY packages/ packages
+COPY content/ content
 RUN yarn build
 
 #

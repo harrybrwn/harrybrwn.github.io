@@ -2,11 +2,19 @@
 export interface Props {
   href: string;
   title: string;
+  target?: string;
 }
-const { href, title } = Astro.props;
+const { href, title, target = "_blank" } = Astro.props;
+
+const hrefURL = new URL(href);
+
+let rel: string | undefined;
+if (hrefURL.host !== "" && hrefURL.host !== Astro.url.host) {
+  rel = "noopener,noreferrer";
+}
 ---
 
-<a href={href} title={title} rel="noopener,noreferrer" target="_blank">
+<a href={href} title={title} rel={rel} target={target}>
   <slot>{href}</slot>
 </a>
 

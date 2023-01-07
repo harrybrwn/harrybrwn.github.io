@@ -1,0 +1,23 @@
+{
+  "name": "@astro.hrry.dev/new",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harrybrwn/harrybrwn.github.io",
+    "directory": "packages/astro/new"
+  },
+  "type": "module",
+  "author": "Harry Brown",
+  "private": true,
+  "exports": {
+    ".": "./index.js"
+  },
+  "bin": {
+    "new": "./index.js"
+  },
+  "dependencies": {
+    "prompts": "^2.4.2",
+    "github-slugger": "^2.0.0"
+  }
+}

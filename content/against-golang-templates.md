@@ -1,7 +1,7 @@
 ---
 title: The Case Against Golang Templates
 description: Go's templating engine is good, but not good enough.
-pubDate: Jan 5, 2023
+pubDate: Jan 6, 2023
 tags:
   - opinion
   - tech
@@ -20,11 +20,16 @@ simple.
 
 ## Case Study 1: Helm is Terrible
 
-Ok, helm isn't terrible. I'm currently quote dependant on helm for operating the
-many complex services in my homelab. As a package manager for kubernetes, it is
-irreplaceable. The issue I have with helm is with the experience of writing
-charts. It is incredibly difficult to write and maintain helm charts even at a
-smaller scale.
+Ok, helm isn't terrible. I'm currently quite dependant on helm for operating the
+many complex services in my homelab. Helm is two things, is is a package manager
+for kubernetes manifests and a templating framework for generating them. As a
+package manager for kubernetes, it is irreplaceable. As a templating framework,
+however, helm is not good.
+
+The issue I have with helm is with the experience of writing charts. It is
+incredibly difficult to write and maintain helm charts even at a smaller scale.
+As with all software, you can shoot yourself in the foot by coming up with bad
+abstractions and helm is not
 
 ## Case Study 2: Hugo
 

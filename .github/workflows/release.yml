@@ -28,7 +28,7 @@ jobs:
       run: |
         tar \
           -czf harrybrwn.github.io.tar.gz \
-          --transform 's/dist/hrry.me/' \
+          --transform 's/dist/h3y.sh/' \
           ./dist/
     - name: Release
       uses: softprops/action-gh-release@v1
