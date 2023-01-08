@@ -45,7 +45,7 @@ this goal is that I really really don't want to so I need to find a way to
 incorporate it into my [habit philosophy](/blog/Building-Habits).
 
 One strategy that might work for me is to learn one recipe at a time. This
-hinges on my willingness to eat the thing meal for a week strait which I don't
+hinges on my willingness to eat the same meal for a week straight which I don't
 think will be a problem but I'm not sure how long I can maintain that as I
 mature.
 
