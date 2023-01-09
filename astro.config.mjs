@@ -4,6 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import solid from "@astrojs/solid-js";
 import purgecss from "astro-purgecss";
 import compress from "./src/lib/configHelpers";
+import wikilink from "@astro.hrry.dev/wikilink";
 import path from "path";
 
 const site = "https://h3y.sh";
@@ -14,6 +15,10 @@ const filter = new Set(["admin"]);
 export default defineConfig({
   site: site,
   outDir: outDir,
+  markdown: {
+    remarkPlugins: [wikilink({ base: "/brain/" })],
+    extendDefaultPlugins: true,
+  },
   vite: {
     build: {
       // request/response header size is around 500 bytes
@@ -39,7 +44,7 @@ export default defineConfig({
       customPages: [],
       filter: (page) => !filter.has(path.basename(page)),
     }),
-    ...compress({
+    compress({
       path: outDir,
       html: {
         removeComments: true,
@@ -52,6 +57,7 @@ export default defineConfig({
       img: {
         gif: false, // compressing gifs removes the animation
       },
+      logger: 0,
     }),
   ],
 });

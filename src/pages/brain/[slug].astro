@@ -1,6 +1,6 @@
 ---
 import type { MarkdownInstance, GetStaticPathsResult } from "astro";
-import { Frontmatter, preparePosts } from "~/lib/blog";
+import { Frontmatter, getPosts, slug } from "~/lib/blog";
 import GithubSlugger from "github-slugger";
 
 export interface Props {
@@ -9,16 +9,11 @@ export interface Props {
 
 export const getStaticPaths = async (): Promise<GetStaticPathsResult> => {
   const slugger = new GithubSlugger();
-  const posts = preparePosts(
-    await Astro.glob<Frontmatter>("../../../../content/**/*.md")
-  );
+  const posts = await getPosts({ blog: false });
   return posts.map((post) => {
     return {
       params: {
-        slug: slugger.slug(post.frontmatter.title),
-        date: new Date(post.frontmatter.pubDate)
-          .toLocaleDateString()
-          .replaceAll("/", "-"),
+        slug: slug(post, true, slugger),
       },
       props: { post },
     };

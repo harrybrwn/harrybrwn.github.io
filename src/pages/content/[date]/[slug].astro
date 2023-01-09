@@ -9,11 +9,13 @@ export interface Props {
 
 export const getStaticPaths = async (): Promise<GetStaticPathsResult> => {
   const slugger = new GithubSlugger();
-  const posts = await getPosts({ blog: true });
+  const posts = await getPosts({ drafts: import.meta.env.DEV });
   return posts.map((post) => {
+    let date: Date = new Date(post.frontmatter.pubDate);
     return {
       params: {
         slug: slug(post, true, slugger),
+        date: date.toLocaleDateString().replaceAll("/", "-"),
       },
       props: { post },
     };

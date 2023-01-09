@@ -2,16 +2,15 @@
 import path from "path";
 import Base from "~/layouts/Base.astro";
 import Nav from "~/components/Nav.astro";
-import BlogPosts from "~/components/BlogPosts";
 import { getPosts, slug } from "~/lib/blog";
 import GithubSlugger from "github-slugger";
 
-const posts = await getPosts({ blog: true, drafts: import.meta.env.DEV });
+const posts = await getPosts({ blog: false, drafts: import.meta.env.DEV });
 
 const slugger = new GithubSlugger();
 
 // TODO Build a search index for content and tags
-const blogposts = posts.map((p) => {
+const brain = posts.map((p) => {
   const s = slug(p, true, slugger);
   if (!p.frontmatter.slug) p.frontmatter.slug = s;
   return {
@@ -21,7 +20,7 @@ const blogposts = posts.map((p) => {
 });
 ---
 
-<Base title="Harry Brown | Blog" description="The ramblings of a madman.">
+<Base title="Harry Brown | Brain" description="">
   <main>
     <header>
       <Nav
@@ -31,10 +30,25 @@ const blogposts = posts.map((p) => {
           { href: "/blog", name: "blog" },
         ]}
       />
-      <h1>Blog</h1>
+      <h1>Brain</h1>
     </header>
     <section class="posts">
-      <BlogPosts posts={blogposts} />
+      <ul>
+        {
+          brain.map(({ frontmatter: fm, url }) => (
+            <li id={fm.slug}>
+              <time datetime={fm.pubDate}>
+                {new Date(fm.pubDate).toLocaleDateString("en-us", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </time>{" "}
+              <a href={url}>{fm.title}</a>
+            </li>
+          ))
+        }
+      </ul>
     </section>
   </main>
 </Base>

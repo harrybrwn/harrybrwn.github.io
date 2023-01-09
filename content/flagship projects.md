@@ -1,6 +1,6 @@
 ---
-title: "Flagship Projects"
-description: "Notes on hobbies and personal projects."
+#title: "Flagship Projects"
+#description: "Notes on hobbies and personal projects."
 pubDate: Jan 6, 2023
 tags:
   - hobbies

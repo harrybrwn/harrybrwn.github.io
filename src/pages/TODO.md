@@ -14,3 +14,4 @@ draft: false
 - add a [spellcheck](https://www.google.com/search?q=spellcheck+github+action) step to CI
 - add a vim style command bar to the main page
 - add a minimal version of the home page that is under 1kb
+- start doing [twtxt](https://github.com/buckket/twtxt) microblogging
