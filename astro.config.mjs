@@ -6,8 +6,10 @@ import purgecss from "astro-purgecss";
 import compress from "./src/lib/configHelpers";
 import wikilink from "@astro.hrry.dev/wikilink";
 import path from "path";
+import fs from "fs";
 
-const site = "https://h3y.sh";
+const domain = fs.readFileSync("public/CNAME").toString().trim();
+const site = `https://${domain}`;
 const outDir = "./dist";
 const filter = new Set(["admin"]);
 

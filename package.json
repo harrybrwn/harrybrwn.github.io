@@ -37,5 +37,8 @@
   },
   "workspaces": [
     "./packages/astro/*"
-  ]
+  ],
+  "devDependencies": {
+    "walkdir": "^0.4.1"
+  }
 }

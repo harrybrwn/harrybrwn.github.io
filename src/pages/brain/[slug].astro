@@ -2,6 +2,7 @@
 import type { MarkdownInstance, GetStaticPathsResult } from "astro";
 import { Frontmatter, getPosts, slug } from "~/lib/blog";
 import GithubSlugger from "github-slugger";
+import BlogPost from "~/layouts/BlogPost.astro";
 
 export interface Props {
   post: MarkdownInstance<Frontmatter>;
@@ -21,8 +22,24 @@ export const getStaticPaths = async (): Promise<GetStaticPathsResult> => {
 };
 
 const {
-  post: { Content },
+  post: {
+    Content,
+    frontmatter: { layout, title, description, pubDate, tags },
+  },
 } = Astro.props;
 ---
 
-<Content />
+{
+  // If the markdown file has a `layout` attribute then we should just render
+  // it. If it does not then we need to build the layout around the content
+  // ourselves.
+  layout ? (
+    <Content />
+  ) : (
+    <BlogPost
+      content={{ title, description, pubDate: new Date(pubDate), tags }}
+    >
+      <Content />
+    </BlogPost>
+  )
+}

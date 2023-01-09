@@ -15,3 +15,4 @@ description: ""
 - programming
 - distributed/decentralized systems
 - guitar
+- [[Networked Thinking]]
