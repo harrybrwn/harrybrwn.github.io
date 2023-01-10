@@ -2,14 +2,15 @@
   "name": "@astro.hrry.dev/robots.txt",
   "version": "0.0.1",
   "main": "index.ts",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/harrybrwn/harrybrwn.github.io.git",
     "directory": "packages/astro/robots.txt"
   },
   "author": "Harry Brown",
+  "private": true,
   "dependencies": {
     "astro": "^1.7.0"
-  },
-  "private": true
+  }
 }

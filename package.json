@@ -19,10 +19,14 @@
     "index": "scripts/gather-links.sh",
     "new": "node packages/astro/new/index.js"
   },
+  "workspaces": [
+    "./packages/astro/*"
+  ],
   "dependencies": {
     "@astro.hrry.dev/new": "0.0.1",
     "@astro.hrry.dev/robots.txt": "0.0.1",
     "@astro.hrry.dev/wikilink": "0.0.1",
+    "@astro.hrry.dev/obsidian": "0.0.1",
     "@astrojs/cloudflare": "^5.0.0",
     "@astrojs/mdx": "^0.13.0",
     "@astrojs/node": "^4.0.0",
@@ -35,9 +39,6 @@
     "github-slugger": "^2.0.0",
     "solid-js": "^1.4.3"
   },
-  "workspaces": [
-    "./packages/astro/*"
-  ],
   "devDependencies": {
     "walkdir": "^0.4.1"
   }

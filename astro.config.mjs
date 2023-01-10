@@ -1,12 +1,12 @@
 import { defineConfig } from "astro/config";
+import path from "path";
+import fs from "fs";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import solid from "@astrojs/solid-js";
 import purgecss from "astro-purgecss";
-import compress from "./src/lib/configHelpers";
-import wikilink from "@astro.hrry.dev/wikilink";
-import path from "path";
-import fs from "fs";
+import compress from "./src/lib/configHelpers.js";
+import obsidian from "@astro.hrry.dev/obsidian";
 
 const domain = fs.readFileSync("public/CNAME").toString().trim();
 const site = `https://${domain}`;
@@ -17,10 +17,6 @@ const filter = new Set(["admin"]);
 export default defineConfig({
   site: site,
   outDir: outDir,
-  markdown: {
-    remarkPlugins: [wikilink({ base: "/brain/" })],
-    extendDefaultPlugins: true,
-  },
   vite: {
     build: {
       // request/response header size is around 500 bytes
@@ -61,5 +57,6 @@ export default defineConfig({
       },
       logger: 0,
     }),
+    obsidian({ urlBase: "/brain/", baseDir: "./content" }),
   ],
 });

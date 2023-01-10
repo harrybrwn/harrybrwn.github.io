@@ -10,12 +10,12 @@ Shoutout to https://nubenetes.com/ for collecting a much more extensive list tha
 
 ## In Cluster
 
-- helm CRDs for installing heml charts using kubectl
-- k3s as the actual cluster
+- [helm CRDs](https://helm.sh/docs/chart_best_practices/custom_resource_definitions/) for installing heml charts using kubectl
+- [k3s](https://k3s.io/) as the actual cluster
 
 ## Configuration
 
 - [cue](https://cuelang.org)
 - [jsonnet](https://jsonnet.org/)
 - [jk](https://jkcfg.github.io/)
-- ansible
+- [ansible](https://www.ansible.com/)

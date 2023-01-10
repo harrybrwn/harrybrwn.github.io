@@ -3,7 +3,7 @@ import fs from "fs";
 import prompts from "prompts";
 import { slug } from "github-slugger";
 
-const contentDir = "content";
+const contentDir = "content/blog";
 
 const newBlog = async () => {
   let { title, description, tags, layout, draft } = await prompts([

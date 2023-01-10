@@ -1,8 +1,9 @@
 import path from "path";
-import remarkWikiLink from "remark-wiki-link";
-import { slug } from "github-slugger";
+import remarkWikiLink from "remark-wiki-link-plus";
 
 let links = {};
+
+const imageExts = new Set([".png", ".jpg", ".jpeg"]);
 
 const plugin = (opts = {}) => {
   if (!opts.base) opts.base = "";
@@ -13,12 +14,17 @@ const plugin = (opts = {}) => {
       aliasDivider: "|",
       wikiLinkClassName: opts.wikiLinkClassName || "wiki-link",
       newClassName: opts.newClassName || "wip",
+      markdownFolder: opts.content || "./content",
       pageResolver: (name) => {
         const res = slug(name, true);
         links[res] = {};
         return [res];
       },
       hrefTemplate: (permalink) => {
+        if (imageExts.has(path.extname(permalink))) {
+          // This is an image
+        }
+        if (permalink.startsWith("#")) return permalink;
         return path.join("/", opts.base, permalink);
       },
     },
