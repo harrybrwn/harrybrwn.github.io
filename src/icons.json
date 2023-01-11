@@ -60,6 +60,7 @@
 	"href": "https://cyber.dabamos.de/88x31/index.html"
   },
   "devils-neocities.gif": {
+	"exclude": true,
 	"alt": "Devils",
 	"title": "",
 	"href": "https://devils.neocities.org/"
@@ -74,23 +75,38 @@
 	"title": "SDF",
 	"href": "https://sdf.org/"
   },
+  "not-seeing-is-a-flower.png": {
+	"exclude": false,
+	"alt": "見ぬが花 (Not Seeing is a Flower)",
+	"title": "見ぬが花 (Not Seeing is a Flower)",
+	"href": "https://minugahana.neocities.org/"
+  },
+  "neovim.png": {
+	"href": "https://neovim.io/",
+	"title": "neovim",
+	"alt": "neovim"
+  },
 
   "get_mozilla.gif": {
 	"alt": "",
 	"title": "",
-	"href": ""
+	"href": "",
+	"exclude": true
   },
   "netscape-now.gif": {
+	"exclude": true,
 	"alt": "",
 	"title": "",
 	"href": ""
   },
   "rfc1876-now.gif": {
+	"exclude": true,
 	"alt": "",
 	"title": "",
 	"href": ""
   },
   "sun-micro.gif": {
+	"exclude": true,
 	"alt": "",
 	"title": "",
 	"href": ""

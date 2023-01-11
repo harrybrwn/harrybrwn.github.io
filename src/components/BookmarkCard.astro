@@ -32,6 +32,10 @@ const { href, name, description, tags } = Astro.props;
     margin-left: 5px;
     padding: 3px;
   }
+
+  footer span a[href] {
+    text-decoration: none;
+  }
 </style>
 
 <section>
@@ -40,6 +44,12 @@ const { href, name, description, tags } = Astro.props;
   </header>
   {description}
   <footer>
-    {tags.map((tag) => <span>{tag}</span>)}
+    {
+      tags.map((tag) => (
+        <span>
+          <a href={`/bookmarks/${tag}`}>{tag}</a>
+        </span>
+      ))
+    }
   </footer>
 </section>

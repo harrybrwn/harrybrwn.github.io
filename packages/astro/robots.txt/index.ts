@@ -13,7 +13,7 @@ export type Options = {
 };
 
 export const robots = (opts: Options): APIRoute => {
-  return async (context: APIContext) => {
+  return (context: APIContext) => {
     let lines: Array<string> = [];
     const origin = context.site?.origin;
     if (Array.isArray(opts.sitemap)) {
@@ -41,9 +41,9 @@ export const robots = (opts: Options): APIRoute => {
       }
       lines.push("");
     }
-    return Promise.resolve({
+    return {
       body: lines.join("\n"),
-    });
+    };
   };
 };
 

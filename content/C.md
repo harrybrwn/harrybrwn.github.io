@@ -22,6 +22,12 @@ tags:
 Compilers support different attributes so use the `__has_attibute` macro to
 check if a certain attribute is supported by the compiler being used.
 
+```c
+#if ! __has_attribute(nonull)
+#  error "nonull attribute is required"
+#endif
+```
+
 Pragma:
 The `#pragma` macro is similar to `__attribute__` except it sets attributes for
 multiple functions, types, or variables.

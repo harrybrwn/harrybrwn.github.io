@@ -1,0 +1,91 @@
+---
+import type { GetStaticPathsResult } from "astro";
+import BookmarkCard from "~/components/BookmarkCard.astro";
+import Subpage from "~/layouts/Subpage.astro";
+import Nav from "~/components/Nav.astro";
+import bookmarks from "~/bookmarks.json";
+import type { Bookmark } from "~/types";
+
+export const getStaticPaths = (): GetStaticPathsResult => {
+  let dups: Record<string, boolean> = {};
+  let tags: Record<string, Bookmark[]> = {};
+  for (const bk of bookmarks.links) {
+	if (bk.url in dups) {
+		throw new Error(`duplicated bookmark "${bk}"`);
+	}
+	dups[bk.url] = true;
+
+    for (const tag of bk.tags) {
+      if (!(tag in tags)) {
+        tags[tag] = [Object.assign({}, bk)];
+      } else {
+        tags[tag].push(Object.assign({}, bk));
+      }
+    }
+  }
+  return Object.entries(tags).map(([tag, bookmarks]) => ({
+    params: { tag },
+    props: { bookmarks },
+  }));
+};
+
+export interface Props {
+  bookmarks: Bookmark[];
+}
+
+const props = Astro.props;
+const title = `Bookmarks | ${Astro.params.tag}`;
+---
+
+<Subpage
+  title={title}
+  description="Harry Brown's bookmarks and interesting sites."
+>
+  <main>
+    <header>
+      <Nav
+        pages={[
+          { href: "/", name: "home" },
+          { href: "/about", name: "about" },
+          { href: "/blog", name: "blog" },
+        ]}
+      />
+    </header>
+    <h2>Bookmarks</h2>
+    <section>
+      <div id="bookmarks" class="bookmarks">
+        {
+          props.bookmarks.map((b) => (
+            <BookmarkCard
+              href={b.url}
+              name={b.name}
+              description={b.description}
+              tags={b.tags}
+            />
+          ))
+        }
+      </div>
+    </section>
+  </main>
+</Subpage>
+
+<style is:global>
+  main {
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  nav ul {
+    list-style: none;
+  }
+
+  @media only screen and (min-width: 700px) {
+    .bookmarks {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      grid-auto-rows: minmax(100px, auto);
+    }
+  }
+</style>

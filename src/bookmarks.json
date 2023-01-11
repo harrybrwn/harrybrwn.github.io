@@ -132,6 +132,7 @@
 			"name": "Rob Pike",
 			"description": "Rob Pike's personal website",
 			"tags": [
+				"personal-site",
 				"silly",
 				"people"
 			]
@@ -167,7 +168,8 @@
 			"description": "A personal website with lots of really cool projects.",
 			"tags": [
 				"blog",
-				"people"
+				"people",
+				"personal-site"
 			]
 		},
 		{
@@ -247,7 +249,7 @@
 		{
 			"url": "https://agar.io",
 			"name": "agar.io",
-			"description": "",
+			"description": "A networked multiplayer where blobs eat other blobs.",
 			"tags": [
 				"games",
 				"multiplayer"
@@ -327,7 +329,7 @@
 		{
 			"url": "https://www.my70stv.com/",
 			"name": "My 70s TV",
-			"description": "Classic 70s style TV that can play any number of different movies, tv shows, sports, or news all from the 1970s.",
+			"description": "Classic 70s style TV that can play a number of different movies, tv shows, sports, or news all from the 1970s.",
 			"tags": [
 				"history"
 			]
@@ -339,15 +341,6 @@
 			"tags": [
 				"creepy",
 				"web"
-			]
-		},
-		{
-			"url": "https://v1r.eu/",
-			"name": "v1r.eu",
-			"description": "Strange personal webpage with some random goofy pages. My favorite is /terry.",
-			"tags": [
-				"people",
-				"creepy"
 			]
 		},
 		{
@@ -411,6 +404,7 @@
 			"description": "Personal webpage of Kyle Drake, creator of neocities.org",
 			"tags": [
 				"people",
+				"personal-site",
 				"blog"
 			]
 		},
@@ -431,7 +425,8 @@
 			"tags": [
 				"web",
 				"people",
-				"90s"
+				"90s",
+				"personal-site"
 			]
 		},
 		{
@@ -457,7 +452,10 @@
 			"url": "https://muskjet.live/",
 			"name": "Musk Jet",
 			"description": "Track Elon Musk's private jet.",
-			"tags": ["people"]
+			"tags": [
+				"people",
+				"tools"
+			]
 		},
 		{
 			"url": "https://www.moneymacro.rocks/",
@@ -467,6 +465,93 @@
 				"people",
 				"economics",
 				"blog"
+			]
+		},
+		{
+			"url": "https://utsuho.rocks/",
+			"name": "Utsuho Rocks",
+			"description": "A cool personal website.",
+			"tags": ["90s", "personal-site"]
+		},
+		{
+			"url": "https://c7.pm/",
+			"name": "c7.pm",
+			"description": "A cool personal website.",
+			"tags": ["90s", "personal-site"]
+		},
+		{
+			"url": "https://skumsoft.ltd/slimenet/",
+			"name": "Slime-Net",
+			"description": "A fun little personal website.",
+			"tags": ["90s", "personal-site"]
+		},
+		{
+			"url": "https://chasem.co/",
+			"name": "",
+			"description": "",
+			"tags": ["blog", "personal-site", "digital-garden"]
+		},
+		{
+			"url": "https://maggieappleton.com/garden-history",
+			"name": "A Brief History & Ethos of the Digital Garden",
+			"description": "An article that is widely sited by people that build online digital gardens. The author's site is also very good.",
+			"tags": ["digital-garden", "article", "blog"]
+		},
+		{
+			"url": "https://aengusmcmillin.com/",
+			"name": "Aengus McMillin",
+			"description": "A personal site with a cool second brain (digital garden).",
+			"tags": ["blog", "digital-garden", "personal-site"]
+		},
+		{
+			"url": "https://www.dschapman.com/",
+			"name": "D.S. Chapman",
+			"description": "Some guy's blog and digital garden",
+			"tags": [
+				"blog",
+				"digital-garden",
+				"personal-site"
+			]
+		},
+		{
+			"url": "https://stephanango.com/",
+			"name": "Stephan Ango",
+			"description": "Another great digital garden.",
+			"tags": [
+				"blog",
+				"digital-garden",
+				"personal-site"
+			]
+		},
+		{
+			"url": "https://jzhao.xyz/",
+			"name": "Jacky Zhao",
+			"description": "Personal site by the creator of Quartz. This guy is really smart and my own digital garden is largely inspired by his site.",
+			"tags": [
+				"blog",
+				"digital-garden",
+				"personal-site",
+				"people"
+			]
+		},
+		{
+			"url": "https://brain.sspaeti.com/",
+			"name": "sspaeti brain",
+			"description": "A great digital garden built with Quartz.",
+			"tags": [
+				"blog",
+				"digital-garden",
+				"personal-site"
+			]
+		},
+		{
+			"url": "https://www.pamelafox.org/",
+			"name": "pamela fox",
+			"description": "This is Pamela Fox's personal website. She's done lots of cool things and given good talks.",
+			"tags": [
+				"blog",
+				"personal-site",
+				"people"
 			]
 		}
     ]
