@@ -52,7 +52,7 @@ const { title, id, className, modalID } = Astro.props;
 </style>
 
 <win95-window
-  class={`win95-window ${className || ""}`}
+  class:list={["win95-window", className]}
   id={id}
   data-modal={modalID}
 >

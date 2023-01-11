@@ -5,6 +5,13 @@ import astroCompress from "astro-compress";
 
 const prefix = "astro-";
 
+// This needs to be "a-" because it will also apply to astro's
+// custom tags which breaks the html because "island" is not a
+// valid custom element and "a-island" is.
+//
+// https://html.spec.whatwg.org/#valid-custom-element-name
+const replacement = "a-";
+
 /**
  *
  * @param {import("css-tree").CssNode} ast
@@ -49,7 +56,7 @@ const beforeCompress = (ast, options) => {
     mapSelectorList(node.data.prelude, (ast) => {
       // Find all the "where" selectors and remove the "astro-" prefix
       if (ast.type === "PseudoClassSelector" && ast.name === "where") {
-        cleanPseudoSelector(ast, prefix, "a-");
+        cleanPseudoSelector(ast, prefix, replacement);
       }
     });
   }
@@ -82,10 +89,8 @@ const compress = (settings) => {
                 fs
                   .readFileSync(f)
                   .toString()
-                  // This needs to be "a-" because it will also apply to astro's
-                  // custom tags which breaks the html because "island" is not a
-                  // valid custom element and "a-island" is.
-                  .replaceAll(prefix, "a-")
+                  .replaceAll(prefix, replacement)
+                  .replaceAll(`${replacement}code`, "astro-code") // revert markdown classes
               );
             })
           );

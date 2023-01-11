@@ -12,7 +12,7 @@ const { id, className, hidden = false, buttonId } = Astro.props;
   data-hidden={hidden}
   data-btnid={buttonId}
   id={id}
-  class={`${className || ""} modal`}
+  class:list={[className, "modal"]}
   role="dialog"
 >
   <slot />

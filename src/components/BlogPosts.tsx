@@ -10,22 +10,27 @@ export interface Props {
   posts: Post[];
 }
 
+const format = (date: string) =>
+  new Date(date).toLocaleDateString("en-us", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+
 const BlogPosts: Component<Props> = (props) => {
   return (
-    <ul>
+    <table>
       {props.posts.map(({ frontmatter: fm, url }) => (
-        <li id={fm.slug}>
-          <time datetime={fm.pubDate}>
-            {new Date(fm.pubDate).toLocaleDateString("en-us", {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            })}
-          </time>{" "}
-          <a href={url}>{fm.title}</a>
-        </li>
+        <tr>
+          <td>
+            <time datetime={fm.pubDate}>{format(fm.pubDate)}</time>
+          </td>
+          <td>
+            <a href={url}>{fm.title}</a>
+          </td>
+        </tr>
       ))}
-    </ul>
+    </table>
   );
 };
 

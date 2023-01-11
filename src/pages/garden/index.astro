@@ -4,13 +4,14 @@ import Base from "~/layouts/Base.astro";
 import Nav from "~/components/Nav.astro";
 import { getPosts, slug } from "~/lib/blog";
 import GithubSlugger from "github-slugger";
+import BlogPosts from "~/components/BlogPosts";
 
 const posts = await getPosts({ blog: false, drafts: import.meta.env.DEV });
 
 const slugger = new GithubSlugger();
 
 // TODO Build a search index for content and tags
-const brain = posts.map((p) => {
+const garden = posts.map((p) => {
   const s = slug(p, true, slugger);
   if (!p.frontmatter.slug) p.frontmatter.slug = s;
   return {
@@ -32,29 +33,12 @@ const brain = posts.map((p) => {
       />
       <h1>Brain</h1>
     </header>
-    <section class="posts">
-      <ul>
-        {
-          brain.map(({ frontmatter: fm, url }) => (
-            <li id={fm.slug}>
-              <time datetime={fm.pubDate}>
-                {new Date(fm.pubDate).toLocaleDateString("en-us", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
-              </time>{" "}
-              <a href={url}>{fm.title}</a>
-            </li>
-          ))
-        }
-      </ul>
+    <section class="garden">
+      <BlogPosts posts={garden} />
     </section>
   </main>
 </Base>
 
 <style is:global>
-  .posts ul {
-    list-style: none;
-  }
+  td { padding-right: 1em; }
 </style>

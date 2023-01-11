@@ -1,7 +1,7 @@
 ---
 title: The Case Against Golang Templates
 description: Go's templating engine is good, but not good enough.
-pubDate: Jan 8, 2023
+pubDate: Jan 10, 2023
 tags:
   - opinion
   - tech

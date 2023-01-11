@@ -3,12 +3,11 @@ import "../font/SourceCodePro/sourcecodepro.css";
 import "../styles/global.css";
 
 import Font from "~/font/SourceCodePro/SourceCodePro-latin.woff2";
-import StarsImg from "~/img/stars-compressed.webp";
+import GoofyImg from "~/img/goofy.jpg";
 import Meta, { MetaProps } from "../components/Meta.astro";
 import StarBackground from "../components/StarBackground.astro";
 import ToggleSwitch from "../components/ToggleSwitch.astro";
 import LoadTheme from "~/components/LoadTheme.astro";
-import GoofyImg from "~/img/goofy.jpg";
 
 export interface Props {
   title: string;
@@ -17,7 +16,12 @@ export interface Props {
   head?: MetaProps;
 }
 
-const { lang = "en", title, description, head } = Astro.props;
+const {
+  lang = "en",
+  title,
+  description,
+  head = { image: GoofyImg },
+} = Astro.props;
 const themeId = "tt";
 ---
 
@@ -35,8 +39,8 @@ const themeId = "tt";
         max-width: 750px;
       }
     </style>
-    <Meta title={title} description={description} image={GoofyImg} {...head} />
-    <link rel="preload" href={StarsImg} as="image" type="image/webp" />
+    <Meta title={title} description={description} {...head} />
+    <!-- <link rel="preload" href={StarsImg} as="image" type="image/webp" /> -->
     <link rel="preload" href={Font} as="font" type="font/woff2" crossorigin />
   </head>
   <body>

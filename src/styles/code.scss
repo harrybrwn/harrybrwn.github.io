@@ -1,0 +1,35 @@
+@use "prism-themes-scss";
+
+html[data-theme="dark"] {
+  @include prism-themes-scss.prism-one-dark();
+}
+html[data-theme="light"] {
+  @include prism-themes-scss.prism-one-light();
+}
+
+code:not([class]) {
+  border-radius: 0.1rem;
+}
+
+pre[class*="language-"] {
+  border-radius: 0.3rem;
+
+  &::-webkit-scrollbar {
+    width: 0.5em;
+    height: 0.5em;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 0.15rem;
+    background-color: grey;
+  }
+}
+
+html[data-theme="dark"] code:not([class]) {
+  background: hsl(220, 13%, 18%);
+  color: hsl(220, 14%, 71%);
+}
+
+html[data-theme="light"] code:not([class]) {
+  color: hsl(230, 8%, 24%);
+  background: hsl(230, 1%, 98%);
+}

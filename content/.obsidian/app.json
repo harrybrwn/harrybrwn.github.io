@@ -2,5 +2,7 @@
   "defaultViewMode": "source",
   "vimMode": true,
   "userIgnoreFilters": null,
-  "showUnsupportedFiles": false
+  "showUnsupportedFiles": false,
+  "spellcheck": true,
+  "showLineNumber": true
 }

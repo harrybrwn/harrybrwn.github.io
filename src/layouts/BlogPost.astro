@@ -1,6 +1,7 @@
 ---
 import Nav from "~/components/Nav.astro";
 import Base from "~/layouts/Base.astro";
+import "~/styles/code.scss";
 
 export interface Props {
   content: {
@@ -40,12 +41,11 @@ const {
 </Base>
 
 <style is:global>
-  body { font-size: 16px; }
+  body {
+    font-size: 16px;
+  }
   hr {
     border-color: rgb(172, 172, 172);
     max-width: 80%;
   }
-  /* ul {
-    list-style: none;
-  } */
 </style>

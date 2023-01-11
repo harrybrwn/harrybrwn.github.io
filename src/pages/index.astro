@@ -4,6 +4,7 @@ import "~/font/SourceCodePro/sourcecodepro.css";
 
 import Font from "../font/SourceCodePro/SourceCodePro-latin.woff2";
 import StarsImg from "../img/stars-compressed.webp";
+import GoofyImg from "~/img/goofy.jpg";
 import Meta from "~/components/Meta.astro";
 import HomePageLink from "../components/HomePageLink.astro";
 import HotlineWebRing from "../components/HotlineWebRing.astro";
@@ -15,7 +16,6 @@ import Help from "../components/Help.astro";
 import StarBackground from "../components/StarBackground.astro";
 import SpinningEarth from "../components/img/SpinningEarth.astro";
 import UnderConstruction from "../components/img/UnderConstruction.astro";
-import GoofyImg from "../img/goofy.jpg";
 
 import { SITE_DESCRIPTION, links, twitterUser, mastodon } from "../config";
 import { getIcons } from "~/lib/icons";
@@ -38,7 +38,7 @@ const themeToggle = "tt"; // theme toggle
       twitter={{ username: twitterUser }}
       mastodon={mastodon}
     />
-    <link rel="preload" href={StarsImg} as="image" type="image/webp" />
+    <!-- <link rel="preload" href={StarsImg} as="image" type="image/webp" /> -->
     <link rel="preload" href={Font} as="font" type="font/woff2" crossorigin />
   </head>
   <body>

@@ -18,7 +18,7 @@ RUN yarn build
 #
 # Static files
 #
-fROM scratch as static
+FROM scratch as static
 COPY --from=builder /opt/harrybrwn.github.io/dist /
 
 #

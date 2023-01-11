@@ -17,6 +17,9 @@ const filter = new Set(["admin"]);
 export default defineConfig({
   site: site,
   outDir: outDir,
+  markdown: {
+    syntaxHighlight: "prism",
+  },
   vite: {
     build: {
       // request/response header size is around 500 bytes
@@ -57,6 +60,6 @@ export default defineConfig({
       },
       logger: 0,
     }),
-    obsidian({ urlBase: "/brain/", baseDir: "./content" }),
+    obsidian({ urlBase: "/garden/", baseDir: "./content" }),
   ],
 });
