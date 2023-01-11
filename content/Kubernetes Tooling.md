@@ -5,7 +5,7 @@ tags:
 
 After learning kubernetes and managing a production cluster for some time, I have picked up a few tools that have helped me along the way.
 
-Shoutout to https://nubenetes.com/ for collecting a much more extensive list than I have.
+Shoutout to <https://nubenetes.com/> for collecting a much more extensive list than I have.
 
 
 ## In Cluster

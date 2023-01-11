@@ -3,7 +3,6 @@ import "~/styles/global.css";
 import "~/font/SourceCodePro/sourcecodepro.css";
 
 import Font from "../font/SourceCodePro/SourceCodePro-latin.woff2";
-import StarsImg from "../img/stars-compressed.webp";
 import GoofyImg from "~/img/goofy.jpg";
 import Meta from "~/components/Meta.astro";
 import HomePageLink from "../components/HomePageLink.astro";
@@ -20,6 +19,7 @@ import UnderConstruction from "../components/img/UnderConstruction.astro";
 import { SITE_DESCRIPTION, links, twitterUser, mastodon } from "../config";
 import { getIcons } from "~/lib/icons";
 import LoadTheme from "~/components/LoadTheme.astro";
+import { humanDate } from "~/lib/dates";
 
 const icons = await getIcons();
 const built = new Date();
@@ -145,7 +145,11 @@ const themeToggle = "tt"; // theme toggle
 
       <footer class="cards">
         <section class="stats">
-          <span>Last updated: <time>{built.toDateString()}</time></span>
+          <span
+            >Last updated: <time id="built" datetime={built.toISOString()}
+              >{humanDate(built)}</time
+            ></span
+          >
         </section>
         <HotlineWebRing />
         <center>
@@ -161,6 +165,7 @@ const themeToggle = "tt"; // theme toggle
       import type { Modal } from "~/lib/modal";
       import { listener } from "~/lib/keyboard-shortcuts";
       import { Theme } from "~/lib/theme";
+      import { humanDate } from "~/lib/dates";
 
       const help = document.getElementById("help-window") as Modal | null;
       const toggle = document.getElementById("tt") as HTMLInputElement;
@@ -173,6 +178,10 @@ const themeToggle = "tt"; // theme toggle
         .addEventListener("change", ({ matches: isDark }) => {
           window.setTheme(isDark ? Theme.Dark : Theme.Light, toggle);
         });
+      const built = document.getElementById("built") as HTMLTimeElement | null;
+      if (!built) throw new Error("no build date");
+      // Convert to local timezone and human readable date.
+      built.innerText = humanDate(new Date(built.dateTime));
     </script>
 
     <style is:global>
@@ -195,6 +204,10 @@ const themeToggle = "tt"; // theme toggle
 
       .settings {
         margin-bottom: 1.15em;
+      }
+
+      .stats {
+        font-size: 0.9rem;
       }
 
       .cards a {
