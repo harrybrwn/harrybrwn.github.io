@@ -95,8 +95,7 @@
 			"description": "A collection of very random surreal websites.",
 			"tags": [
 				"silly",
-				"blog",
-				"people"
+				"web"
 			]
 		},
 		{
@@ -123,7 +122,7 @@
 			"name": "How Many People in Space Right Now",
 			"description": "Displays the number of people currently in space.",
 			"tags": [
-				"blog",
+				"tools",
 				"science"
 			]
 		},
@@ -150,7 +149,8 @@
 			"name": "17776",
 			"description": "A fictional futuristic web multimedia story.",
 			"tags": [
-				"art"
+				"art",
+				"article"
 			]
 		},
 		{
@@ -471,37 +471,58 @@
 			"url": "https://utsuho.rocks/",
 			"name": "Utsuho Rocks",
 			"description": "A cool personal website.",
-			"tags": ["90s", "personal-site"]
+			"tags": [
+				"90s",
+				"personal-site"
+			]
 		},
 		{
 			"url": "https://c7.pm/",
 			"name": "c7.pm",
 			"description": "A cool personal website.",
-			"tags": ["90s", "personal-site"]
+			"tags": [
+				"90s",
+				"personal-site"
+			]
 		},
 		{
 			"url": "https://skumsoft.ltd/slimenet/",
 			"name": "Slime-Net",
 			"description": "A fun little personal website.",
-			"tags": ["90s", "personal-site"]
+			"tags": [
+				"90s",
+				"personal-site"
+			]
 		},
 		{
 			"url": "https://chasem.co/",
 			"name": "",
 			"description": "",
-			"tags": ["blog", "personal-site", "digital-garden"]
+			"tags": [
+				"blog",
+				"personal-site",
+				"digital-garden"
+			]
 		},
 		{
 			"url": "https://maggieappleton.com/garden-history",
 			"name": "A Brief History & Ethos of the Digital Garden",
 			"description": "An article that is widely sited by people that build online digital gardens. The author's site is also very good.",
-			"tags": ["digital-garden", "article", "blog"]
+			"tags": [
+				"digital-garden",
+				"article",
+				"blog"
+			]
 		},
 		{
 			"url": "https://aengusmcmillin.com/",
 			"name": "Aengus McMillin",
 			"description": "A personal site with a cool second brain (digital garden).",
-			"tags": ["blog", "digital-garden", "personal-site"]
+			"tags": [
+				"blog",
+				"digital-garden",
+				"personal-site"
+			]
 		},
 		{
 			"url": "https://www.dschapman.com/",
@@ -552,6 +573,33 @@
 				"blog",
 				"personal-site",
 				"people"
+			]
+		},
+		{
+			"url": "https://kassy.neocities.org/",
+			"name": "kassy.neocities.org",
+			"description": "Someone's interesting personal site.",
+			"tags": [
+				"personal-site",
+				"90s",
+				"math"
+			]
+		},
+		{
+			"url": "https://www.geocities.ws/jaup/jaup.htm",
+			"name": "Just Another Useless Webpages",
+			"description": "Basically a bunch a links to interesting and crazy retro websites.",
+			"tags": [
+				"90s"
+			]
+		},
+		{
+			"url": "https://headispriest.github.io/",
+			"name": "Head Priest's Awesome Monastery",
+			"description": "A crazy ass site.",
+			"tags": [
+				"90s",
+				"personal-site"
 			]
 		}
     ]
