@@ -9,15 +9,14 @@
     "url": "https://github.com/harrybrwn/harrybrwn.github.io.git"
   },
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
+    "dev": "node scripts/generate.js && astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
     "clean": "rm -rf ./dist *.tar.gz *.zip",
     "package": "scripts/package.sh",
-    "index": "scripts/gather-links.sh",
-    "new": "node packages/astro/new/index.js"
+    "new": "node packages/astro/new/index.js",
+    "gen": "node scripts/generate.js"
   },
   "workspaces": [
     "./packages/astro/*"
