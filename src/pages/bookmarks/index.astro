@@ -2,7 +2,8 @@
 import BookmarkCard from "~/components/BookmarkCard.astro";
 import Subpage from "~/layouts/Subpage.astro";
 import Nav from "~/components/Nav.astro";
-import bookmarks from "../../bookmarks.json";
+import bookmarks from "~/bookmarks.yml";
+import type { Bookmark } from "~/types";
 ---
 
 <Subpage
@@ -11,17 +12,19 @@ import bookmarks from "../../bookmarks.json";
 >
   <main>
     <header>
-      <Nav pages={[
-        {href: "/", name: "home"},
-        {href: "/about", name: "about"},
-        {href: "/blog", name: "blog"},
-      ]} />
+      <Nav
+        pages={[
+          { href: "/", name: "home" },
+          { href: "/about", name: "about" },
+          { href: "/blog", name: "blog" },
+        ]}
+      />
     </header>
     <h2>Bookmarks</h2>
     <section>
       <div id="bookmarks" class="bookmarks">
         {
-          bookmarks.links.map((b) => (
+          bookmarks.links.map((b: Bookmark) => (
             <BookmarkCard
               href={b.url}
               name={b.name}

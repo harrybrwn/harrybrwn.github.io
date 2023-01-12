@@ -41,6 +41,7 @@
     "solid-js": "^1.4.3"
   },
   "devDependencies": {
+    "@modyfi/vite-plugin-yaml": "^1.0.4",
     "sass": "^1.57.1",
     "walkdir": "^0.4.1"
   }

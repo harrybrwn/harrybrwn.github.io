@@ -7,6 +7,9 @@
       "@/content/*": ["./content/*"],
     },
     "typeRoots": ["./node_modules/@types", "./src/@types"],
+    "types":  [
+      "@modyfi/vite-plugin-yaml/modules"
+    ],
     "jsx": "preserve",
     "jsxImportSource": "solid-js"
   }

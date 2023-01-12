@@ -3,18 +3,28 @@ import type { GetStaticPathsResult } from "astro";
 import BookmarkCard from "~/components/BookmarkCard.astro";
 import Subpage from "~/layouts/Subpage.astro";
 import Nav from "~/components/Nav.astro";
-import bookmarks from "~/bookmarks.json";
+import bookmarks from "~/bookmarks.yml";
 import type { Bookmark } from "~/types";
 
 export const getStaticPaths = (): GetStaticPathsResult => {
-  let dups: Record<string, boolean> = {};
-  let tags: Record<string, Bookmark[]> = {};
-  for (const bk of bookmarks.links) {
-	if (bk.url in dups) {
-		throw new Error(`duplicated bookmark "${bk}"`);
-	}
-	dups[bk.url] = true;
+  const cleanUrl = (url: string) => {
+    const u = new URL(url);
+    if (u.pathname.length > 0 && u.pathname.endsWith("/"))
+      u.pathname = u.pathname.slice(0, u.pathname.length - 1);
+    return `${u.host}${u.pathname || "/"}`;
+  };
 
+  let tags: Record<string, Bookmark[]> = {};
+  let dups = new Set<string>();
+  for (const bk of bookmarks.links) {
+    // Check for duplicates
+    const cleaned = cleanUrl(bk.url);
+    if (dups.has(cleaned)) {
+      throw new Error(`duplicated bookmark "${JSON.stringify(bk)}"`);
+    }
+    dups.add(cleaned);
+
+    // Group by tag
     for (const tag of bk.tags) {
       if (!(tag in tags)) {
         tags[tag] = [Object.assign({}, bk)];

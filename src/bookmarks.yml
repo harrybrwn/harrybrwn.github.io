@@ -1,0 +1,407 @@
+links:
+  - url: https://primes.utm.edu/primes/lists/all.txt
+    name: The Largest Known Primes
+    description: |-
+      The 5,000 largest known prime numbers including when it was discovered and
+      who discovered it.
+    tags:
+    - math
+  - url: https://caltopo.com/map.html
+    name: CalTOPO
+    description: A map showing various geological and environmental features.
+    tags:
+    - tools
+    - science
+  - url: http://oldcomputers.net/
+    name: Steve's Old Computer Museum
+    description: A really awesome encyclopedia of old personal computers.
+    tags:
+    - history
+    - computers
+  - url: http://www.nooooooooooooooo.com/
+    name: Noooooooooooo
+    description: You know that scene in Start Wars where he screams "noooo"
+    tags:
+    - silly
+  - url: https://gurka.se/
+    name: Gurka
+    description: Just a spinning cucumber.
+    tags:
+    - silly
+    - games
+  - url: https://thetruesize.com/
+    name: True Size Of
+    description: |-
+      A map that allows you to move the outline country to see how it looks in
+      different places on the mercator projection.
+    tags:
+    - tools
+  - url: http://www.dirkdirk.com/
+    name: Dirk
+    description: A collection of very random surreal websites.
+    tags:
+    - silly
+    - web
+  - url: https://www.ibiblio.org/e-notes/webgl/polyhedra/polyhedra.htm
+    name: Polyhedra
+    description: A collection of polygons rendered in WebGL.
+    tags:
+    - math
+    - science
+  - url: https://neal.fun/
+    name: Neal.fun
+    description: A ton of fun web projects created by Neal Agarwal
+    tags:
+    - blog
+    - art
+    - people
+  - url: https://www.howmanypeopleareinspacerightnow.com/
+    name: How Many People in Space Right Now
+    description: Displays the number of people currently in space.
+    tags:
+    - tools
+    - science
+  - url: https://robpike.io/
+    name: Rob Pike
+    description: "Rob Pike's personal website"
+    tags:
+    - personal-site
+    - silly
+    - people
+  - url: http://info.cern.ch/
+    name: The first website
+    description: This is the first website created by Tim Berners-Lee at Cern.
+    tags:
+    - history
+  - url: https://www.sbnation.com/a/17776-football
+    name: '17776'
+    description: A fictional futuristic web multimedia story.
+    tags:
+    - art
+    - article
+  - url: https://libraryofbabel.info/
+    name: The Library of Babel
+    description: |-
+      Every possible combination of the english alphabet, pre-computed to result
+      in everything that has ever been and will ever be said.
+    tags:
+    - math
+    - art
+  - url: https://dn.ht/
+    name: Dennis Hotson
+    description: A personal website with lots of really cool projects.
+    tags:
+    - blog
+    - people
+    - personal-site
+  - url: http://infolab.stanford.edu/~sergey/
+    name: "Sergey Brin's Home Page"
+    description: |
+      Sergey Brin's website from when he was still in school creating Google for
+      his PhD thesis.
+    tags:
+    - people
+  - url: http://cat-v.org/
+    name: 'cat-v: Considered harmful'
+    description: Tons of great content ranging from old unix operating systems to economics.
+    tags: []
+  - url: https://crouton.net/
+    name: A Crouton
+    description: Really, just a crouton.
+    tags:
+    - silly
+  - url: https://www.music-map.com/
+    name: Music Map
+    description: A graph of related musicians.
+    tags:
+    - tools
+    - art
+  - url: https://shitstorm.dirkdirk.com/
+    name: Shit Storm
+    description: A literal storm of shit.
+    tags:
+    - silly
+  - url: https://cat-bounce.com/
+    name: Cat Bounce
+    description: Bouncing cats
+    tags:
+    - silly
+  - url: https://suricrasia.online/iceberg/
+    name: Computer Meme Iceberg
+    description: The deep iceberg of computer/programming related memes.
+    tags:
+    - computers
+    - silly
+  - url: https://skribbl.io/
+    name: skribble.io
+    description: Multiplayer guess-the-drawing game.
+    tags:
+    - games
+    - multiplayer
+  - url: https://digdig.io/
+    name: digdig.io
+    description: |-
+      Dig around and grow by collecting resources. Don't get eaten by the other
+      miners!
+    tags:
+    - games
+    - multiplayer
+  - url: https://agar.io
+    name: agar.io
+    description: A networked multiplayer where blobs eat other blobs.
+    tags:
+    - games
+    - multiplayer
+  - url: https://www.cameronsworld.net/
+    name: "Cameron's World"
+    description: A geocities tribute page.
+    tags:
+    - art
+    - history
+    - web
+    - 90s
+  - url: https://artvee.com/
+    name: Discover Classical Art
+    description: A searchable site full of public domain art.
+    tags:
+    - art
+    - history
+  - url: https://isrupertmurdochdead.com/
+    name: Is Rupert Murdoch Dead?
+    description: Tells you yes or no depending on whether or not Rupert Murdoch is still
+      alive.
+    tags:
+    - silly
+    - people
+  - url: https://pablotheflamingo.com/
+    name: Pablo The Flamingo
+    description: An obnoxious flamingo
+    tags:
+    - silly
+  - url: http://www.clicktoremove.com/
+    name: Click to Remove
+    description: "Click to remove or something, i don't know."
+    tags:
+    - silly
+  - url: https://www.pointlesssites.com/
+    name: Pointless Sites
+    description: List of very useless websites.
+    tags:
+    - silly
+    - web
+  - url: https://bouncingdvdlogo.com/
+    name: Bouncing DVD Logo
+    description: A bouncing DVD logo
+    tags:
+    - silly
+  - url: https://pirate.monkeyness.com/api.html
+    name: Pirate Monkeynesses
+    description: Random pirate themed monkey-business. They also have an API.
+    tags:
+    - silly
+    - web
+  - url: https://www.my70stv.com/
+    name: My 70s TV
+    description: |-
+      Classic 70s style TV that can play a number of different movies, tv shows,
+      sports, or news all from the 1970s.
+    tags:
+    - history
+  - url: https://phocks.org/stumble/creepy/
+    name: 136 Creepy Wiki Articles
+    description: A list of 136 creep wikipedia articles.
+    tags:
+    - creepy
+    - web
+  - url: http://whatthecommit.com/index.html
+    name: whatthecommit
+    description: Randomly generated commit messages.
+    tags:
+    - silly
+    - programming
+  - url: https://bgp.potaroo.net/
+    name: BGP Routing Table Analysis
+    description: |-
+      Analysis and data about routing and BGP. Not only does it have many
+      articils with incredibly in-depth analysis but it links out to tools use
+      to collect data and do the analysis.
+    tags:
+    - computers
+    - science
+    - networking
+  - url: https://bgp.potaroo.net/cidr/autnums.html
+    name: ''
+    description: Gigantic list of registered autonomous systems and whois data.
+    tags:
+    - computers
+    - networking
+  - url: https://publicdata.caida.org/datasets
+    name: CAIDA Public Data
+    description: Huge public dataset of routing and AS data.
+    tags:
+    - computers
+    - networking
+    - dataset
+  - url: https://libgen.is/
+    name: Library Genesis
+    description: Download books for free.
+    tags:
+    - books
+    - tools
+  - url: http://trebuchet.com/
+    name: The Big Book of Catapult and Trebuchet PLANS!
+    description: Build your own trebuchet!
+    tags:
+    - silly
+  - url: https://kyledrake.com/
+    name: Kyle Drake
+    description: Personal webpage of Kyle Drake, creator of neocities.org
+    tags:
+    - people
+    - personal-site
+    - blog
+  - url: https://links.yesterweb.org/
+    name: Yesterlinks
+    description: |-
+      Yesterweb is a cool webring but they have a links page that has some
+      really cool stuff.
+    tags:
+    - web
+    - tools
+    - 90s
+  - url: https://neonaut.neocities.org/
+    name: neonaut
+    description: A personal webpage with some cool stuff I like.
+    tags:
+    - web
+    - people
+    - 90s
+    - personal-site
+  - url: http://toastytech.com/evil/
+    name: Internet Explorer is Evil
+    description: The kind of anti-microsoft content that makes me nostalgic for the
+      90s.
+    tags:
+    - 90s
+    - silly
+  - url: https://sighack.com/
+    name: sighack
+    description: Articles on algorithms for generative art.
+    tags:
+    - art
+    - blog
+    - programming
+  - url: https://muskjet.live/
+    name: Musk Jet
+    description: "Track Elon Musk's private jet."
+    tags:
+    - people
+    - tools
+  - url: https://www.moneymacro.rocks/
+    name: Money & Macro
+    description: |-
+      Blog that accompanies the youtube channel Money & Macro about macro
+      economics hosted by an economic researcher.
+    tags:
+    - people
+    - economics
+    - blog
+  - url: https://utsuho.rocks/
+    name: Utsuho Rocks
+    description: A cool personal website.
+    tags:
+    - 90s
+    - personal-site
+  - url: https://c7.pm/
+    name: c7.pm
+    description: A cool personal website.
+    tags:
+    - 90s
+    - personal-site
+  - url: https://skumsoft.ltd/slimenet/
+    name: Slime-Net
+    description: A fun little personal website.
+    tags:
+    - 90s
+    - personal-site
+  - url: https://chasem.co/
+    name: ''
+    description: ''
+    tags:
+    - blog
+    - personal-site
+    - digital-garden
+  - url: https://maggieappleton.com/garden-history
+    name: A Brief History & Ethos of the Digital Garden
+    description: |-
+      An article that is widely sited by people that build online digital
+      gardens. The author's site is also very good.
+    tags:
+    - digital-garden
+    - article
+    - blog
+  - url: https://aengusmcmillin.com/
+    name: Aengus McMillin
+    description: A personal site with a cool second brain (digital garden).
+    tags:
+    - blog
+    - digital-garden
+    - personal-site
+  - url: https://www.dschapman.com/
+    name: D.S. Chapman
+    description: "Some guy's blog and digital garden"
+    tags:
+    - blog
+    - digital-garden
+    - personal-site
+  - url: https://stephanango.com/
+    name: Stephan Ango
+    description: Another great digital garden.
+    tags:
+    - blog
+    - digital-garden
+    - personal-site
+  - url: https://jzhao.xyz/
+    name: Jacky Zhao
+    description: |-
+      Personal site by the creator of Quartz. This guy is really smart and my
+      own digital garden is largely inspired by his site.
+    tags:
+    - blog
+    - digital-garden
+    - personal-site
+    - people
+  - url: https://brain.sspaeti.com/
+    name: sspaeti brain
+    description: A great digital garden built with Quartz.
+    tags:
+    - blog
+    - digital-garden
+    - personal-site
+  - url: https://www.pamelafox.org/
+    name: pamela fox
+    description: |-
+      This is Pamela Fox's personal website. She's done lots of cool things and
+      given good talks.
+    tags:
+    - blog
+    - personal-site
+    - people
+  - url: https://kassy.neocities.org/
+    name: kassy.neocities.org
+    description: "Someone's interesting personal site."
+    tags:
+    - personal-site
+    - 90s
+    - math
+  - url: https://www.geocities.ws/jaup/jaup.htm
+    name: Just Another Useless Webpages
+    description: Basically a bunch a links to interesting and crazy retro websites.
+    tags:
+    - 90s
+  - url: https://headispriest.github.io/
+    name: "Head Priest's Awesome Monastery"
+    description: A crazy ass site.
+    tags:
+    - 90s
+    - personal-site

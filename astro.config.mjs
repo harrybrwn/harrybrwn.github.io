@@ -7,11 +7,12 @@ import solid from "@astrojs/solid-js";
 import purgecss from "astro-purgecss";
 import compress from "./src/lib/configHelpers.js";
 import obsidian from "@astro.hrry.dev/obsidian";
+import ViteYaml from "@modyfi/vite-plugin-yaml";
 
 const domain = fs.readFileSync("public/CNAME").toString().trim();
 const site = `https://${domain}`;
 const outDir = "./dist";
-const filter = new Set(["admin"]);
+const siteMapFilter = new Set(["admin"]);
 
 // https://astro.build/config
 export default defineConfig({
@@ -21,6 +22,7 @@ export default defineConfig({
     syntaxHighlight: "prism",
   },
   vite: {
+    plugins: [ViteYaml()],
     build: {
       // request/response header size is around 500 bytes
       assetsInlineLimit: 512,
@@ -43,7 +45,7 @@ export default defineConfig({
     purgecss(),
     sitemap({
       customPages: [],
-      filter: (page) => !filter.has(path.basename(page)),
+      filter: (page) => !siteMapFilter.has(path.basename(page)),
     }),
     compress({
       path: outDir,

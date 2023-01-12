@@ -17,7 +17,7 @@ export const get = robots({
     },
     {
       agent: "*",
-      allow: ["/", "/blog/", "/garden/", "/static/"],
+      allow: ["/", "/blog/", "/garden/", "/bookmarks/", "/static/"],
       disallow: ["/admin", "/api"],
     },
   ],
