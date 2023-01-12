@@ -1,6 +1,7 @@
 ---
 import Nav from "~/components/Nav.astro";
 import Base from "~/layouts/Base.astro";
+import { humanDate } from "~/lib/dates";
 import "~/styles/code.scss";
 
 export interface Props {
@@ -12,8 +13,9 @@ export interface Props {
   };
 }
 const {
-  content: { title, description, tags },
+  content: { title, description, tags, pubDate },
 } = Astro.props;
+const date = new Date(pubDate);
 ---
 
 <Base title={title} description={description}>
@@ -36,6 +38,7 @@ const {
     <hr />
     <footer>
       {tags && tags.length > 0 && <pre>tags: [{tags?.join(" ")}]</pre>}
+      published: {humanDate(date)}
     </footer>
   </main>
 </Base>

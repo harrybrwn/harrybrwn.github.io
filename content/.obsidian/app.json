@@ -4,5 +4,7 @@
   "userIgnoreFilters": null,
   "showUnsupportedFiles": false,
   "spellcheck": true,
-  "showLineNumber": true
+  "showLineNumber": true,
+  "alwaysUpdateLinks": true,
+  "trashOption": "local"
 }

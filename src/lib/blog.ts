@@ -2,6 +2,9 @@ import path from "path";
 import fs from "fs";
 import type { MarkdownInstance } from "astro";
 import GithubSlugger, { slug as toSlugBase } from "github-slugger";
+// import modified from "~/modified.json";
+import { spawnSync } from "child_process";
+import walk from "walkdir";
 
 export interface Frontmatter extends Record<string, any> {
   title: string;
@@ -47,6 +50,30 @@ export const slug = (
   }
 };
 
+type Dates = Record<string, Date[]>;
+
+const gatherModDates = (dir: string) => {
+  let files: Dates = {};
+  walk.sync(dir, function (filename: string, stat: fs.Stats) {
+    if (stat.isDirectory()) return;
+    if (path.extname(filename) !== ".md") return;
+    const name = path.relative(process.cwd(), filename);
+    const cmd = spawnSync("git", [
+      "--no-pager",
+      "log",
+      "--pretty=format:%cd",
+      name,
+    ]);
+    files[name] = cmd.stdout
+      .toString()
+      .split("\n")
+      .map((s) => (s.length > 0 ? new Date(s) : new Date()));
+  });
+  return files;
+};
+
+const modified = gatherModDates("./content");
+
 const validate = (frontmatter: Frontmatter) => {
   if (!frontmatter.title || frontmatter.title.length === 0) {
     throw new Error("markdown post must have a title in the frontmatter");
@@ -88,8 +115,15 @@ const preparePosts = (
       if (p.frontmatter.pubDate) {
         p.frontmatter.pubDate = new Date(p.frontmatter.pubDate).toISOString();
       } else {
-        let stat = fs.statSync(p.file);
-        p.frontmatter.pubDate = stat.mtime.toISOString();
+        let name = path.relative(process.cwd(), p.file);
+        if (name in modified) {
+          const dates = modified[name];
+          const d = dates[dates.length - 1];
+          p.frontmatter.pubDate = d.toISOString();
+        } else {
+          let stat = fs.statSync(p.file);
+          p.frontmatter.pubDate = stat.mtime.toISOString();
+        }
       }
       return p;
     })

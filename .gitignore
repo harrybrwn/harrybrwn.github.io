@@ -2,6 +2,7 @@
 dist/
 *.tar.gz
 *.zip
+src/modified.json
 
 # dependencies
 node_modules/
