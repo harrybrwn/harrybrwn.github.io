@@ -45,11 +45,12 @@ export interface Props {
 
 const props = Astro.props;
 const title = `Bookmarks | ${Astro.params.tag}`;
+const description = `Harry Brown's bookmarks and interesting sites related to ${Astro.params.tag}.`
 ---
 
 <Subpage
   title={title}
-  description="Harry Brown's bookmarks and interesting sites."
+  description={description}
 >
   <main>
     <header>

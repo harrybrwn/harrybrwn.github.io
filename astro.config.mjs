@@ -8,6 +8,7 @@ import purgecss from "astro-purgecss";
 import compress from "./src/lib/configHelpers.js";
 import obsidian from "@astro.hrry.dev/obsidian";
 import ViteYaml from "@modyfi/vite-plugin-yaml";
+import { gardenBasePath } from "./src/config";
 
 const domain = fs.readFileSync("public/CNAME").toString().trim();
 const site = `https://${domain}`;
@@ -62,6 +63,6 @@ export default defineConfig({
       },
       logger: 0,
     }),
-    obsidian({ urlBase: "/garden/", baseDir: "./content" }),
+    obsidian({ urlBase: gardenBasePath, baseDir: "./content" }),
   ],
 });

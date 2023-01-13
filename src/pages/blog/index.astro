@@ -1,44 +1,9 @@
 ---
-import path from "path";
-import Base from "~/layouts/Base.astro";
-import Nav from "~/components/Nav.astro";
-import BlogPosts from "~/components/BlogPosts";
-import { getPosts, slug } from "~/lib/blog";
-import GithubSlugger from "github-slugger";
-
-const posts = await getPosts({ blog: true, drafts: import.meta.env.DEV });
-
-const slugger = new GithubSlugger();
-
-// TODO Build a search index for content and tags
-const blogposts = posts.map((p) => {
-  const s = slug(p, true, slugger);
-  if (!p.frontmatter.slug) p.frontmatter.slug = s;
-  return {
-    url: p.url || path.join(Astro.url.pathname, s),
-    frontmatter: p.frontmatter,
-  };
-});
+import PostList from "~/layouts/PostList.astro";
 ---
 
-<Base title="Harry Brown | Blog" description="The ramblings of an code gremlin.">
-  <main>
-    <header>
-      <Nav
-        pages={[
-          { href: "/", name: "home" },
-          { href: "/about", name: "about" },
-          { href: "/blog", name: "blog" },
-        ]}
-      />
-      <h1>Blog</h1>
-    </header>
-    <section class="posts">
-      <BlogPosts posts={blogposts} />
-    </section>
-  </main>
-</Base>
-
-<style is:global>
-  td { padding-right: 1em; }
-</style>
+<PostList
+  subTitle="Blog"
+  description="The ramblings of an code gremlin."
+  blog={true}
+/>

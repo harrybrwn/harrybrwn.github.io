@@ -1,44 +1,9 @@
 ---
-import path from "path";
-import Base from "~/layouts/Base.astro";
-import Nav from "~/components/Nav.astro";
-import { getPosts, slug } from "~/lib/blog";
-import GithubSlugger from "github-slugger";
-import BlogPosts from "~/components/BlogPosts";
-
-const posts = await getPosts({ blog: false, drafts: import.meta.env.DEV });
-
-const slugger = new GithubSlugger();
-
-// TODO Build a search index for content and tags
-const garden = posts.map((p) => {
-  const s = slug(p, true, slugger);
-  if (!p.frontmatter.slug) p.frontmatter.slug = s;
-  return {
-    url: p.url || path.join(Astro.url.pathname, s),
-    frontmatter: p.frontmatter,
-  };
-});
+import PostList from "~/layouts/PostList.astro";
 ---
 
-<Base title="Harry Brown | Digital Garden" description="">
-  <main>
-    <header>
-      <Nav
-        pages={[
-          { href: "/", name: "home" },
-          { href: "/about", name: "about" },
-          { href: "/blog", name: "blog" },
-        ]}
-      />
-      <h1>Digital Garden</h1>
-    </header>
-    <section class="garden">
-      <BlogPosts posts={garden} />
-    </section>
-  </main>
-</Base>
-
-<style is:global>
-  td { padding-right: 1em; }
-</style>
+<PostList
+  subTitle="Digital Garden"
+  blog={false}
+  description="Harry's digital garden and second brain."
+/>

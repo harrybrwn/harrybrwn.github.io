@@ -1,19 +1,24 @@
 ---
-import Base, { Props as BaseProps } from "./Base.astro";
+import Base from "./Base.astro";
 import Nav from "~/components/Nav.astro";
 
-export type Props = BaseProps;
+const { title, description } = Astro.props.frontmatter;
 ---
 
-<Base {...Astro.props}>
+<Base
+  title={title}
+  description={description}
+>
   <main>
-	<header>
-      <Nav pages={[
-        {href: "/", name: "home"},
-        {href: "/about", name: "about"},
-        {href: "/blog", name: "blog"},
-      ]}/>
-	</header>
+    <header>
+      <Nav
+        pages={[
+          { href: "/", name: "home" },
+          { href: "/about", name: "about" },
+          { href: "/blog", name: "blog" },
+        ]}
+      />
+    </header>
     <slot />
   </main>
 </Base>

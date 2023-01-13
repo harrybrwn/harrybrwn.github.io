@@ -27,6 +27,12 @@ const {
     frontmatter: { layout, title, description, pubDate, tags },
   },
 } = Astro.props;
+const content = {
+  title,
+  description,
+  tags,
+  pubDate: new Date(pubDate),
+};
 ---
 
 {
@@ -36,9 +42,7 @@ const {
   layout ? (
     <Content />
   ) : (
-    <BlogPost
-      content={{ title, description, pubDate: new Date(pubDate), tags }}
-    >
+    <BlogPost content={content}>
       <Content />
     </BlogPost>
   )

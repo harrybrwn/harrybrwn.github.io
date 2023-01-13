@@ -2,25 +2,39 @@
 import "../font/SourceCodePro/sourcecodepro.css";
 import "../styles/global.css";
 
+import type { Props as OpenGraphProps } from "~/components/seo/OpenGraph.astro";
+import Meta, { MetaProps, SEOImage } from "../components/Meta.astro";
 import Font from "~/font/SourceCodePro/SourceCodePro-latin.woff2";
 import GoofyImg from "~/img/goofy.jpg";
-import Meta, { MetaProps } from "../components/Meta.astro";
 import StarBackground from "../components/StarBackground.astro";
 import ToggleSwitch from "../components/ToggleSwitch.astro";
 import LoadTheme from "~/components/LoadTheme.astro";
+import { SITE_TITLE, mastodon as mastodonInfo, twitterUser } from "~/config";
 
-export interface Props {
-  title: string;
-  description: string;
+export interface Props extends MetaProps {
   lang?: string;
-  head?: MetaProps;
 }
+
+export const defaultImage: SEOImage = {
+  url: GoofyImg,
+  alt: "A picture of me looking goofy and drinking hot cocoa.",
+};
+
+export const defaultOpenGraph: OpenGraphProps = {
+  type: "website",
+  locale: "en_US",
+  siteName: SITE_TITLE,
+};
 
 const {
   lang = "en",
-  title,
-  description,
-  head = { image: GoofyImg },
+  author = "Harry Brown",
+  image = defaultImage,
+  og = defaultOpenGraph,
+  sitemap = "/sitemap-index.xml",
+  twitter = { username: twitterUser },
+  mastodon = mastodonInfo,
+  ...props
 } = Astro.props;
 const themeId = "tt";
 ---
@@ -39,7 +53,15 @@ const themeId = "tt";
         max-width: 750px;
       }
     </style>
-    <Meta title={title} description={description} {...head} />
+    <Meta
+      author={author}
+      image={image}
+      twitter={twitter}
+      mastodon={mastodon}
+      sitemap={sitemap}
+      og={og}
+      {...props}
+    />
     <!-- <link rel="preload" href={StarsImg} as="image" type="image/webp" /> -->
     <link rel="preload" href={Font} as="font" type="font/woff2" crossorigin />
   </head>

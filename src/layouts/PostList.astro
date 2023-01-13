@@ -1,0 +1,62 @@
+---
+import path from "path";
+import Base from "~/layouts/Base.astro";
+import type { MetaProps } from "~/components/Meta.astro";
+import Nav from "~/components/Nav.astro";
+import BlogPosts from "~/components/BlogPosts";
+import GithubSlugger from "github-slugger";
+import { getPosts, slug } from "~/lib/blog";
+import { SITE_TITLE } from "~/config";
+
+export interface Props extends MetaProps {
+  blog: boolean;
+  subTitle: string;
+  description: string;
+}
+
+const baseProps = Astro.props;
+const { subTitle, description, blog } = Astro.props;
+
+const allPosts = await getPosts({
+  blog: blog,
+  drafts: import.meta.env.DEV,
+});
+const slugger = new GithubSlugger();
+
+// TODO Build a search index for content and tags
+const posts = allPosts.map((p) => {
+  const s = slug(p, true, slugger);
+  if (!p.frontmatter.slug) p.frontmatter.slug = s;
+  return {
+    url: p.url || path.join(Astro.url.pathname, s),
+    frontmatter: p.frontmatter,
+  };
+});
+const title = `${SITE_TITLE} | ${subTitle}` || baseProps.title;
+baseProps.title = title;
+baseProps.description = description;
+---
+
+<Base {...baseProps}>
+  <main>
+    <header>
+      <Nav
+        pages={[
+          { href: "/", name: "home" },
+          { href: "/about", name: "about" },
+          { href: "/blog", name: "blog" },
+        ]}
+      />
+      <h1>{subTitle}</h1>
+    </header>
+    <section>
+      <BlogPosts posts={posts} />
+    </section>
+  </main>
+</Base>
+
+<style is:global>
+  td {
+    padding-right: 1em;
+  }
+</style>

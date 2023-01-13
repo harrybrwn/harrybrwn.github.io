@@ -5,7 +5,7 @@ import "~/font/SourceCodePro/sourcecodepro.css";
 import Font from "../font/SourceCodePro/SourceCodePro-latin.woff2";
 import GoofyImg from "~/img/goofy.jpg";
 import Meta from "~/components/Meta.astro";
-import HomePageLink from "../components/HomePageLink.astro";
+import HomeLinks from "~/components/home/HomeLinks.astro";
 import HotlineWebRing from "../components/HotlineWebRing.astro";
 import Icon88x31 from "../components/Icon88x31.astro";
 import My88x31Icons from "../components/My88x31Icons.astro";
@@ -16,14 +16,16 @@ import StarBackground from "../components/StarBackground.astro";
 import SpinningEarth from "../components/img/SpinningEarth.astro";
 import UnderConstruction from "../components/img/UnderConstruction.astro";
 
-import { SITE_DESCRIPTION, links, twitterUser, mastodon } from "../config";
+import { SITE_DESCRIPTION, links, twitterUser, mastodon, git } from "../config";
 import { getIcons } from "~/lib/icons";
 import LoadTheme from "~/components/LoadTheme.astro";
 import { humanDate } from "~/lib/dates";
+import { gitHead } from "~/lib/git";
 
 const icons = await getIcons();
 const built = new Date();
 const themeToggle = "tt"; // theme toggle
+const buildHash = import.meta.env.GITHUB_SHA || gitHead();
 ---
 
 <!DOCTYPE html>
@@ -32,11 +34,21 @@ const themeToggle = "tt"; // theme toggle
     <LoadTheme key="theme" button={themeToggle} />
     <Meta
       title="Harry Brown"
+      author="Harry Brown"
       description={SITE_DESCRIPTION}
-      image={GoofyImg}
+      image={{
+        url: GoofyImg,
+        alt: "A picture of me looking goofy and drinking hot cocoa.",
+      }}
       robots={["index", "archive", "follow"]}
       twitter={{ username: twitterUser }}
       mastodon={mastodon}
+      sitemap="/sitemap-index.xml"
+      og={{
+        type: "website",
+        locale: "en_US",
+        siteName: "Harry Brown"
+      }}
     />
     <!-- <link rel="preload" href={StarsImg} as="image" type="image/webp" /> -->
     <link rel="preload" href={Font} as="font" type="font/woff2" crossorigin />
@@ -71,34 +83,20 @@ const themeToggle = "tt"; // theme toggle
         </ul>
       </section>
 
-      <section>
-        <h2>Links</h2>
-        <ul class="links">
-          <li>
-            <HomePageLink href={links.github} title="All my random projects">
-              github
-            </HomePageLink>
-          </li>
-          <li>
-            <HomePageLink href={links.linkedin} title="My LinkedIn">
-              linkedin
-            </HomePageLink>
-          </li>
-          <li>
-            <HomePageLink href={links.mastodon} title="Mastodon">
-              mastodon
-            </HomePageLink>
-          </li>
-          <li>
-            <HomePageLink
-              href={links.worldOfText}
-              title="Write something on my wall"
-            >
-              wall
-            </HomePageLink>
-          </li>
-        </ul>
-      </section>
+      <h2>Links</h2>
+      <HomeLinks
+        class="links"
+        links={[
+          { href: links.github, text: "github", title: "All my projects" },
+          { href: links.linkedin, text: "linkedin", title: "My LinkedIn" },
+          { href: links.mastodon, text: "mastodon", title: "Mastodon" },
+          {
+            href: links.worldOfText,
+            text: "wall",
+            title: "Write something on my wall",
+          },
+        ]}
+      />
 
       <section>
         <h2>My Projects</h2>
@@ -145,11 +143,18 @@ const themeToggle = "tt"; // theme toggle
 
       <footer class="cards">
         <section class="stats">
-          <span
-            >Last updated: <time id="built" datetime={built.toISOString()}
+          <p>
+            updated: <time id="built" datetime={built.toISOString()}
               >{humanDate(built)}</time
-            ></span
-          >
+            >
+          </p>
+          <p>
+            build: <a
+              target="_blank"
+              href={`https://github.com/${git.repo}/tree/${buildHash}`}
+              >{buildHash}</a
+            >
+          </p>
         </section>
         <HotlineWebRing />
         <center>
@@ -167,6 +172,11 @@ const themeToggle = "tt"; // theme toggle
       import { Theme } from "~/lib/theme";
       import { humanDate } from "~/lib/dates";
 
+      const built = document.getElementById("built") as HTMLTimeElement | null;
+      if (!built) throw new Error("no build date");
+      // Convert to local timezone and human readable date.
+      built.innerText = humanDate(new Date(built.dateTime));
+
       const help = document.getElementById("help-window") as Modal | null;
       const toggle = document.getElementById("tt") as HTMLInputElement;
       document.addEventListener(
@@ -178,10 +188,6 @@ const themeToggle = "tt"; // theme toggle
         .addEventListener("change", ({ matches: isDark }) => {
           window.setTheme(isDark ? Theme.Dark : Theme.Light, toggle);
         });
-      const built = document.getElementById("built") as HTMLTimeElement | null;
-      if (!built) throw new Error("no build date");
-      // Convert to local timezone and human readable date.
-      built.innerText = humanDate(new Date(built.dateTime));
     </script>
 
     <style is:global>
@@ -206,8 +212,9 @@ const themeToggle = "tt"; // theme toggle
         margin-bottom: 1.15em;
       }
 
-      .stats {
-        font-size: 0.9rem;
+      .stats p {
+        font-size: 0.8rem;
+        margin: 0;
       }
 
       .cards a {

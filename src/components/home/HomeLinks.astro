@@ -1,0 +1,27 @@
+---
+import type { HTMLAttributes } from "~/lib/html";
+import HomePageLink from "./HomePageLink.astro";
+
+export interface Link {
+  href: string;
+  title: string;
+  text: string;
+}
+export interface Props extends HTMLAttributes {
+  links: Link[];
+}
+
+const { links, id, class: className } = Astro.props;
+---
+
+<ul class={className} id={id}>
+  {
+    links.map((l) => (
+      <li>
+        <HomePageLink href={l.href} title={l.title}>
+          {l.text}
+        </HomePageLink>
+      </li>
+    ))
+  }
+</ul>

@@ -1,0 +1,12 @@
+---
+import type { SEOImage } from "../Meta.astro";
+export type Props = SEOImage;
+
+const { url, alt, type, width, height } = Astro.props;
+---
+
+<meta property="og:image" content={new URL(url, Astro.site).toString()} />
+<meta property="og:image:alt" content={alt} />
+{type && <meta property="og:type" content={type} />}
+{width && <meta property="og:width" content={width.toString()} />}
+{height && <meta property="og:height" content={height.toString()} />}

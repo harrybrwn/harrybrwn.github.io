@@ -24,3 +24,5 @@ export const git = {
   repo: "harrybrwn/harrybrwn.github.io",
   branch: "main",
 };
+
+export const gardenBasePath = "/garden";

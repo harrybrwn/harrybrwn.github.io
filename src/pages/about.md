@@ -1,7 +1,7 @@
 ---
 layout: "../layouts/About.astro"
 title: "About Me"
-description: ""
+description: "Some info about me."
 ---
 
 # About Me

@@ -1,0 +1,67 @@
+---
+import type { SEOImage } from "../Meta.astro";
+import OpenGraphImage from "./OpenGraphImage.astro";
+
+export type OGType = "website" | "profile" | "book" | "article" | "video.episode" | "video.movie" | "video.tv_show" | "video.other" | "music.radio_station" | "music.playlist" | "music.album" | "music.song";
+
+export interface Props {
+  /**
+   * Required attributes
+   */
+  type: OGType;
+  locale: string;
+
+  /**
+   * default to the outer props
+   */
+  title?: string;
+  description?: string;
+  url?: URL | string;
+  image?: SEOImage;
+
+  /**
+   * Optional attributes.
+   */
+  siteName?: string;
+  localeAlt?: string[];
+  audio?: URL | string;
+  video?: URL | string;
+  determiner?: "a" | "an" | "the" | "auto";
+}
+
+const {
+  type,
+  locale,
+  url,
+  title,
+  description,
+  image,
+  siteName,
+  localeAlt,
+  audio,
+  video,
+  determiner,
+} = Astro.props;
+if (!title) throw new Error("no open graph title");
+// if (!description) throw new Error("no open graph description");
+if (!image) throw new Error("no open graph url");
+---
+
+<meta property="og:type" content={type} />
+<meta property="og:locale" content={locale} />
+{url && <meta property="og:url" content={url} />}
+{title && title.length > 0 && <meta property="og:title" content={title} />}
+{
+  description && description.length > 0 && (
+    <meta property="og:description" content={description} />
+  )
+}
+{siteName && <meta property="og:site_name" content={siteName} />}
+{image && <OpenGraphImage {...image} />}
+{
+  localeAlt &&
+    localeAlt.map((l) => <meta property="og:locale:alternate" content={l} />)
+}
+{determiner && <meta property="og:determiner" content={determiner} />}
+{audio && <meta property="og:audio" content={audio} />}
+{video && <meta property="og:video" content={video} />}

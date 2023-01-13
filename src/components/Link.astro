@@ -2,7 +2,7 @@
 import type { AnchorHTMLAttributes } from "~/lib/html";
 export type Props = AnchorHTMLAttributes;
 
-const {
+let {
   class: className,
   id,
   download,
@@ -15,6 +15,14 @@ const {
   type,
   referrerpolicy,
 } = Astro.props;
+
+if (href) {
+  const link = new URL(href);
+  if (link.host !== Astro.url.host) {
+    // External link, add privacy settings.
+    rel = "noopener, noreferrer";
+  }
+}
 ---
 
 <a

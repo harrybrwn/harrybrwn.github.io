@@ -1,4 +1,7 @@
 ---
+import OpenGraphImage from "./seo/OpenGraphImage.astro";
+import OpenGraph, { Props as OpenGraphProps } from "./seo/OpenGraph.astro";
+
 interface TwitterProps {
   username: string;
 }
@@ -8,17 +11,36 @@ interface MastadonProps {
   instance: string;
 }
 
+export interface SEOImage {
+  /**
+   * URL path to the image.
+   */
+  url: URL | string;
+  /**
+   * Description of the image.
+   */
+  alt: string;
+  /**
+   * Image MIME type.
+   */
+  type?: string;
+  width?: number;
+  height?: number;
+}
+
 export interface MetaProps {
   title: string;
   description: string;
+  image?: SEOImage;
   author?: string;
-  image: string;
   favicon?: string;
-  siteName?: string;
   twitter?: TwitterProps;
   mastodon?: MastadonProps;
   robots?: string[];
   onion?: string;
+  sitemap?: string;
+
+  og?: OpenGraphProps;
 }
 
 export type Props = MetaProps;
@@ -29,11 +51,12 @@ const {
   author,
   image,
   favicon = "/favicon.ico",
-  siteName,
   twitter,
   mastodon,
   robots = ["index", "archive", "follow"],
   onion,
+  sitemap,
+  og,
 } = Astro.props;
 
 let iconType = "image/x-icon";
@@ -45,8 +68,17 @@ if (twitter) {
     twitter.username = `@${twitter.username}`;
   }
 }
+
 const url = new URL(Astro.url);
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+// Fix open graph meta data
+if (og) {
+  og.description = og.description || description;
+  og.title = og.title || title;
+  og.url = og.url || url;
+  if (!og.image) og.image = image;
+}
 ---
 
 <!-- Global Metadata -->
@@ -62,28 +94,34 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 <!-- Primary Meta Tags -->
 <title>{title}</title>
 <meta name="title" content={title} />
-<meta name="description" content={description} />
+{
+  description && description.length > 0 && (
+    <meta name="description" content={description} />
+  )
+}
 {author && <meta name="author" content={author} />}
 
 <!-- Web Crawlers -->
 <meta name="robots" content={robots.join(", ")} />
-<meta name="googlebot" content={robots.join(", ")}/>
+<meta name="googlebot" content={robots.join(", ")} />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, url)} />
-{siteName && <meta property="og:site_name" content={siteName} />}
-<meta property="og:locale" content="en_US" />
+{image && <OpenGraphImage {...image} />}
+{og && <OpenGraph {...og} />}
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, url)} />
+{description && <meta property="twitter:description" content={description} />}
+{
+  image && (
+    <meta
+      property="twitter:image"
+      content={new URL(image.url, Astro.site).toString()}
+    />
+  )
+}
 <meta property="twitter:domain" content={url.hostname} />
 {
   twitter && twitter.username && (
@@ -96,10 +134,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 {
   mastodon && (
-    <link rel="me" href={`https://${mastodon.instance}/@${mastodon.username}`} />
+    <link
+      rel="me"
+      href={`https://${mastodon.instance}/@${mastodon.username}`}
+    />
   )
 }
 
-{
-  onion && <meta http-equiv="onion-location" content={onion}>
-}
+{onion && <meta http-equiv="onion-location" content={onion} />}
+{sitemap && <link rel="sitemap" type="application/xml" href={sitemap} />}

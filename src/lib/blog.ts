@@ -27,8 +27,112 @@ export interface Frontmatter extends Record<string, any> {
   layout?: string;
 }
 
+export type markdown = MarkdownInstance<Frontmatter>;
+
+const validate = (frontmatter: Frontmatter) => {
+  if (!frontmatter.title || frontmatter.title.length === 0) {
+    throw new Error("markdown post must have a title in the frontmatter");
+  }
+  if (!frontmatter.pubDate || frontmatter.pubDate.length === 0) {
+    throw new Error(
+      "markdown post must have a publish date in the frontmatter"
+    );
+  }
+};
+
+const getPubDate = (p: markdown) => {
+  // Explicit pubDate takes highest precedence.
+  if (p.frontmatter.pubDate) {
+    return new Date(p.frontmatter.pubDate);
+  }
+
+  // Find the markdown file in our prebuilt modified times json file. If its not
+  // there then use the os file stat.
+  let name = path.relative(process.cwd(), p.file);
+  if (name in modified) {
+    const dates = (modified as { [key: string]: string[] })[name];
+    if (dates.length === 0) {
+      return fs.statSync(p.file).mtime;
+    }
+    return new Date(dates[dates.length - 1]);
+  } else {
+    return fs.statSync(p.file).mtime;
+  }
+};
+
+export interface GetPostOptions {
+  /**
+   * Option for including drafts in post output.
+   */
+  drafts?: boolean;
+  /**
+   * Include only blog posts.
+   */
+  blog?: boolean;
+}
+
+// TODO(harrybrwn) filter out files that are in .gitignore
+const preparePosts = (posts: markdown[], opts?: GetPostOptions) => {
+  if (!opts) {
+    opts = { drafts: import.meta.env.DEV };
+  }
+  if (opts.drafts === undefined) opts.drafts = false;
+  const { drafts, blog } = opts;
+  return (
+    posts
+      // If "include drafts" then include all, otherwise filter out all with
+      // frontmatter that explicitly includes `draft: true`
+      .filter(({ frontmatter: { draft } }) => drafts || draft !== true)
+      // If "include blog posts" option is set to true then we only include blog
+      // posts, if false then we exclude all blog posts. If the option is
+      // `undefined` then we include all posts.
+      .filter(({ frontmatter }) => {
+        if (blog === true) {
+          return frontmatter.blog;
+        } else if (blog === false) {
+          return !frontmatter.blog;
+        }
+        return true;
+      })
+      .map((p) => {
+        if (p.frontmatter.blog) validate(p.frontmatter);
+        p.frontmatter.pubDate = getPubDate(p).toISOString();
+        return p;
+      })
+      .sort(
+        (a, b) =>
+          new Date(b.frontmatter.pubDate).valueOf() -
+          new Date(a.frontmatter.pubDate).valueOf()
+      )
+  );
+};
+
+// Used to cache all the posts in an import glob.
+let postsCache: Array<markdown>;
+
+/**
+ *
+ * @param opts Various filtering options
+ * @returns an array of objects representing markdown files.
+ */
+export const getPosts = async (opts?: GetPostOptions) => {
+  if (!postsCache) {
+    const posts = await import.meta.glob<markdown>("../../content/**/*.md");
+    postsCache = await Promise.all(Object.values(posts).map((p) => p()));
+  }
+  return preparePosts(postsCache, opts);
+};
+
+/**
+ *
+ * @param post A MarkdownInstance that contains all content and metadata.
+ * @param keepCase If false, all slugs will be lowercase.
+ * @param slugger If a slugger is passed, the function will use a GithubSlugger
+ *                to maintain a namespace for all url slugs.
+ * @returns A string of the slug that should be used in the url of the post.
+ */
 export const slug = (
-  post: MarkdownInstance<Frontmatter>,
+  post: markdown,
   keepCase?: boolean,
   slugger?: GithubSlugger
 ) => {
@@ -46,81 +150,4 @@ export const slug = (
   } else {
     return toSlugBase(title, keepCase);
   }
-};
-
-const validate = (frontmatter: Frontmatter) => {
-  if (!frontmatter.title || frontmatter.title.length === 0) {
-    throw new Error("markdown post must have a title in the frontmatter");
-  }
-  if (!frontmatter.pubDate || frontmatter.pubDate.length === 0) {
-    throw new Error(
-      "markdown post must have a publish date in the frontmatter"
-    );
-  }
-};
-
-export interface GetPostOptions {
-  drafts?: boolean;
-  blog?: boolean;
-}
-
-// TODO(harrybrwn) filter out files that are in .gitignore
-const preparePosts = (
-  posts: MarkdownInstance<Frontmatter>[],
-  opts?: GetPostOptions
-) => {
-  if (!opts) {
-    opts = { drafts: import.meta.env.DEV };
-  }
-  if (opts.drafts === undefined) opts.drafts = false;
-  const { drafts, blog } = opts;
-  return posts
-    .filter(({ frontmatter: { draft } }) => drafts || draft !== true)
-    .filter(({ frontmatter }) => {
-      if (blog === true) {
-        return frontmatter.blog;
-      } else if (blog === false) {
-        return !frontmatter.blog;
-      }
-      return true;
-    })
-    .map((p) => {
-      if (p.frontmatter.blog) validate(p.frontmatter);
-      if (p.frontmatter.pubDate) {
-        p.frontmatter.pubDate = new Date(p.frontmatter.pubDate).toISOString();
-      } else {
-        let name = path.relative(process.cwd(), p.file);
-        if (name in modified) {
-          const dates = (modified as { [key: string]: string[] })[name];
-          const d = new Date(dates[dates.length - 1]);
-          p.frontmatter.pubDate = d.toISOString();
-        } else {
-          let stat = fs.statSync(p.file);
-          p.frontmatter.pubDate = stat.mtime.toISOString();
-        }
-      }
-      return p;
-    })
-    .sort(
-      (a, b) =>
-        new Date(b.frontmatter.pubDate).valueOf() -
-        new Date(a.frontmatter.pubDate).valueOf()
-    );
-};
-
-let postsCache: Array<MarkdownInstance<Frontmatter>>;
-
-/**
- *
- * @param opts Various filtering options
- * @returns an array of objects representing markdown files.
- */
-export const getPosts = async (opts?: GetPostOptions) => {
-  if (!postsCache) {
-    const posts = await import.meta.glob<MarkdownInstance<Frontmatter>>(
-      "../../content/**/*.md"
-    );
-    postsCache = await Promise.all(Object.values(posts).map((p) => p()));
-  }
-  return preparePosts(postsCache, opts);
 };
