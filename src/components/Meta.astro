@@ -57,7 +57,7 @@ const {
   onion,
   sitemap,
   og,
-} = Astro.props;
+} = Object.assign({}, Astro.props);
 
 let iconType = "image/x-icon";
 if (favicon.endsWith(".svg")) {
@@ -76,8 +76,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 if (og) {
   og.description = og.description || description;
   og.title = og.title || title;
-  og.url = og.url || url;
-  if (!og.image) og.image = image;
+  og.url = og.url || Astro.url;
+  if (!og.image) og.image = Object.assign({}, image);
 }
 ---
 

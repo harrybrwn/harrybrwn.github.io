@@ -29,11 +29,11 @@ export const defaultOpenGraph: OpenGraphProps = {
 const {
   lang = "en",
   author = "Harry Brown",
-  image = defaultImage,
-  og = defaultOpenGraph,
+  image = Object.assign({}, defaultImage),
+  og = Object.assign({}, defaultOpenGraph),
   sitemap = "/sitemap-index.xml",
   twitter = { username: twitterUser },
-  mastodon = mastodonInfo,
+  mastodon = Object.assign({}, mastodonInfo),
   ...props
 } = Astro.props;
 const themeId = "tt";
