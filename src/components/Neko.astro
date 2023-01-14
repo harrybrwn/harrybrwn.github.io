@@ -1,0 +1,288 @@
+<div id="neko"></div>
+
+<style is:global>
+  #neko {
+    width: 32px;
+    height: 32px;
+    position: fixed;
+    pointer-events: none;
+    background-image: url("../img/oneko.gif");
+    image-rendering: pixelated;
+    background-position: -96px -96px;
+    top: 112px;
+    left: 112px;
+  }
+</style>
+
+<script>
+  enum Direction {
+    N = 0b0001,
+    E = 0b0010,
+    S = 0b0100,
+    W = 0b1000,
+    NE = 0b0011,
+    SE = 0b0110,
+    NW = 0b1001, // 9
+    SW = 0b1100, // 12
+  }
+
+  enum Animation {
+    Idle = 10,
+    Alert = 11,
+    Scratch = 13,
+    Tired = 14,
+    Sleep = 15,
+    Tilt = 16,
+    ScratchLeft = 17,
+    ScratchRight = 18,
+  }
+
+  const spriteSets: Record<
+    Animation | Direction | string,
+    Array<Array<number>>
+  > = {
+    yee: [],
+    [Animation.Idle]: [[-3, -3]],
+    [Animation.Alert]: [[-7, -3]],
+    [Animation.Scratch]: [
+      [-5, 0],
+      [-6, 0],
+      [-7, 0],
+    ],
+    [Animation.ScratchLeft]: [
+      [-4, 0],
+      [-4, -1],
+    ],
+    [Animation.ScratchRight]: [
+      [-2, -2],
+      [-2, -3],
+    ],
+    [Animation.Tired]: [[-3, -2]],
+    [Animation.Sleep]: [
+      [-2, 0],
+      [-2, -1],
+    ],
+    [Animation.Tilt]: [
+      [-7, 0],
+      [-7, 0],
+    ],
+    [Direction.N]: [
+      [-1, -2],
+      [-1, -3],
+    ],
+    [Direction.E]: [
+      [-3, 0],
+      [-3, -1],
+    ],
+    [Direction.S]: [
+      [-6, -3],
+      [-7, -2],
+    ],
+    [Direction.NE]: [
+      [0, -2],
+      [0, -3],
+    ],
+    [Direction.SE]: [
+      [-5, -1],
+      [-5, -2],
+    ],
+    [Direction.SW]: [
+      [-5, -3],
+      [-6, -1],
+    ],
+    [Direction.W]: [
+      [-4, -2],
+      [-4, -3],
+    ],
+    [Direction.NW]: [
+      [-1, 0],
+      [-1, -1],
+    ],
+  };
+
+  interface Point {
+    x: number;
+    y: number;
+  }
+
+  const savePosition = (p: Point) => {
+    localStorage.setItem("neko", JSON.stringify(p));
+  };
+
+  const loadPosition = (): Point => {
+    const blob = localStorage.getItem("neko");
+    if (!blob) {
+      return { x: 128, y: 128 };
+    }
+    let { x, y } = JSON.parse(blob);
+    return {
+      x: Math.max(0, Math.min(x, window.innerWidth)),
+      y: Math.max(0, Math.min(y, window.innerHeight)),
+    };
+  };
+
+  (function oneko() {
+    const nekoEl = document.getElementById("neko") as HTMLElement;
+    let { x, y } = loadPosition();
+    let mousePosX = 0;
+    let mousePosY = 0;
+    let frameCount = 0;
+    let idleTime = 0;
+    let idleAnimation: Animation | null = null;
+    let idleAnimationFrame = 0;
+    const speed = 10;
+
+    let animationTime = 0;
+    let animationFrame = 0;
+    let animation: Animation | null = null;
+
+    const resetAnimation = () => {
+      animationTime = 0;
+      animationFrame = 0;
+      animation = null;
+    };
+
+    function resetIdleAnimation() {
+      idleAnimation = null;
+      idleAnimationFrame = 0;
+    }
+
+    function create() {
+      nekoEl.style.left = `${x - 16}px`;
+      nekoEl.style.top = `${y - 16}px`;
+
+      document.addEventListener("mousemove", (event) => {
+        mousePosX = event.clientX;
+        mousePosY = event.clientY;
+      });
+      window.addEventListener("visibilitychange", (event) => {
+        savePosition({ x, y });
+      });
+
+      setInterval(frame, 100);
+    }
+
+    function setSprite(name: Animation | Direction, frame: number) {
+      const sprite = spriteSets[name][frame % spriteSets[name].length];
+      nekoEl.style.backgroundPosition = `${sprite[0] * 32}px ${
+        sprite[1] * 32
+      }px`;
+    }
+
+    function idle() {
+      idleTime += 1;
+      // every ~ 10 seconds
+      if (
+        idleTime > 10 &&
+        Math.floor(Math.random() * 100) == 0 &&
+        idleAnimation === null
+      ) {
+        const b = Math.floor(Math.random() * 3);
+        if (b === 0) idleAnimation = Animation.Sleep;
+        else if (b === 1) idleAnimation = Animation.Scratch;
+        else if (b === 2) idleAnimation = Animation.Tilt;
+      }
+
+      switch (idleAnimation) {
+        case Animation.Sleep:
+          if (idleAnimationFrame < 9) {
+            setSprite(Animation.Tired, 0);
+            break;
+          }
+          setSprite(Animation.Sleep, Math.floor(idleAnimationFrame / 4));
+          if (idleAnimationFrame > 192) {
+            resetIdleAnimation();
+          }
+          break;
+        case Animation.Scratch:
+          setSprite(Animation.Scratch, idleAnimationFrame);
+          if (idleAnimationFrame > 9) {
+            resetIdleAnimation();
+          }
+          break;
+        case Animation.Tilt:
+          setSprite(Animation.Tilt, idleAnimationFrame);
+          if (idleAnimationFrame > 14) resetIdleAnimation();
+          break;
+        default:
+          setSprite(Animation.Idle, 0);
+          return;
+      }
+      idleAnimationFrame += 1;
+    }
+
+    function frame() {
+      frameCount += 1;
+      if (mousePosX === 0 && mousePosY === 0) {
+        idle();
+        return;
+      }
+      const diffX = x - mousePosX;
+      const diffY = y - mousePosY;
+      const distance = Math.sqrt(diffX ** 2 + diffY ** 2);
+
+      if (distance < speed || distance < 18) {
+        idle();
+        return;
+      }
+
+      if (animationTime > 0 && animation !== null) {
+        animationFrame++;
+        setSprite(animation, animationFrame);
+        animationTime--;
+        return;
+      }
+
+      idleAnimation = null;
+      idleAnimationFrame = 0;
+
+      if (idleTime > 1) {
+        setSprite(Animation.Alert, 0);
+        // count down after being alerted before moving
+        idleTime = Math.min(idleTime, 5);
+        idleTime -= 1;
+        return;
+      }
+
+      if (x <= 20 && diffX > 0) {
+        x = Math.max(x, 20);
+        animation = Animation.ScratchLeft;
+        animationTime = 10;
+        animationFrame = 0;
+        setSprite(animation, animationFrame);
+        return;
+      } else {
+        resetAnimation();
+      }
+      if (x >= window.innerWidth - 24 && diffX < 0) {
+        x = Math.min(x, window.innerWidth - 24);
+        animation = Animation.ScratchRight;
+        animationTime = 10;
+        animationFrame = 0;
+        setSprite(animation, animationFrame);
+        return;
+      } else {
+        resetAnimation();
+      }
+
+      const vy = diffY / distance;
+      const vx = diffX / distance;
+
+      // Build the direction as a bit field.
+      let direction = 0;
+      if (vy > 0.5) direction = Direction.N;
+      else if (vy < -0.5) direction = Direction.S;
+      if (vx > 0.5) direction |= Direction.W;
+      else if (vx < -0.5) direction |= Direction.E;
+      setSprite(direction, frameCount);
+
+      x -= vx * speed;
+      y -= vy * speed;
+
+      nekoEl.style.left = `${x - 16}px`;
+      nekoEl.style.top = `${y - 16}px`;
+    }
+
+    create();
+  })();
+</script>

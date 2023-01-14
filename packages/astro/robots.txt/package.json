@@ -11,6 +11,6 @@
   "author": "Harry Brown",
   "private": true,
   "dependencies": {
-    "astro": "^1.7.0"
+    "astro": "workspace:*"
   }
 }

@@ -1,21 +1,19 @@
 ---
 import path from "path";
 import Base from "~/layouts/Base.astro";
-import type { MetaProps } from "~/components/Meta.astro";
 import Nav from "~/components/Nav.astro";
 import BlogPosts from "~/components/BlogPosts";
 import GithubSlugger from "github-slugger";
 import { getPosts, slug } from "~/lib/blog";
 import { SITE_TITLE } from "~/config";
 
-export interface Props extends MetaProps {
+export interface Props {
   blog: boolean;
   subTitle: string;
   description: string;
 }
 
-const baseProps = Astro.props;
-const { subTitle, description, blog } = Astro.props;
+const { subTitle, blog, description } = Astro.props;
 
 const allPosts = await getPosts({
   blog: blog,
@@ -32,19 +30,18 @@ const posts = allPosts.map((p) => {
     frontmatter: p.frontmatter,
   };
 });
-const title = `${SITE_TITLE} | ${subTitle}` || baseProps.title;
-baseProps.title = title;
-baseProps.description = description;
+const title = `${SITE_TITLE} | ${subTitle}`;
+const props = { title, description }
 ---
 
-<Base {...baseProps}>
+<Base {...props}>
   <main>
     <header>
       <Nav
         pages={[
           { href: "/", name: "home" },
-          { href: "/about", name: "about" },
-          { href: "/blog", name: "blog" },
+          { href: "/about/", name: "about" },
+          { href: "/blog/", name: "blog" },
         ]}
       />
       <h1>{subTitle}</h1>

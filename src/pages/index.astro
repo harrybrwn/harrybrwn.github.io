@@ -69,13 +69,13 @@ const buildHash = import.meta.env.GITHUB_SHA || gitHead();
         <h2>Pages</h2>
         <ul class="pages">
           <li>
-            <a href="/about">about</a>
+            <a href="/about/">about</a>
           </li>
           <li>
             <a href="/bookmarks">bookmarks</a>
           </li>
           <li>
-            <a href="/blog">blog</a>
+            <a href="/blog/">blog</a>
           </li>
           <li>
             <a target="_blank" href="/static/files/HarrisonBrown.pdf">resume</a>
@@ -198,6 +198,7 @@ const buildHash = import.meta.env.GITHUB_SHA || gitHead();
         margin-left: auto;
         margin-bottom: 2em;
         max-width: 750px;
+        /* overflow: hidden; */
       }
       a:visited {
         text-decoration: none;

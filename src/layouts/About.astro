@@ -1,6 +1,7 @@
 ---
 import Base from "./Base.astro";
 import Nav from "~/components/Nav.astro";
+import Neko from "~/components/Neko.astro";
 
 const { title, description } = Astro.props.frontmatter;
 ---
@@ -9,13 +10,14 @@ const { title, description } = Astro.props.frontmatter;
   title={title}
   description={description}
 >
+  <Neko />
   <main>
     <header>
       <Nav
         pages={[
           { href: "/", name: "home" },
-          { href: "/about", name: "about" },
-          { href: "/blog", name: "blog" },
+          { href: "/about/", name: "about" },
+          { href: "/blog/", name: "blog" },
         ]}
       />
     </header>

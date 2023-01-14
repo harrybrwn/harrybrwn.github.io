@@ -405,3 +405,14 @@ links:
     tags:
     - 90s
     - personal-site
+  - url: https://www.tuhs.org/
+    name: The Unix Heritage Society
+    description: A site the preserve and maintain the history of the earliest Unix systems.
+    tags:
+    - history
+    - computers
+  - url: https://cables.j4.pm/
+    name: Free Cables
+    description: You just have to visit.
+    tags:
+    - silly

@@ -6,12 +6,11 @@ FROM node:${NODE_VERSION} as builder
 RUN apk update && apk upgrade && npm update -g npm
 WORKDIR /opt/harrybrwn.github.io
 COPY ./package.json ./yarn.lock .
-COPY packages/astro ./packages/astro
+COPY packages ./packages
 RUN yarn install
 COPY astro.config.mjs tsconfig.json .
 COPY src/ src
 COPY public/ public
-COPY packages/ packages
 COPY content/ content
 RUN yarn build
 
