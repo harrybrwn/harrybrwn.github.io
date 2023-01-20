@@ -78,6 +78,9 @@ const buildHash = import.meta.env.GITHUB_SHA || gitHead();
             <a href="/blog/">blog</a>
           </li>
           <li>
+            <a href="/garden/">garden</a>
+          </li>
+          <li>
             <a target="_blank" href="/static/files/HarrisonBrown.pdf">resume</a>
           </li>
         </ul>
@@ -198,15 +201,14 @@ const buildHash = import.meta.env.GITHUB_SHA || gitHead();
         margin-left: auto;
         margin-bottom: 2em;
         max-width: 750px;
-        /* overflow: hidden; */
       }
       a:visited {
         text-decoration: none;
       }
 
-      .links,
-      .pages {
-        columns: 2;
+      .links, .pages {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .settings {

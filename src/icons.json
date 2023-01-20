@@ -35,11 +35,13 @@
 	"href": "/static/files/amd-athlon-64-x2-datasheet.pdf"
   },
   "vi_now.gif": {
+	"exclude": true,
 	"alt": "Vi Now",
 	"title": "Vi",
 	"href": "https://en.wikipedia.org/wiki/Vi"
   },
   "palemoon.gif": {
+	"exclude": true,
 	"alt": "Palemoon web browser",
 	"title": "Palemoon",
 	"href": "https://www.palemoon.org/"

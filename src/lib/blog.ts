@@ -76,7 +76,7 @@ const preparePosts = (posts: markdown[], opts?: GetPostOptions) => {
   if (!opts) {
     opts = { drafts: import.meta.env.DEV };
   }
-  if (opts.drafts === undefined) opts.drafts = false;
+  if (opts.drafts === undefined) opts.drafts = import.meta.env.DEV;
   const { drafts, blog } = opts;
   return (
     posts

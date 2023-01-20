@@ -1,5 +1,4 @@
 ---
-import OpenGraphImage from "./seo/OpenGraphImage.astro";
 import OpenGraph, { Props as OpenGraphProps } from "./seo/OpenGraph.astro";
 
 interface TwitterProps {
@@ -106,7 +105,6 @@ if (og) {
 <meta name="googlebot" content={robots.join(", ")} />
 
 <!-- Open Graph / Facebook -->
-{image && <OpenGraphImage {...image} />}
 {og && <OpenGraph {...og} />}
 
 <!-- Twitter -->
