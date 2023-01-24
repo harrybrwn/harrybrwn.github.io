@@ -26,3 +26,13 @@ import Base from "~/layouts/Base.astro";
     display: block;
   }
 </style>
+
+<script>
+  const res = document.location.pathname.match(/^\/garden\/(.*)$/);
+  if (res) {
+    const name = res[1].replace("-", " ");
+    const message = `<h1>Not Complete</h1><p>Sorry, "${name}" is an empty link in my digital garden.</p>`;
+    for (const el of document.getElementsByClassName("block"))
+      el.innerHTML = message;
+  }
+</script>
