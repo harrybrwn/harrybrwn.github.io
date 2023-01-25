@@ -65,3 +65,10 @@ target "nginx" {
 	tags   = tags("harrybrwn/harrybrwn.github.io-nginx")
 	args   = args()
 }
+
+target "server" {
+	target = "server"
+	labels = labels()
+	tags   = tags("harrybrwn/harrybrwn.github.io-server")
+	args   = args()
+}

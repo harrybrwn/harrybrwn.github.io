@@ -10,6 +10,7 @@
     "types":  [
       "@modyfi/vite-plugin-yaml/modules"
     ],
+    "strictNullChecks": true,
     "jsx": "preserve",
     "jsxImportSource": "solid-js"
   }
