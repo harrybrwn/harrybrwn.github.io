@@ -154,7 +154,7 @@
         mousePosX = event.clientX;
         mousePosY = event.clientY;
       });
-      window.addEventListener("visibilitychange", (event) => {
+      window.addEventListener("visibilitychange", (_) => {
         savePosition({ x, y });
       });
 
