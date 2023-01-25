@@ -1,13 +1,16 @@
 import { defineConfig } from "astro/config";
 import path from "path";
 import fs from "fs";
+
+import node from "@astrojs/node";
+
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import solid from "@astrojs/solid-js";
 import purgecss from "astro-purgecss";
-import compress from "./src/lib/configHelpers.js";
 import obsidian from "@astro.hrry.dev/obsidian";
 import ViteYaml from "@modyfi/vite-plugin-yaml";
+import compress from "./src/lib/configHelpers.js";
 import { gardenBasePath } from "./src/config";
 
 const domain = fs.readFileSync("public/CNAME").toString().trim();
@@ -15,10 +18,17 @@ const site = `https://${domain}`;
 const outDir = "./dist";
 const siteMapFilter = new Set(["admin"]);
 
+const output = process.env.ASTRO_OUTPUT || "static";
+
 // https://astro.build/config
 export default defineConfig({
   site: site,
   outDir: outDir,
+  output: output,
+  adapter: output === "server" ? node({ mode: "standalone" }) : undefined,
+  build: {
+    assets: "a",
+  },
   markdown: {
     syntaxHighlight: "prism",
   },
@@ -30,9 +40,7 @@ export default defineConfig({
       rollupOptions: {
         output: {
           entryFileNames: "[hash].js",
-          // "a" for "assets"
           assetFileNames: "a/[hash][extname]",
-          //assetFileNames: "a/[name].[hash][extname]",
         },
       },
       // https://github.com/Ernxst/astro-cssbundle

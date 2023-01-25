@@ -12,18 +12,35 @@ COPY astro.config.mjs tsconfig.json .
 COPY src/ src
 COPY public/ public
 COPY content/ content
+RUN yarn astro sync
+
+FROM builder as server-builder
+COPY . .
+RUN yarn build:server
+
+FROM builder as static-builder
 RUN yarn build
 
 #
 # Static files
 #
 FROM scratch as static
-COPY --from=builder /opt/harrybrwn.github.io/dist /
+COPY --from=static-builder /opt/harrybrwn.github.io/dist /
 
 #
 # Nginx
 #
 FROM nginx:${NGINX_VERSION} as nginx
-COPY --from=builder /opt/harrybrwn.github.io/dist /var/www/harrybrwn.github.io
+COPY --from=static-builder /opt/harrybrwn.github.io/dist /var/www/harrybrwn.github.io
 COPY config/nginx.conf /etc/nginx/nginx.conf
 #RUN sed -i 's/Server: nginx/Server: yeetyboi/g' /usr/sbin/nginx
+
+#
+# Server
+#
+FROM node:${NODE_VERSION} as server
+WORKDIR /opt/harrybrwn.github.io/
+COPY --from=server-builder /opt/harrybrwn.github.io .
+RUN ls -la
+ENTRYPOINT ["node"]
+CMD ["dist/server/entry.mjs"]
