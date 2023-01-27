@@ -10,8 +10,16 @@
   },
   "author": "Harry Brown",
   "private": true,
+  "scripts": {
+    "test": "true",
+    "build": "tsc",
+    "clean": "rm -rf ./dist"
+  },
   "dependencies": {
     "astro": "workspace:*",
     "remark-wiki-link-plus": "^1.1.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.4"
   }
 }

@@ -10,7 +10,7 @@ import solid from "@astrojs/solid-js";
 import purgecss from "astro-purgecss";
 import obsidian from "@astro.hrry.dev/obsidian";
 import ViteYaml from "@modyfi/vite-plugin-yaml";
-import compress from "./src/lib/configHelpers.js";
+import compress from "@astro.hrry.dev/compress";
 import { gardenBasePath } from "./src/config";
 
 const domain = fs.readFileSync("public/CNAME").toString().trim();
@@ -25,9 +25,10 @@ export default defineConfig({
   site: site,
   outDir: outDir,
   output: output,
-  adapter: output === "server" ? node({ mode: "standalone" }) : undefined,
+  adapter: output === "server" ? node({ mode: "middleware" }) : undefined,
   build: {
     assets: "a",
+    serverEntry: "index.mjs",
   },
   markdown: {
     syntaxHighlight: "prism",

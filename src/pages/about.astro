@@ -1,0 +1,40 @@
+---
+// Adding this page because about.md can't get prerendered because its a
+// markdown route.
+export const prerender = true;
+import Base from "~/layouts/Base.astro";
+import Nav from "~/components/Nav.astro";
+import Neko from "~/components/Neko.astro";
+---
+
+<Base title="About Me" description="Some info about me.">
+  <Neko />
+  <main>
+    <header>
+      <Nav
+        pages={[
+          { href: "/", name: "home" },
+          { href: "/about/", name: "about" },
+          { href: "/blog/", name: "blog" },
+        ]}
+      />
+    </header>
+    <h1 id="about-me">About Me</h1>
+    <ul>
+      <li>software engineer</li>
+      <li>web 1.0 enthusiast</li>
+      <li>overall gremlin</li>
+    </ul>
+    <h2 id="interests-hobbies">Interests/Hobbies</h2>
+    <ul>
+      <li>programming</li>
+      <li>distributed/decentralized systems</li>
+      <li>guitar</li>
+      <li>
+        <a class="wiki-link wip" href="/garden/Networked-Thinking"
+          >Networked Thinking</a
+        >
+      </li>
+    </ul>
+  </main>
+</Base>

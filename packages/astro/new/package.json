@@ -10,6 +10,11 @@
   "type": "module",
   "author": "Harry Brown",
   "private": true,
+  "scripts": {
+    "test": "true",
+    "build": "true",
+    "clean": "true"
+  },
   "exports": {
     ".": "./index.js"
   },

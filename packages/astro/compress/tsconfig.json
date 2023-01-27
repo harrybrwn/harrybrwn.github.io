@@ -3,7 +3,6 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "typeRoots": ["./@types", "./node_modules/@types"],
     "outDir": "./dist",
   }
 }

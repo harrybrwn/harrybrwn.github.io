@@ -1,24 +1,28 @@
 {
-  "name": "@astro.hrry.dev/robots.txt",
+  "name": "@astro.hrry.dev/compress",
   "version": "0.0.1",
-  "main": "index.ts",
+  "main": "./src/index.ts",
   "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/harrybrwn/harrybrwn.github.io.git",
-    "directory": "packages/astro/robots.txt"
+    "directory": "packages/astro/compress"
   },
   "author": "Harry Brown",
   "private": true,
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "test": "true",
     "build": "tsc",
     "clean": "rm -rf ./dist"
   },
   "dependencies": {
-    "astro": "workspace:*"
+    "astro-compress": "^1.1.24"
   },
   "devDependencies": {
+    "css-tree": "^2.3.1",
     "typescript": "^4.9.4"
   }
 }

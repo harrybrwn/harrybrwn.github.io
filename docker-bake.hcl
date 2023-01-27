@@ -49,6 +49,8 @@ function "args" {
 group "default" {
 	targets = [
 		"static",
+		"nginx",
+		"server",
 	]
 }
 

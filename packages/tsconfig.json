@@ -1,12 +1,17 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "module": "CommonJS",
     "target": "es2020",
-    "resolveJsonModule": true,
-	  "strict": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    // Strict type checking
+    "strict": true,
+    "outDir": "./dist",
     "declaration": true,
+    "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
-    "outDir": "./dist",
-  },
+    // Don't type check my dependencies
+    "skipLibCheck": true
+  }
 }

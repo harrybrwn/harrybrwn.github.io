@@ -1,4 +1,4 @@
-// / <reference path="../node_modules/remark-wiki-link-plus/dist/index.js" />
+// / <reference path="../../../node_modules/remark-wiki-link-plus/dist/index.js" />
 
 declare module "remark-wiki-link-plus" {
   export type Options = {

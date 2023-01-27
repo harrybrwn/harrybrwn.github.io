@@ -1,5 +1,5 @@
 {
-  "name": "h3y.sh",
+  "name": "hrry.me",
   "type": "module",
   "version": "0.0.1",
   "private": true,
@@ -11,23 +11,28 @@
   "scripts": {
     "dev": "node scripts/generate.js && astro dev",
     "build": "astro build",
-    "build:server": "ASTRO_OUTPUT=server astro build",
+    "build:all": "yarn workspaces run build",
     "preview": "astro preview",
-    "preview:server": "ASTRO_OUTPUT=server astro preview",
     "astro": "astro",
-    "clean": "rm -rf ./dist *.tar.gz *.zip",
-    "package": "scripts/package.sh",
+    "clean": "rm -rf ./dist ./.vercel *.tar.gz *.zip && yarn workspaces run clean",
     "new": "node packages/astro/new/index.js",
-    "gen": "node scripts/generate.js"
+    "gen": "node scripts/generate.js",
+    "dev:server": "node scripts/generate.js && ASTRO_OUTPUT=server astro dev",
+    "build:server": "scripts/build-server.sh",
+    "preview:server": "ASTRO_OUTPUT=server astro preview",
+    "container": "docker container run --rm -it -p 3000:3000 -e PORT=3000 --name astro-server harrybrwn/harrybrwn.github.io-server:latest"
   },
   "workspaces": [
-    "./packages/astro/*"
+    "./packages/astro/*",
+    "./packages/server"
   ],
   "dependencies": {
+    "@astro.hrry.dev/compress": "0.0.1",
     "@astro.hrry.dev/new": "0.0.1",
     "@astro.hrry.dev/obsidian": "0.0.1",
     "@astro.hrry.dev/robots.txt": "0.0.1",
     "@astro.hrry.dev/wikilink": "0.0.1",
+    "@hrry.dev/server": "0.0.1",
     "@astrojs/cloudflare": "^6.0.0",
     "@astrojs/mdx": "^0.15.0",
     "@astrojs/node": "^5.0.0",
@@ -35,7 +40,6 @@
     "@astrojs/sitemap": "^1.0.0",
     "@astrojs/solid-js": "^2.0.0",
     "astro": "^2.0.0",
-    "astro-compress": "^1.1.24",
     "astro-purgecss": "^1.3.1",
     "github-slugger": "^2.0.0",
     "prism-themes-scss": "github:harrybrwn/prism-themes-scss#main",
@@ -45,5 +49,8 @@
     "@modyfi/vite-plugin-yaml": "^1.0.4",
     "sass": "^1.57.1",
     "walkdir": "^0.4.1"
-  }
+  },
+  "files": [
+    "./dist/**/*"
+  ]
 }

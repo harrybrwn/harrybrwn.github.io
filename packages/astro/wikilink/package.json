@@ -10,6 +10,11 @@
   },
   "author": "Harry Brown",
   "private": true,
+  "scripts": {
+    "test": "true",
+    "build": "true",
+    "clean": "true"
+  },
   "dependencies": {
     "github-slugger": "^2.0.0",
     "remark-wiki-link-plus": "^1.1.1"

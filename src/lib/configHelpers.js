@@ -13,51 +13,51 @@ const prefix = "astro-";
 const replacement = "a-";
 
 /**
- *
- * @param {import("css-tree").CssNode} ast
+ * @param {import("css-tree").ClassSelector} selector
+ */
+const cleanClassName = (selector) => {
+  selector.name = selector.name.replace(prefix, replacement);
+};
+
+/**
+ * @param {import("css-tree").SelectorList} ast
  * @param {*} callback
  */
-const mapSelectorList = (ast, callback) => {
-  for (let sel = ast.children.head; sel != null; sel = sel.next) {
-    let node = sel.data;
-    if (node.type !== "Selector") {
-      continue;
-    }
-    for (let ch = node.children.head; ch != null; ch = ch.next) {
-      callback(ch.data);
+const walkSelectorList = (ast, callback) => {
+  for (let child of ast.children) {
+    if (child.type === "SelectorList") {
+      walkSelectorList(child, callback);
+    } else if (child.type === "Selector") {
+      for (let c of child.children) {
+        callback(c);
+      }
+    } else {
+      callback(child);
     }
   }
 };
 
 /**
  *
- * @param {import("css-tree").CssNode} ast
- * @param {string|Regexp} searchStr
- * @param {string} replacement
- */
-const cleanPseudoSelector = (ast, searchStr, replacement) => {
-  for (let child = ast.children.head; child != null; child = child.next) {
-    mapSelectorList(child.data, (inner) => {
-      inner.name = inner.name.replace(searchStr, replacement);
-    });
-  }
-};
-
-/**
- *
- * @param {import("css-tree").CssNode} ast
+ * @param {import("css-tree").StyleSheet} ast
  * @param {import("csso").CompressOptions} options
  */
 const beforeCompress = (ast, options) => {
-  for (let node = ast.children.head; node != null; node = node.next) {
-    if (!node.data.prelude || node.data.prelude.type !== "SelectorList") {
+  for (let n of ast.children) {
+    if (n.type !== "Rule") continue;
+    if (!n.prelude || n.prelude.type !== "SelectorList") {
       continue;
     }
-    mapSelectorList(node.data.prelude, (ast) => {
+
+    walkSelectorList(n.prelude, (ast) => {
       // Find all the "where" selectors and remove the "astro-" prefix
-      if (ast.type === "PseudoClassSelector" && ast.name === "where") {
-        cleanPseudoSelector(ast, prefix, replacement);
+      if (ast.type !== "PseudoClassSelector" || ast.name !== "where") {
+        return;
       }
+      walkSelectorList(ast, (inner) => {
+        if (inner.type !== "ClassSelector") return;
+        cleanClassName(inner);
+      });
     });
   }
 };
@@ -68,14 +68,27 @@ const beforeCompress = (ast, options) => {
  * @returns {import("astro").AstroIntegration}
  */
 const compress = (settings) => {
-  if (!settings.css) settings.css = {};
-  settings.css.beforeCompress = beforeCompress;
+  let output = null;
   return [
-    astroCompress(settings),
     {
       name: "clean-classnames",
       hooks: {
+        "astro:config:setup": ({ config }) => {
+          output = config.output;
+          if (config.output === "static") {
+            // Only remove 'astro-' for static sites because we can't remove the
+            // prefix on SSR routes.
+            if (!settings.css) settings.css = {};
+            settings.css.beforeCompress = beforeCompress;
+          }
+          config.integrations.push(astroCompress(settings));
+        },
         "astro:build:done": async ({ pages, dir }) => {
+          if (output !== "static") {
+            // Only remove 'astro-' for static sites because we can't remove the
+            // prefix on SSR routes.
+            return Promise.resolve();
+          }
           const files = pages.map(({ pathname }) => {
             if (path.basename(pathname) === "404") {
               return path.join(dir.pathname, "404.html");
