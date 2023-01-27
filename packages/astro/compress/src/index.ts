@@ -107,16 +107,19 @@ const compress = (settings: any): AstroIntegration => {
           }
           return path.join(dir.pathname, pathname, "index.html");
         });
+        const pattern = new RegExp(`class=".*?${prefix}.*?"`, "g");
         await Promise.all(
           files.map(async (f) => {
-            await writeFile(
-              f,
-              fs
-                .readFileSync(f)
-                .toString()
-                .replaceAll(prefix, replacement)
-                .replaceAll(`${replacement}code`, "astro-code") // revert markdown classes
-            );
+            let blob = fs.readFileSync(f).toString();
+            // find class names containing "astro-"
+            let matches = blob.matchAll(pattern);
+            for (let m of matches) {
+              blob = blob.replaceAll(
+                m[0],
+                m[0].replaceAll(prefix, replacement)
+              );
+            }
+            await writeFile(f, blob);
           })
         );
       },

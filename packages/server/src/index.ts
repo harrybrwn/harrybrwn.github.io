@@ -2,7 +2,7 @@
 
 import express from "express";
 import morgan from "morgan";
-import { handler as ssrHandler } from "../../../dist/server";
+import { handler as ssrHandler } from "../../../dist/server/index.js";
 
 const format =
   `{` +

@@ -28,7 +28,7 @@ export default defineConfig({
   adapter: output === "server" ? node({ mode: "middleware" }) : undefined,
   build: {
     assets: "a",
-    serverEntry: "index.mjs",
+    serverEntry: "index.js",
   },
   markdown: {
     syntaxHighlight: "prism",
