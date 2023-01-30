@@ -3,6 +3,12 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "outDir": "./dist",
-  }
+    "outDir": "./dist"
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "src/**/*.test.ts"
+  ]
 }

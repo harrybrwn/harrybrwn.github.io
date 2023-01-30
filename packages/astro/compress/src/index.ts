@@ -1,8 +1,8 @@
 import path from "path";
 import fs from "fs";
 import { writeFile } from "fs/promises";
-import astroCompress from "astro-compress";
 
+import astroCompress from "astro-compress";
 import type { AstroIntegration } from "astro";
 import type {
   CssNode,
