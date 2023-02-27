@@ -416,3 +416,9 @@ links:
     description: You just have to visit.
     tags:
     - silly
+  - url: https://arxiv-sanity-lite.com/
+    name: arxiv sanity
+    description: A live feed of research papers in computer science and machine learning.
+    tags:
+    - science
+    - tools

@@ -32,9 +32,9 @@ function "tags" {
 	]
 }
 
-variable "NODE_VERSION" { default = "18.12.1-alpine" }
+variable "NODE_VERSION" { default = "18.14.2" }
 
-variable "NGINX_VERSION" { default = "1.23.3-alpine" }
+variable "NGINX_VERSION" { default = "1.23.3" }
 
 function "args" {
 	params = []
