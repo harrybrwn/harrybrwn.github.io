@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  nginx:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: nginx
+    networks:
+      - hrry.me
+    ports:
+      - "80:80"
+      - "443:443"
+
+  server:
+    build:
+      target: server
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "3000:3000"
+
+  dev:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: dev
+    command: ["yarn", "dev", "--host"]
+    networks:
+      - hrry.me
+    working_dir: /opt/harrybrwn.github.io
+    volumes:
+      - .:/opt/harrybrwn.github.io
+      - ${SSH_AUTH_SOCK}:/var/run/ssh-mount.sock
+    environment:
+      - SSH_AUTH_SOCK=/var/run/ssh-mount.sock
+    user: 1000:1000
+    ports:
+      - "3000:3000"
+
+networks:
+  hrry.me:
+    external: true
