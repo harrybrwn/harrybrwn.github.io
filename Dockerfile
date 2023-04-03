@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.2
+# syntax=docker/dockerfile:1.4
 
 ARG NODE_VERSION=18.14.2
 ARG NGINX_VERSION=1.23.3
@@ -10,13 +10,18 @@ RUN apt-get update && \
 	npm update --global npm
 
 # Builder
-FROM node:${NODE_VERSION}-alpine as builder
+FROM --platform=$BUILDPLATFORM node:${NODE_VERSION}-bullseye as builder
 ARG GITHUB_REF_NAME=""
 ARG GITHUB_SHA=""
 ENV GITHUB_REF_NAME=${GITHUB_REF_NAME}
 ENV GITHUB_SHA=${GITHUB_SHA}
 
-RUN apk update && apk upgrade && npm update -g npm
+# RUN apk update && apk upgrade && npm update -g npm
+RUN --mount=type=cache,target=/var/cache/apt \
+	--mount=type=cache,target=/root/.npm,id=harrybrwn.github.io-npm-cache \
+	apt-get update && \
+	apt-get upgrade -yqq && \
+	npm update --global npm
 WORKDIR /opt/harrybrwn.github.io
 COPY ./package.json ./yarn.lock ./
 COPY packages ./packages
@@ -46,9 +51,12 @@ COPY --from=static-builder /opt/harrybrwn.github.io/dist /
 #
 FROM nginx:${NGINX_VERSION}-alpine as nginx
 COPY --from=static-builder /opt/harrybrwn.github.io/dist /var/www/harrybrwn.github.io
-COPY config/nginx.conf /etc/nginx/nginx.conf
+COPY config/ /etc/nginx/
 # Just for lols
 RUN sed -i 's/Server: nginx/Server: butts/g' /usr/sbin/nginx
+ENV NGINX_ENVSUBST_TEMPLATE_SUFFIX=".conf"
+ENV SERVER_HOST='_ localhost' SERVER_PORT='80' NGINX_GZIP='off'
+CMD [ "nginx", "-g", "daemon off;" ]
 
 #
 # Server

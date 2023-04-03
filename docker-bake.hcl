@@ -54,11 +54,20 @@ group "default" {
 	]
 }
 
+variable "platforms" {
+	default = [
+        "linux/amd64",
+        "linux/arm64",
+        "linux/arm/v7",
+    ]
+}
+
 target "static" {
 	target = "static"
 	labels = labels()
 	tags   = tags("harrybrwn/harrybrwn.github.io")
 	args   = args()
+    platforms = platforms
 }
 
 target "nginx" {
@@ -66,6 +75,7 @@ target "nginx" {
 	labels = labels()
 	tags   = tags("harrybrwn/harrybrwn.github.io-nginx")
 	args   = args()
+    platforms = platforms
 }
 
 target "server" {
@@ -73,4 +83,5 @@ target "server" {
 	labels = labels()
 	tags   = tags("harrybrwn/harrybrwn.github.io-server")
 	args   = args()
+    platforms = platforms
 }
