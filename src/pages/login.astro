@@ -4,17 +4,19 @@ export const prerender = true;
 import "../styles/global.css";
 import Base from "../layouts/Base.astro";
 import Win95 from "~/components/Win95.astro";
+import Loading from "~/components/Loading.astro";
 ---
 
 <Base lang="en" title="Harry Brown | Login" description="Login to me page.">
   <center>
     <h1>Login</h1>
   </center>
-  <Win95 title={Astro.url.host} className="login-panel">
+
+  <Win95 title={Astro.url.host} className="login-panel" id="creds-panel">
     <h2>User Login</h2>
     <form
       method="POST"
-      action="/api/_token"
+      action={`${import.meta.env.PUBLIC_API_HOST}/api/login`}
       enctype="application/json"
       id="login-form"
     >
@@ -24,7 +26,103 @@ import Win95 from "~/components/Win95.astro";
       <input type="submit" />
     </form>
   </Win95>
+
+  <div class="center">
+    <Loading id="loading-box">
+      <h1>Logging In</h1>
+    </Loading>
+  </div>
 </Base>
+
+<script>
+  import { isEmail } from "~/lib/email";
+  import { Client } from "~/lib/api";
+  import { consent, getOIDCToken, type RedirectTarget } from "~/lib/api/oidc";
+
+  const handleError = (err: Error, parent?: HTMLElement) => {
+    console.error(err);
+    let error = document.createElement("div");
+    error.className = "error";
+    error.innerText = `Failed to login (${err.name}): ${err.message}`;
+    if (!parent) {
+      document.body.appendChild(error);
+    } else {
+      parent.appendChild(error);
+    }
+  };
+
+  const getCookie = (name: string) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(";").shift();
+    else return null;
+  };
+
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get("code");
+  const consent_challenge = params.get("consent_challenge");
+  const login_challenge = params.get("login_challenge");
+  //const forceLogin = params.get("force_login");
+  let authToken = getCookie("_token");
+
+  let api = new Client(new URL(import.meta.env.PUBLIC_API_HOST));
+  let form = document.getElementById("login-form") as HTMLFormElement;
+  if (!form) throw new Error("no login form");
+
+  const loadingBox = document.getElementById("loading-box");
+  if (!loadingBox) throw new Error("no loading box");
+  const credsBox = document.getElementById("creds-panel");
+  if (!credsBox) throw new Error("no credentials box");
+
+  // If we are already logged in and going through the oidc flow then we should
+  // hide the username/password form and display the loading panel.
+  if (authToken !== null && (login_challenge || consent_challenge)) {
+    loadingBox.style.visibility = "visible";
+    credsBox.style.visibility = "hidden";
+  }
+
+  if (consent_challenge) {
+    consent(consent_challenge)
+      .then((res: RedirectTarget) => {
+        window.location.href = res.redirect_to;
+      })
+      .catch((err: Error) => {
+        handleError(err, form);
+        form.reset();
+      });
+  }
+
+  form.addEventListener("submit", (e: SubmitEvent) => {
+    e.preventDefault();
+    let d = new FormData(e.target as HTMLFormElement);
+    let ident = d.get("identifier") as string;
+    let req = {
+      password: d.get("password") as string,
+      email: "",
+      username: "",
+      login_challenge: null,
+    };
+    if (isEmail(ident)) {
+      req.email = ident;
+    } else {
+      req.username = ident;
+    }
+    api
+      .login(req)
+      .then((blob: RedirectTarget) => {
+        console.log(blob);
+        if (blob.redirect_to) {
+          window.location.href = blob.redirect_to;
+        } else {
+          window.location.pathname = "/";
+        }
+      })
+      .catch((err: Error) => {
+        handleError(err, form);
+        form.reset();
+      });
+  });
+</script>
 
 <style is:global>
   .login-panel {
@@ -44,11 +142,29 @@ import Win95 from "~/components/Win95.astro";
     margin: 10px;
   }
 
+  .login-panel {
+    box-shadow: 4px 5px #2c2c2c;
+  }
   html[data-theme="dark"] .login-panel {
-    box-shadow: 5px 5px var(--win95-bg-color);
+    box-shadow: none;
   }
 
-  html[data-theme="dark"] .login-panel {
-    box-shadow: 5px 5px #2c2c2c;
+  .error {
+    color: crimson;
+  }
+
+  #loading-box {
+    /* Enabled when we don't need a username/password. */
+    visibility: hidden;
+    display: flex;
+    padding: 3em;
+  }
+
+  .center {
+    display: flex;
+    justify-content: center;
+  }
+  .container {
+    display: block;
   }
 </style>

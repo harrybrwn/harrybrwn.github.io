@@ -50,4 +50,4 @@ jobs:
         username: harrybrwn
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Push Images
-      run: docker buildx bake --push
+      run: docker buildx bake --file docker-bake.hcl --push

@@ -6,6 +6,11 @@ services:
       dockerfile: Dockerfile
       context: .
       target: nginx
+      args:
+        - NODE_VERSION=18.14.2
+        - NGINX_VERSION=1.23.3
+        - GITHUB_REF_NAME=${GITHUB_REF_NAME:-main}
+        - GITHUB_SHA=${GITHUB_SHA:-}
     networks:
       - hrry.me
     ports:
