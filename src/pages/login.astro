@@ -90,6 +90,7 @@ import Loading from "~/components/Loading.astro";
         handleError(err, form);
         form.reset();
       });
+      return;
   }
 
   form.addEventListener("submit", (e: SubmitEvent) => {
