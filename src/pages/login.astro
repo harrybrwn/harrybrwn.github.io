@@ -90,39 +90,38 @@ import Loading from "~/components/Loading.astro";
         handleError(err, form);
         form.reset();
       });
-      return;
+  } else {
+    form.addEventListener("submit", (e: SubmitEvent) => {
+      e.preventDefault();
+      let d = new FormData(e.target as HTMLFormElement);
+      let ident = d.get("identifier") as string;
+      let req = {
+        password: d.get("password") as string,
+        email: "",
+        username: "",
+        login_challenge: null,
+      };
+      if (isEmail(ident)) {
+        req.email = ident;
+      } else {
+        req.username = ident;
+      }
+      api
+        .login(req)
+        .then((blob: RedirectTarget) => {
+          console.log(blob);
+          if (blob.redirect_to) {
+            window.location.href = blob.redirect_to;
+          } else {
+            window.location.pathname = "/";
+          }
+        })
+        .catch((err: Error) => {
+          handleError(err, form);
+          form.reset();
+        });
+    });
   }
-
-  form.addEventListener("submit", (e: SubmitEvent) => {
-    e.preventDefault();
-    let d = new FormData(e.target as HTMLFormElement);
-    let ident = d.get("identifier") as string;
-    let req = {
-      password: d.get("password") as string,
-      email: "",
-      username: "",
-      login_challenge: null,
-    };
-    if (isEmail(ident)) {
-      req.email = ident;
-    } else {
-      req.username = ident;
-    }
-    api
-      .login(req)
-      .then((blob: RedirectTarget) => {
-        console.log(blob);
-        if (blob.redirect_to) {
-          window.location.href = blob.redirect_to;
-        } else {
-          window.location.pathname = "/";
-        }
-      })
-      .catch((err: Error) => {
-        handleError(err, form);
-        form.reset();
-      });
-  });
 </script>
 
 <style is:global>
