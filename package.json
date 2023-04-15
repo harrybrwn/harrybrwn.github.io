@@ -20,7 +20,8 @@
     "dev:server": "node scripts/generate.js && ASTRO_OUTPUT=server astro dev",
     "build:server": "scripts/build-server.sh",
     "preview:server": "ASTRO_OUTPUT=server astro preview",
-    "container": "docker container run --rm -it -p 3000:3000 -e PORT=3000 --name astro-server harrybrwn/harrybrwn.github.io-server:latest"
+    "container": "docker container run --rm -it -p 3000:3000 -e PORT=3000 --name astro-server harrybrwn/harrybrwn.github.io-server:latest",
+    "image": "docker buildx bake -f docker-bake.hcl"
   },
   "workspaces": [
     "./packages/astro/*",

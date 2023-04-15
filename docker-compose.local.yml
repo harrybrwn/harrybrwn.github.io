@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  dev:
+    networks:
+      - hrry.me
+
+  nginx:
+    networks:
+      - hrry.me
+
+  dev-tls-proxy:
+    image: nginx:1.23.3
+    networks:
+      - hrry.me
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/dev-proxy.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./config/certs:/etc/nginx/certs:ro
+
+networks:
+  hrry.me:
+    external: true

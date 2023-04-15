@@ -51,7 +51,7 @@ COPY --from=static-builder /opt/harrybrwn.github.io/dist /
 #
 FROM nginx:${NGINX_VERSION}-alpine as nginx
 COPY --from=static-builder /opt/harrybrwn.github.io/dist /var/www/harrybrwn.github.io
-COPY config/ /etc/nginx/
+COPY config/nginx/ /etc/nginx/
 # Just for lols
 RUN sed -i 's/Server: nginx/Server: butts/g' /usr/sbin/nginx
 ENV NGINX_ENVSUBST_TEMPLATE_SUFFIX=".conf"

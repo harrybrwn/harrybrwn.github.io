@@ -17,7 +17,7 @@ export const listener = (themer: () => void, help: Modal | null): Listener => {
         // TODO make this into a modal instead of a redirect.
         if (!ev.ctrlKey && !ev.shiftKey) {
           ev.preventDefault();
-          window.location.href = "/login";
+          window.location.href = "/login/";
         }
         break;
       case "?":

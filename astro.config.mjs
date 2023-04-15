@@ -34,7 +34,7 @@ export default defineConfig({
     syntaxHighlight: "prism",
   },
   server: {
-    port: 80,
+    port: 3000,
   },
   vite: {
     plugins: [ViteYaml()],

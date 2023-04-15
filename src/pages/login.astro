@@ -37,7 +37,7 @@ import Loading from "~/components/Loading.astro";
 <script>
   import { isEmail } from "~/lib/email";
   import { Client } from "~/lib/api";
-  import { consent, getOIDCToken, type RedirectTarget } from "~/lib/api/oidc";
+  import { consent, type RedirectTarget } from "~/lib/api/oidc";
 
   const handleError = (err: Error, parent?: HTMLElement) => {
     console.error(err);
@@ -50,6 +50,8 @@ import Loading from "~/components/Loading.astro";
       parent.appendChild(error);
     }
   };
+  const sleep = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
   const getCookie = (name: string) => {
     const value = `; ${document.cookie}`;
@@ -81,7 +83,21 @@ import Loading from "~/components/Loading.astro";
     credsBox.style.visibility = "hidden";
   }
 
-  if (consent_challenge) {
+  if (authToken !== null && login_challenge) {
+    api
+      .login({ login_challenge })
+      .then(async (res: RedirectTarget) => {
+        if (!res.redirect_to) {
+          throw new Error("no redirect target");
+        }
+        await sleep(1000);
+        window.location.href = res.redirect_to;
+      })
+      .catch((err: Error) => {
+        handleError(err, form);
+        form.reset();
+      });
+  } else if (consent_challenge) {
     consent(consent_challenge)
       .then((res: RedirectTarget) => {
         window.location.href = res.redirect_to;
@@ -90,38 +106,37 @@ import Loading from "~/components/Loading.astro";
         handleError(err, form);
         form.reset();
       });
-  } else {
-    form.addEventListener("submit", (e: SubmitEvent) => {
-      e.preventDefault();
-      let d = new FormData(e.target as HTMLFormElement);
-      let ident = d.get("identifier") as string;
-      let req = {
-        password: d.get("password") as string,
-        email: "",
-        username: "",
-        login_challenge: null,
-      };
-      if (isEmail(ident)) {
-        req.email = ident;
-      } else {
-        req.username = ident;
-      }
-      api
-        .login(req)
-        .then((blob: RedirectTarget) => {
-          console.log(blob);
-          if (blob.redirect_to) {
-            window.location.href = blob.redirect_to;
-          } else {
-            window.location.pathname = "/";
-          }
-        })
-        .catch((err: Error) => {
-          handleError(err, form);
-          form.reset();
-        });
-    });
   }
+
+  form.addEventListener("submit", (e: SubmitEvent) => {
+    e.preventDefault();
+    let d = new FormData(e.target as HTMLFormElement);
+    let ident = d.get("identifier") as string;
+    let req = {
+      password: d.get("password") as string,
+      email: "",
+      username: "",
+      login_challenge: null,
+    };
+    if (isEmail(ident)) {
+      req.email = ident;
+    } else {
+      req.username = ident;
+    }
+    api
+      .login(req)
+      .then((blob: RedirectTarget) => {
+        if (blob.redirect_to) {
+          window.location.href = blob.redirect_to;
+        } else {
+          window.location.pathname = "/";
+        }
+      })
+      .catch((err: Error) => {
+        handleError(err, form);
+        form.reset();
+      });
+  });
 </script>
 
 <style is:global>

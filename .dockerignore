@@ -18,3 +18,7 @@ docker-compose*.yml
 
 # macOS-specific files
 .DS_Store
+
+# Certificates
+*.crt
+*.key
