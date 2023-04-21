@@ -11,7 +11,8 @@
   "author": "Harry Brown",
   "private": true,
   "scripts": {
-    "test": "true",
+    "test": "test -f index.js",
+    "test:ci": "yarn test",
     "build": "true",
     "clean": "true"
   },

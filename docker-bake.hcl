@@ -50,7 +50,6 @@ group "default" {
 	targets = [
 		"static",
 		"nginx",
-		"server",
 	]
 }
 

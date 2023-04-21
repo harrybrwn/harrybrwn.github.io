@@ -12,6 +12,7 @@
   "private": true,
   "scripts": {
     "test": "true",
+    "test:ci": "yarn test",
     "build": "tsc",
     "clean": "rm -rf ./dist"
   },

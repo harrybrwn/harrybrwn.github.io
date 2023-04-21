@@ -11,21 +11,23 @@
   "scripts": {
     "dev": "node scripts/generate.js && astro dev",
     "build": "astro build",
-    "build:all": "yarn workspaces run build",
+    "build:all": "yarn workspaces run build && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "clean": "rm -rf ./dist ./.vercel *.tar.gz *.zip && yarn workspaces run clean",
+    "test": "yarn workspaces run test:ci",
+    "clean": "rm -rf ./dist/ ./.vercel/ ./.netlify/ *.tar.gz *.zip && yarn workspaces run clean",
     "new": "node packages/astro/new/index.js",
     "gen": "node scripts/generate.js",
     "dev:server": "node scripts/generate.js && ASTRO_OUTPUT=server astro dev",
     "build:server": "scripts/build-server.sh",
     "preview:server": "ASTRO_OUTPUT=server astro preview",
     "container": "docker container run --rm -it -p 3000:3000 -e PORT=3000 --name astro-server harrybrwn/harrybrwn.github.io-server:latest",
-    "image": "docker buildx bake -f docker-bake.hcl"
+    "image": "docker buildx bake -f docker-bake.hcl",
+    "proxy": "docker compose -f docker-compose.yml -f docker-compose.local.yml up dev dev-tls-proxy"
   },
   "workspaces": [
     "./packages/astro/*",
-    "./packages/server"
+    "./packages/hrry.me/api"
   ],
   "dependencies": {
     "@astro.hrry.dev/compress": "0.0.1",
@@ -33,9 +35,10 @@
     "@astro.hrry.dev/obsidian": "0.0.1",
     "@astro.hrry.dev/robots.txt": "0.0.1",
     "@astro.hrry.dev/wikilink": "0.0.1",
-    "@hrry.dev/server": "0.0.1",
     "@astrojs/cloudflare": "^6.0.0",
+    "@hrry.me/api": "0.0.1",
     "@astrojs/mdx": "^0.15.0",
+    "@astrojs/netlify": "^2.2.2",
     "@astrojs/node": "^5.0.0",
     "@astrojs/rss": "^2.1.0",
     "@astrojs/sitemap": "^1.0.0",

@@ -3,13 +3,9 @@ import { storeToken, type Token } from "./token";
 
 export class Client {
   url: URL;
-  oidcUrl: URL;
-  oidcClientId?: string;
 
-  constructor(url: URL, oidcUrl?: URL | undefined, oidcClientId?: string) {
+  constructor(url: URL) {
     this.url = url;
-    this.oidcUrl = oidcUrl || new URL(import.meta.env.PUBLIC_OIDC_URL);
-    this.oidcClientId = oidcClientId;
   }
 
   async login(req: LoginRequest) {
@@ -42,6 +38,45 @@ export class Client {
         return tok;
       });
   }
+}
+
+export interface Config {
+  url: URL;
+}
+
+export async function login(config: Config, req: LoginRequest) {
+  return fetch(new URL("/api/login", config.url), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(req),
+    credentials: "include",
+  }).then(handleResponse);
+}
+
+export async function token(
+  config: Config,
+  req: LoginRequest,
+  cookie?: boolean | undefined
+) {
+  let u = new URL("/api/token", config.url);
+  if (cookie) u.searchParams.set("cookie", "true");
+  return fetch(u, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(req),
+    credentials: "include",
+  })
+    .then(handleResponse)
+    .then((blob: any) => {
+      let tok: Token = {
+        token: blob.token,
+        expires: blob.expires,
+        refresh: blob.refresh_token,
+        type: blob.token_type,
+      };
+      storeToken(tok);
+      return tok;
+    });
 }
 
 const handleResponse = async (res: Response) => {

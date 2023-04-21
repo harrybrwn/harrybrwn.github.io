@@ -11,7 +11,8 @@
   "author": "Harry Brown",
   "private": true,
   "scripts": {
-    "test": "true",
+    "test": "test -f index.ts",
+    "test:ci": "yarn test",
     "build": "tsc",
     "clean": "rm -rf ./dist"
   },

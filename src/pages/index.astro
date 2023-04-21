@@ -14,20 +14,23 @@ import My88x31Icons from "../components/My88x31Icons.astro";
 import WelcomeBanner from "../components/WelcomeBanner.astro";
 import ToggleSwitch from "../components/ToggleSwitch.astro";
 import Help from "../components/Help.astro";
-import StarBackground from "../components/StarBackground.astro";
+import StarBackground from "../components/backgrounds/StarBackground.astro";
 import SpinningEarth from "../components/img/SpinningEarth.astro";
 import UnderConstruction from "../components/img/UnderConstruction.astro";
 
 import { SITE_DESCRIPTION, links, twitterUser, mastodon, git } from "../config";
-import { getIcons } from "~/lib/icons";
+import { getIcons } from "~/lib/icons.js";
 import LoadTheme from "~/components/LoadTheme.astro";
-import { humanDate } from "~/lib/dates";
-import { gitHead } from "~/lib/git";
+import { humanDate } from "~/lib/dates.js";
+import { gitHead } from "~/lib/git.js";
 
 const icons = await getIcons();
 const built = new Date();
 const themeToggle = "tt"; // theme toggle
-const buildHash = import.meta.env.GITHUB_SHA || gitHead();
+const buildHash =
+  import.meta.env.GITHUB_SHA || // github actions
+  import.meta.env.COMMIT_REF || // netlify builds
+  gitHead(); // runs the git command (potentially dangerous for server mode)
 ---
 
 <!DOCTYPE html>
@@ -49,7 +52,7 @@ const buildHash = import.meta.env.GITHUB_SHA || gitHead();
       og={{
         type: "website",
         locale: "en_US",
-        siteName: "Harry Brown"
+        siteName: "Harry Brown",
       }}
     />
     <!-- <link rel="preload" href={StarsImg} as="image" type="image/webp" /> -->
@@ -208,7 +211,8 @@ const buildHash = import.meta.env.GITHUB_SHA || gitHead();
         text-decoration: none;
       }
 
-      .links, .pages {
+      .links,
+      .pages {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
       }

@@ -1,0 +1,33 @@
+---
+import StarField from "~/components/backgrounds/StarField.astro";
+console.log("stars page load");
+let counter = 0;
+if (Astro.cookies.has("counter")) {
+  const cookie = Astro.cookies.get("counter");
+  counter = cookie.number() + 1;
+}
+Astro.cookies.set("counter", counter);
+---
+
+<html>
+  <head></head>
+  <body>
+    <StarField position="fixed" />
+    <main>
+      <h1>Stars {counter}</h1>
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  body {
+    margin: 0px;
+    color: white;
+  }
+  main {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 750px;
+    text-align: center;
+  }
+</style>

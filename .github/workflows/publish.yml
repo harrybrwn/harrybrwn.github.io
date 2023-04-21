@@ -23,20 +23,39 @@ jobs:
       with:
         node-version: '${{ steps.nvm.outputs.NVMRC }}'
 
-  publish:
-    needs: [build]
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  test:
+    runs-on: ubuntu-22.04
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Read .nvmrc
+        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
+        id: nvm
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ steps.nvm.outputs.NVMRC }}
+      - name: Install Dependencies
+        run: yarn
+      - name: Lint
+        run: yarn run astro check
+      - name: Test
+        run: yarn test
+
+  # publish:
+  #   needs: [build]
+  #   runs-on: ubuntu-latest
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
+  #   steps:
+  #     - name: Deploy to GitHub Pages
+  #       id: deployment
+  #       uses: actions/deploy-pages@v1
 
   docker:
     runs-on: ubuntu-22.04
-    needs: [build]
+    needs: [build, test]
     steps:
     - name: Checkout
       uses: actions/checkout@v3

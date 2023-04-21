@@ -1,10 +1,19 @@
 {
-  "extends": "astro/tsconfigs/strict",
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "astro/tsconfigs/base",
   "compilerOptions": {
     "baseUrl": ".",
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
     "paths": {
       "~/*": ["./src/*"],
-      "@/content/*": ["./content/*"],
+      "@/content/*": ["./content/*"]
     },
     "typeRoots": ["./node_modules/@types", "./src/@types"],
     "types":  [
@@ -13,5 +22,9 @@
     "strictNullChecks": true,
     "jsx": "preserve",
     "jsxImportSource": "solid-js"
-  }
+  },
+  "exclude": [
+    "packages/**/*"
+  ],
+  "ignoreDeprecations": "5.0"
 }

@@ -1,30 +1,27 @@
 {
-  "name": "@astro.hrry.dev/compress",
+  "name": "@hrry.me/api",
   "version": "0.0.1",
-  "main": "./src/index.ts",
   "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/harrybrwn/harrybrwn.github.io.git",
-    "directory": "packages/astro/compress"
+    "directory": "packages/hrry.me/api"
   },
+  "main": "src",
   "author": "Harry Brown",
   "private": true,
   "files": [
-    "dist/**/*"
+    "dist",
+    "src"
   ],
   "scripts": {
     "test": "vitest",
-    "test:ci": "vitest run",
     "build": "tsc",
-    "clean": "rm -rf ./dist"
-  },
-  "dependencies": {
-    "astro-compress": "^1.1.24"
+    "clean": "rm -rf ./dist",
+    "test:ci": "vitest run"
   },
   "devDependencies": {
-    "css-tree": "^2.3.1",
-    "typescript": "^4.9.4",
+    "typescript": "^5.0.4",
     "vitest": "^0.30.1"
   }
 }

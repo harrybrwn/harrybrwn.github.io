@@ -1,0 +1,10 @@
+# 1 day  => 86400
+# 5 days => 432000
+# 7 days => 604800
+
+/a/*.gif
+	# Multi-value headers will be collapsed into one comma-separated value
+	# https://docs.netlify.com/routing/headers/#multi-value-headers
+	Cache-Control: public
+	Cache-Control: max-age=60
+	Cache-Control: must-revalidate

@@ -1,0 +1,136 @@
+---
+export interface Props {
+  id?: string;
+  class?: string;
+  position?: "fixed" | "relative";
+}
+const { id, class: className } = Astro.props;
+
+let { position = "fixed" } = Astro.props;
+let sectionPosition = "relative";
+let divPosition = "absolute";
+
+if (position === "fixed") {
+  sectionPosition = "fixed";
+  divPosition = "fixed";
+}
+---
+
+<section id={id} class:list={[className]}>
+  <div id="starfield">
+    <canvas id="starfield-canvas"></canvas>
+  </div>
+</section>
+
+<style define:vars={{ sPos: sectionPosition, dPos: divPosition }}>
+  section {
+	  position: var(--sPos);
+    /* background-color: #000; */
+    height: 100vh;
+    z-index: -50;
+  }
+  div {
+	  position: var(--dPos);
+    inset: 0;
+    z-index: -50;
+  }
+</style>
+
+<script>
+  const N_STARS = 800;
+  const SPEED = 0.2;
+
+  class Star {
+    x: number;
+    y: number;
+    z: number;
+    xPrev: number;
+    yPrev: number;
+
+    constructor(x: number, y: number, z: number) {
+      this.x = x;
+      this.y = y;
+      this.z = z;
+      this.xPrev = x;
+      this.yPrev = y;
+    }
+
+    update(x: number, y: number, z: number) {
+      this.xPrev = this.x;
+      this.yPrev = this.y;
+      this.z += z * 0.0675;
+      this.x += this.x * (z * 0.0225) * this.z;
+      this.y += this.y * (z * 0.0225) * this.z;
+      // this.x += this.x * (z * 0.1225) * this.z;
+      // this.y += this.y * (z * 0.1225) * this.z;
+      if (
+        this.x > x / 2 ||
+        this.x < -x / 2 ||
+        this.y > y / 2 ||
+        this.y < -y / 2
+      ) {
+        this.x = Math.random() * x - x / 2;
+        this.y = Math.random() * y - y / 2;
+        this.xPrev = this.x;
+        this.yPrev = this.y;
+        this.z = 0;
+      }
+    }
+
+    draw(t: CanvasRenderingContext2D) {
+      t.lineWidth = this.z;
+      t.beginPath();
+      t.moveTo(this.x, this.y);
+      t.lineTo(this.xPrev, this.yPrev);
+      t.stroke();
+    }
+  }
+
+  const stars = Array.from({ length: N_STARS }, () => new Star(0, 0, 0));
+  let n = 0;
+  const canvas = document.querySelector(
+    "#starfield-canvas"
+  ) as HTMLCanvasElement;
+  if (canvas === null) throw new Error("ahhhhhhh");
+  const context = canvas.getContext("2d") as CanvasRenderingContext2D;
+  const h = document.querySelector("#starfield") as HTMLDivElement;
+  if (h === null) throw new Error("aaaaaaaahhhhhhhhh");
+  const v = new ResizeObserver(doResize);
+
+  v.observe(h);
+
+  function doResize() {
+    if (n > 0) {
+      cancelAnimationFrame(n);
+    }
+    const { clientWidth: width, clientHeight: height } = h;
+    const ratio = window.devicePixelRatio || 1;
+
+    canvas.width = width * ratio;
+    canvas.height = height * ratio;
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+    context.scale(ratio, ratio);
+
+    for (const s of stars) {
+      s.x = Math.random() * width - width / 2;
+      s.y = Math.random() * height - height / 2;
+      s.z = 0;
+    }
+    context.translate(width / 2, height / 2);
+    context.fillStyle = "rgba(0, 0, 0, 0.3)";
+    context.strokeStyle = "white";
+
+    n = requestAnimationFrame(frame);
+  }
+
+  function frame() {
+    const { clientWidth: i, clientHeight: t } = h;
+    for (const e of stars) {
+      e.update(i, t, SPEED);
+      e.draw(context);
+    }
+    context.fillRect(-i / 2, -t / 2, i, t);
+    n = requestAnimationFrame(frame);
+  }
+</script>

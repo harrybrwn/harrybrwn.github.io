@@ -3,6 +3,7 @@ import path from "path";
 import fs from "fs";
 
 import node from "@astrojs/node";
+import netlify from "@astrojs/netlify/functions";
 
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
@@ -18,17 +19,24 @@ const site = `https://${domain}`;
 const outDir = "./dist";
 const siteMapFilter = new Set(["admin"]);
 
-const output = process.env.ASTRO_OUTPUT || "static";
+const isNetlify = process.env.NETLIFY === "true" ? true : false;
+let output = process.env.ASTRO_OUTPUT || "static";
+if (isNetlify) {
+  output = "server";
+}
 
 // https://astro.build/config
 export default defineConfig({
   site: site,
   outDir: outDir,
   output: output,
-  adapter: output === "server" ? node({ mode: "middleware" }) : undefined,
+  adapter: isNetlify
+    ? netlify()
+    : output === "server"
+    ? node({ mode: "middleware" })
+    : undefined,
   build: {
     assets: "a",
-    serverEntry: "index.js",
   },
   markdown: {
     syntaxHighlight: "prism",
@@ -43,6 +51,7 @@ export default defineConfig({
       assetsInlineLimit: 512,
       rollupOptions: {
         output: {
+          chunkFileNames: isNetlify ? "[hash].js" : undefined,
           entryFileNames: "[hash].js",
           assetFileNames: "a/[hash][extname]",
         },

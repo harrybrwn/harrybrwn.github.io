@@ -2,7 +2,7 @@
 
 import express from "express";
 import morgan from "morgan";
-import { handler as ssrHandler } from "../../../dist/server/index.js";
+import { handler as ssrHandler } from "../../../../dist/server/index.js";
 
 const format =
   `{` +
@@ -20,6 +20,7 @@ app.disable("x-powered-by");
 
 app.use(morgan(format));
 app.use(express.static("dist/client/"));
+// Requires adapter: node({ mode: "middleware" })
 app.use(ssrHandler);
 
 const port = parseInt(process.env.PORT || "3000");

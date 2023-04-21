@@ -4,6 +4,7 @@ dist/
 *.zip
 .astro
 .vercel
+.netlify
 
 # dependencies
 node_modules/
