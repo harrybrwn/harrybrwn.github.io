@@ -54,9 +54,9 @@ const walkSelectorList = (
 /**
  *
  * @param {import("css-tree").StyleSheet} ast
- * @param {import("csso").CompressOptions} options
+ * @param {import("csso").CompressOptions} _options
  */
-const beforeCompress = (ast: StyleSheet, options: CompressOptions) => {
+const beforeCompress = (ast: StyleSheet, _options: CompressOptions) => {
   for (let n of ast.children) {
     if (n.type !== "Rule" || !n.prelude || n.prelude.type !== "SelectorList") {
       continue;

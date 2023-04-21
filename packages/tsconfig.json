@@ -4,14 +4,16 @@
     "target": "es2020",
     "module": "commonjs",
     "moduleResolution": "node",
-    // Strict type checking
-    "strict": true,
-    "outDir": "./dist",
     "declaration": true,
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
-    // Don't type check my dependencies
-    "skipLibCheck": true
+
+    /* Linting */
+    "strict": true,
+    "skipLibCheck": true, // Don't type check dependencies
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
   }
 }

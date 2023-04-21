@@ -42,7 +42,7 @@ const plugin = (opts: Options): AstroIntegration => {
   const vitePlugin = {
     name: "astro-markdown-assets",
     enforce: "pre",
-    transform(code: string, id: string) {
+    transform(_code: string, id: string) {
       // TODO: resolve image imports and document embeds that are imported into markdown
       // TODO:
       //  - ![[Document Name]]
