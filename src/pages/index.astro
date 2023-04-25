@@ -31,6 +31,8 @@ const buildHash =
   import.meta.env.GITHUB_SHA || // github actions
   import.meta.env.COMMIT_REF || // netlify builds
   gitHead(); // runs the git command (potentially dangerous for server mode)
+console.log("GITHUB_SHA:", import.meta.env.GITHUB_SHA);
+console.log("COMMIT_REF:", import.meta.env.COMMIT_REF);
 ---
 
 <!DOCTYPE html>

@@ -23,6 +23,7 @@ const isNetlify = process.env.NETLIFY === "true" ? true : false;
 let output = process.env.ASTRO_OUTPUT || "static";
 if (isNetlify) {
   output = "server";
+  console.log("building for netlify");
 }
 
 // https://astro.build/config
@@ -51,7 +52,7 @@ export default defineConfig({
       assetsInlineLimit: 512,
       rollupOptions: {
         output: {
-          chunkFileNames: isNetlify ? "[hash].js" : undefined,
+          chunkFileNames: !isNetlify ? "[hash].js" : undefined,
           entryFileNames: "[hash].js",
           assetFileNames: "a/[hash][extname]",
         },
