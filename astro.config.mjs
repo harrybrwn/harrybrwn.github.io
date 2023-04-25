@@ -4,6 +4,7 @@ import fs from "fs";
 
 import node from "@astrojs/node";
 import netlify from "@astrojs/netlify/functions";
+import cloudflare from "@astrojs/cloudflare";
 
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
@@ -20,10 +21,14 @@ const outDir = "./dist";
 const siteMapFilter = new Set(["admin"]);
 
 const isNetlify = process.env.NETLIFY === "true" ? true : false;
+const isCF = process.env.CF === "true" ? true : false;
 let output = process.env.ASTRO_OUTPUT || "static";
 if (isNetlify) {
   output = "server";
   console.log("building for netlify");
+} else if (isCF) {
+  output = "server";
+  console.log("building for cloudflare");
 }
 
 // https://astro.build/config
@@ -33,11 +38,13 @@ export default defineConfig({
   output: output,
   adapter: isNetlify
     ? netlify()
+    : isCF
+    ? cloudflare({ mode: "advanced" })
     : output === "server"
     ? node({ mode: "middleware" })
     : undefined,
   build: {
-    // assets: "a",
+    assets: "a",
   },
   markdown: {
     syntaxHighlight: "prism",
@@ -52,9 +59,7 @@ export default defineConfig({
       assetsInlineLimit: 512,
       rollupOptions: {
         output: {
-          chunkFileNames: !isNetlify ? "[hash].js" : undefined,
-          // entryFileNames: "[hash].js",
-          // assetFileNames: "a/[hash][extname]",
+          assetFileNames: "a/[hash][extname]",
         },
       },
       // https://github.com/Ernxst/astro-cssbundle

@@ -12,10 +12,6 @@ let localStorageMock = {
 };
 vi.stubGlobal("localStorage", localStorageMock);
 
-test("failed test", () => {
-  expect(false).to.be.true;
-});
-
 describe("client", () => {
   let api: Client;
   const base = new URL("http://localhost:8080/");

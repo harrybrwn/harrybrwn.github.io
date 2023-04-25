@@ -5,3 +5,5 @@ export const gitHead = () => {
   if (!cmd.stdout) return "development";
   return cmd.stdout.toString().trim();
 };
+
+export const HEAD_SHA = gitHead();

@@ -22,7 +22,7 @@ import { SITE_DESCRIPTION, links, twitterUser, mastodon, git } from "../config";
 import { getIcons } from "~/lib/icons.js";
 import LoadTheme from "~/components/LoadTheme.astro";
 import { humanDate } from "~/lib/dates.js";
-import { gitHead } from "~/lib/git.js";
+import { HEAD_SHA } from "~/lib/git.js";
 
 const icons = await getIcons();
 const built = new Date();
@@ -30,9 +30,10 @@ const themeToggle = "tt"; // theme toggle
 const buildHash =
   import.meta.env.GITHUB_SHA || // github actions
   import.meta.env.COMMIT_REF || // netlify builds
-  gitHead(); // runs the git command (potentially dangerous for server mode)
+  HEAD_SHA; // runs the git command (potentially dangerous for server mode)
 console.log("GITHUB_SHA:", import.meta.env.GITHUB_SHA);
 console.log("COMMIT_REF:", import.meta.env.COMMIT_REF);
+console.log("HEAD_SHA:", HEAD_SHA);
 ---
 
 <!DOCTYPE html>
