@@ -37,7 +37,7 @@ export default defineConfig({
     ? node({ mode: "middleware" })
     : undefined,
   build: {
-    assets: "a",
+    // assets: "a",
   },
   markdown: {
     syntaxHighlight: "prism",
@@ -53,8 +53,8 @@ export default defineConfig({
       rollupOptions: {
         output: {
           chunkFileNames: !isNetlify ? "[hash].js" : undefined,
-          entryFileNames: "[hash].js",
-          assetFileNames: "a/[hash][extname]",
+          // entryFileNames: "[hash].js",
+          // assetFileNames: "a/[hash][extname]",
         },
       },
       // https://github.com/Ernxst/astro-cssbundle
