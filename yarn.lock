@@ -10,12 +10,12 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@astrojs/cloudflare@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@astrojs/cloudflare/-/cloudflare-6.0.0.tgz#74149aec19b0f71676141b0e537ae4a34e97da2e"
-  integrity sha512-kS5ydO8gAmEDs0xIilirvceOuSglBnLe+9JABFil2ErcHElva8heQRSnV8i2q0eKLomkAsz2srSoZLkZF/JRlw==
+"@astrojs/cloudflare@6.2.2":
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/@astrojs/cloudflare/-/cloudflare-6.2.2.tgz#0e113f4902aad16256a5d44826a177dba851f930"
+  integrity sha512-Z/twtIM68TwazHGLax05WcADsR6oDVFiq21TMTfEsWOmhoVzTTPwxiU8kw8gukGrwug8JwLiiAeK7qFDZNmFcw==
   dependencies:
-    esbuild "^0.15.18"
+    esbuild "^0.17.12"
     tiny-glob "^0.2.9"
 
 "@astrojs/compiler@^0.31.3":
@@ -2081,7 +2081,7 @@ esbuild@^0.16.14, esbuild@^0.16.3:
     "@esbuild/win32-ia32" "0.16.17"
     "@esbuild/win32-x64" "0.16.17"
 
-esbuild@^0.17.5:
+esbuild@^0.17.12, esbuild@^0.17.5:
   version "0.17.18"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.17.18.tgz#f4f8eb6d77384d68cd71c53eb6601c7efe05e746"
   integrity sha512-z1lix43jBs6UKjcZVKOw2xx69ffE2aG0PygLL5qJ9OS/gy0Ewd1gW/PUQIOIQGXBHWNywSc0floSKoMFF8aK2w==

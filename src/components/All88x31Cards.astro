@@ -1,0 +1,108 @@
+---
+import Icon88x31 from "./Icon88x31.astro";
+
+// I would usually be using getIcons in 'src/lib/icons.ts' to dynamically import
+// all the icons but the cloudflare integration does not allow import.meta.glob
+// to be used. This is all the imports done by hand.
+const icons = {
+  "theoldnet.gif": {
+    alt: "The Old Net",
+    title: "Are you tired of this new Internet yet? Time to Get TheOldNet!",
+    href: "http://www.theoldnet.com/#frombadge",
+    src: (await Astro.glob("../img/88x31/theoldnet.gif"))[0].default,
+  },
+  "geo-cities.gif": {
+    alt: "Geo Cities",
+    title: "Homepage of the retro internet",
+    href: "https://geocities.restorativland.org/",
+    src: (await Astro.glob("../img/88x31/geo-cities.gif"))[0].default,
+  },
+  "siliconvalley-geocities.gif": {
+    alt: "GeoCities Silicon Valley",
+    title: "GeoCities Silicon Valley",
+    href: "https://geocities.restorativland.org/SiliconValley",
+    src: (await Astro.glob("../img/88x31/siliconvalley-geocities.gif"))[0]
+      .default,
+  },
+  "vscode.gif": {
+    alt: "Visual Studio Code",
+    title: "VS Code",
+    href: "https://code.visualstudio.com/",
+    src: (await Astro.glob("../img/88x31/vscode.gif"))[0].default,
+  },
+  "linux.gif": {
+    alt: "The Linux kernel",
+    title: "The Linux kernel",
+    href: "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git",
+    src: (await Astro.glob("../img/88x31/linux.gif"))[0].default,
+  },
+  "vim.gif": {
+    alt: "Vim",
+    title: "Vim",
+    href: "https://www.vim.org/",
+    src: (await Astro.glob("../img/88x31/vim.gif"))[0].default,
+  },
+  "amd_powered.gif": {
+    alt: "Powered by AMD",
+    title: "AMD Athlon 64 X2",
+    href: "/static/files/amd-athlon-64-x2-datasheet.pdf",
+    src: (await Astro.glob("../img/88x31/amd_powered.gif"))[0].default,
+  },
+  "madville.gif": {
+    alt: "A beautifully retro site",
+    title: "A beautifully retro site",
+    href: "https://madville.neocities.org",
+    src: (await Astro.glob("../img/88x31/madville.gif"))[0].default,
+  },
+  "netnow2.gif": {
+    alt: "Netscape Navigator",
+    title: "Netscape Navigator",
+    href: "https://en.wikipedia.org/wiki/Netscape",
+    src: (await Astro.glob("../img/88x31/netnow2.gif"))[0].default,
+  },
+  "88x31.gif": {
+    alt: "Eighty eight by thirty one",
+    title: "So many buttons!",
+    href: "https://cyber.dabamos.de/88x31/index.html",
+    src: (await Astro.glob("../img/88x31/88x31.gif"))[0].default,
+  },
+  "rtanya.gif": {
+    alt: "rtanya",
+    title: "",
+    href: "https://rtanya.com",
+    src: (await Astro.glob("../img/88x31/rtanya.gif"))[0].default,
+  },
+  "sdfbanner.png": {
+    alt: "SDF Public Access UNIX System",
+    title: "SDF",
+    href: "https://sdf.org/",
+    src: (await Astro.glob("../img/88x31/sdfbanner.png"))[0].default,
+  },
+  "not-seeing-is-a-flower.png": {
+    alt: "見ぬが花 (Not Seeing is a Flower)",
+    title: "見ぬが花 (Not Seeing is a Flower)",
+    href: "https://minugahana.neocities.org/",
+    src: (await Astro.glob("../img/88x31/not-seeing-is-a-flower.png"))[0]
+      .default,
+  },
+  "neovim.png": {
+    alt: "neovim",
+    title: "neovim",
+    href: "https://neovim.io/",
+    src: (await Astro.glob("../img/88x31/neovim.png"))[0].default,
+  },
+};
+---
+
+<section class="cards">
+  {
+    Object.values(icons).map((icon) => (
+      <Icon88x31
+        href={icon.href}
+        title={icon.title}
+        src={icon.src || ""}
+        alt={icon.alt}
+      />
+    ))
+  }
+</section>

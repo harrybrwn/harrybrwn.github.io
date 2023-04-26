@@ -20,15 +20,11 @@ const site = `https://${domain}`;
 const outDir = "./dist";
 const siteMapFilter = new Set(["admin"]);
 
-const isNetlify = process.env.NETLIFY === "true" ? true : false;
-const isCF = process.env.CF === "true" ? true : false;
+const isNetlify = process.env.NETLIFY === "false" ? false : true;
 let output = process.env.ASTRO_OUTPUT || "static";
 if (isNetlify) {
   output = "server";
   console.log("building for netlify");
-} else if (isCF) {
-  output = "server";
-  console.log("building for cloudflare");
 }
 
 // https://astro.build/config
@@ -38,8 +34,6 @@ export default defineConfig({
   output: output,
   adapter: isNetlify
     ? netlify()
-    : isCF
-    ? cloudflare({ mode: "advanced" })
     : output === "server"
     ? node({ mode: "middleware" })
     : undefined,

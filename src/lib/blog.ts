@@ -1,5 +1,6 @@
 import path from "path";
-import fs from "fs";
+import { extname } from "./path";
+// import fs from "fs";
 import type { MarkdownInstance } from "astro";
 import GithubSlugger, { slug as toSlugBase } from "github-slugger";
 import modified from "~/modified.json";
@@ -48,15 +49,18 @@ const getPubDate = (p: markdown) => {
 
   // Find the markdown file in our prebuilt modified times json file. If its not
   // there then use the os file stat.
-  let name = path.relative(process.cwd(), p.file);
+  // let name = path.relative(process.cwd(), p.file);
+  let name = p.file.replace(process.cwd() + "/", "");
   if (name in modified) {
     const dates = (modified as { [key: string]: string[] })[name];
     if (dates.length === 0) {
-      return fs.statSync(p.file).mtime;
+      // return fs.statSync(p.file).mtime;
+      return new Date();
     }
     return new Date(dates[dates.length - 1]);
   } else {
-    return fs.statSync(p.file).mtime;
+    // return fs.statSync(p.file).mtime;
+    return new Date();
   }
 };
 
@@ -136,8 +140,9 @@ export const slug = (
   keepCase?: boolean,
   slugger?: GithubSlugger
 ) => {
-  const ext = path.extname(post.file);
+  const ext = extname(post.file);
   const name = path.basename(post.file).replace(ext, "");
+  console.log(path.basename(post.file));
   let title;
   if (post.frontmatter.blog) {
     title = post.frontmatter.slug || post.frontmatter.title || name;

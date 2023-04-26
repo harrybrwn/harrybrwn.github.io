@@ -9,7 +9,6 @@ import GoofyImg from "~/img/goofy.jpg";
 import Meta from "~/components/Meta.astro";
 import HomeLinks from "~/components/home/HomeLinks.astro";
 import HotlineWebRing from "../components/HotlineWebRing.astro";
-import Icon88x31 from "../components/Icon88x31.astro";
 import My88x31Icons from "../components/My88x31Icons.astro";
 import WelcomeBanner from "../components/WelcomeBanner.astro";
 import ToggleSwitch from "../components/ToggleSwitch.astro";
@@ -19,21 +18,19 @@ import SpinningEarth from "../components/img/SpinningEarth.astro";
 import UnderConstruction from "../components/img/UnderConstruction.astro";
 
 import { SITE_DESCRIPTION, links, twitterUser, mastodon, git } from "../config";
-import { getIcons } from "~/lib/icons.js";
 import LoadTheme from "~/components/LoadTheme.astro";
 import { humanDate } from "~/lib/dates.js";
 import { HEAD_SHA } from "~/lib/git.js";
 
-const icons = await getIcons();
+import All88x31Cards from "~/components/All88x31Cards.astro";
+
+// const icons = await getIcons();
 const built = new Date();
 const themeToggle = "tt"; // theme toggle
 const buildHash =
   import.meta.env.GITHUB_SHA || // github actions
   import.meta.env.COMMIT_REF || // netlify builds
-  HEAD_SHA; // runs the git command (potentially dangerous for server mode)
-console.log("GITHUB_SHA:", import.meta.env.GITHUB_SHA);
-console.log("COMMIT_REF:", import.meta.env.COMMIT_REF);
-console.log("HEAD_SHA:", HEAD_SHA);
+  HEAD_SHA; // result of running `git rev-parse HEAD`
 ---
 
 <!DOCTYPE html>
@@ -139,18 +136,7 @@ console.log("HEAD_SHA:", HEAD_SHA);
         <button id="help-btn">Help</button>
       </section>
 
-      <section class="cards">
-        {
-          icons.map((icon) => (
-            <Icon88x31
-              href={icon.href}
-              title={icon.title}
-              src={icon.src || ""}
-              alt={icon.alt}
-            />
-          ))
-        }
-      </section>
+      <All88x31Cards />
 
       <footer class="cards">
         <section class="stats">

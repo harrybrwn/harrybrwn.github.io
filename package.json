@@ -36,7 +36,7 @@
     "@astro.hrry.dev/obsidian": "0.0.1",
     "@astro.hrry.dev/robots.txt": "0.0.1",
     "@astro.hrry.dev/wikilink": "0.0.1",
-    "@astrojs/cloudflare": "^6.0.0",
+    "@astrojs/cloudflare": "6.2.2",
     "@astrojs/mdx": "^0.15.0",
     "@astrojs/netlify": "^2.2.2",
     "@astrojs/node": "^5.0.0",

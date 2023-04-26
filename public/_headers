@@ -1,10 +1,46 @@
+# 1 hour => 3600
 # 1 day  => 86400
 # 5 days => 432000
 # 7 days => 604800
 
-/a/*.gif
+/favicon.ico
 	# Multi-value headers will be collapsed into one comma-separated value
 	# https://docs.netlify.com/routing/headers/#multi-value-headers
 	Cache-Control: public
-	Cache-Control: max-age=60
+	Cache-Control: max-age=86400
+	Cache-Control: must-revalidate
+
+/*.pdf
+	Cache-Control: public
+	Cache-Control: max-age=3600
+	Cache-Control: must-revalidate
+
+/a/*.gif
+	Cache-Control: public
+	Cache-Control: max-age=3600
+	Cache-Control: must-revalidate
+
+/a/*.webp
+	Cache-Control: public
+	Cache-Control: max-age=3600
+	Cache-Control: must-revalidate
+
+/a/*.png
+	Cache-Control: public
+	Cache-Control: max-age=3600
+	Cache-Control: must-revalidate
+
+/a/*.png
+	Cache-Control: public
+	Cache-Control: max-age=3600
+	Cache-Control: must-revalidate
+
+/a/*.jpg
+	Cache-Control: public
+	Cache-Control: max-age=3600
+	Cache-Control: must-revalidate
+
+/a/*.jpeg
+	Cache-Control: public
+	Cache-Control: max-age=3600
 	Cache-Control: must-revalidate
