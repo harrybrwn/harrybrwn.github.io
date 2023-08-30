@@ -20,12 +20,12 @@ const site = `https://${domain}`;
 const outDir = "./dist";
 const siteMapFilter = new Set(["admin"]);
 
-//const isNetlify = process.env.NETLIFY === "false" ? false : true;
-const isNetlify = process.env.NETLIFY === "true" ? true : false;
+// check for "false" so that netlify is default
+const isNetlify = process.env.NETLIFY === "false" ? false : true;
 const isCloudflare = process.env.CLOUDFLARE_ACCOUNT_ID ? true : false;
 let output = process.env.ASTRO_OUTPUT || "static";
 if (isNetlify) {
-  output = "server";
+  output = "hybrid";
   console.log("building for netlify");
 }
 
@@ -34,20 +34,16 @@ export default defineConfig({
   site: site,
   outDir: outDir,
   output: output,
-  // adapter: isNetlify
-  //   ? netlify()
-  //   : isCloudflare
-  //     ? cloudflare()
-  //     : output === "server"
-  //       ? node({ mode: "middleware" })
-  //       : undefined,
   adapter: isNetlify
     ? netlify()
-    : output == "server"
-      ? node({ mode: "middleware" })
-      : undefined,
+    : isCloudflare
+      ? cloudflare()
+      : output === "server"
+        ? node({ mode: "middleware" })
+        : undefined,
   build: {
     assets: "a",
+    inlineStylesheets: "auto",
   },
   markdown: {
     syntaxHighlight: "prism",
@@ -55,6 +51,7 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  compressHTML: true,
   vite: {
     plugins: [ViteYaml()],
     build: {
@@ -68,6 +65,9 @@ export default defineConfig({
       // https://github.com/Ernxst/astro-cssbundle
       cssCodeSplit: true,
     },
+  },
+  redirects: {
+    "/help": { destination: "/about/index.html", status: 301 },
   },
   integrations: [
     mdx(),

@@ -17,7 +17,7 @@
     "clean": "rm -rf ./dist"
   },
   "dependencies": {
-    "astro": "workspace:*"
+    "astro": "^2.10.15"
   },
   "devDependencies": {
     "typescript": "^4.9.4"
