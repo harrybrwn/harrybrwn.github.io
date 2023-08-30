@@ -82,6 +82,7 @@ const beforeCompress = (ast: StyleSheet, _options: CompressOptions) => {
  */
 const compress = (settings: any): AstroIntegration => {
   let output: string | null = null;
+  let prerendered = [];
   return {
     name: "clean-classnames",
     hooks: {
@@ -95,12 +96,21 @@ const compress = (settings: any): AstroIntegration => {
         }
         config.integrations.push(astroCompress(settings));
       },
+      "astro:build:setup": (options) => {
+        for (const [name, page] of options.pages.entries()) {
+          if (page.route.type === 'page' && page.route.prerender === true) {
+            prerendered.push(name)
+          }
+        }
+      },
       "astro:build:done": async ({ pages, dir }) => {
         if (output !== "static") {
           // Only remove 'astro-' for static sites because we can't remove the
           // prefix on SSR routes.
           return Promise.resolve();
         }
+        // TODO check the list of prerendered pages to make sure a file should
+        // be fixed.
         const files = pages.map(({ pathname }) => {
           if (path.basename(pathname) === "404") {
             return path.join(dir.pathname, "404.html");

@@ -14,6 +14,7 @@ links:
     tags:
       - tools
       - science
+      - geography
   - url: http://oldcomputers.net/
     name: Steve's Old Computer Museum
     description: A really awesome encyclopedia of old personal computers.
@@ -38,6 +39,7 @@ links:
       different places on the mercator projection.
     tags:
       - tools
+      - geography
   - url: http://www.dirkdirk.com/
     name: Dirk
     description: A collection of very random surreal websites.
@@ -57,6 +59,7 @@ links:
       - blog
       - art
       - people
+      - games
   - url: https://www.howmanypeopleareinspacerightnow.com/
     name: How Many People in Space Right Now
     description: Displays the number of people currently in space.
@@ -404,6 +407,7 @@ links:
     description: A crazy ass site.
     tags:
       - 90s
+      - art
       - personal-site
   - url: https://www.tuhs.org/
     name: The Unix Heritage Society
@@ -432,3 +436,265 @@ links:
     name: QWOP
     description: An infuriating racing game.
     tags: [ games, silly ]
+  - url: https://www.lysator.liu.se/c/
+    name: Programming in C
+    description: An absolutly massive collection of free guides and reference material for C programming.
+    tags:
+      - programming
+      - books
+  - url: https://www.oocities.org/
+    name: OoCities
+    description: A geocities archive.
+    tags:
+      - web
+      - dataset
+  - url: https://12ft.io/
+    name: 12ft
+    description: Paywall bypass site, Show me a 10ft paywall, I’ll show you a 12ft ladder.
+    tags:
+      - tools
+      - web
+  - url: https://rpi4cluster.com/
+    name: RPI4 Cluster
+    description: A guild to setting up a raspberry pi homelab with kubernetes.
+    tags:
+      - k8s
+      - homelab
+  - url: https://homelab.khuedoan.com/
+    name: Khue's Homelab
+    description: Documentation site for a really good homelab.
+    tags:
+      - homelab
+      - k8s
+  - url: https://fossies.org/
+    name: Fossies Archive
+    description: Fresh Open Source Software mainly for Internet, Engineering and Science.
+    tags:
+      - web
+      - tools
+      - programming
+  - url: https://www.windows93.net/
+    name: WINDOWS93
+    description: A windows 93/95 simulator.
+    tags:
+      - web
+      - computers
+      - 90s
+  - url: https://www.ibiblio.org/
+    name: The Public's Library and Digital Archive
+    description: A public archive of websites, books, and software.
+    tags:
+      - library
+      - archive
+  - url: https://www.ibiblio.org/apollo/
+    name: The Virtual AGC Project Gemini - Apollo - Shuttle
+    description: |-
+      Original source code and simulators for the onboard guidance
+      computers used in the Apollo Lunar missions.
+    tags:
+      - science
+      - programming
+      - history
+  - url: http://dunfield.classiccmp.org/
+    name: Daves Old Computers
+    description: Tools, documentation, photos, resources, and more as part of the computers Dave has used starting from 1973.
+    tags:
+      - computers
+      - history
+  - url: https://zoomquilt.org/
+    name: Zoomquilt
+    description: An infinitely zooming image
+    tags:
+      - silly
+      - art
+  - url: https://domainsproject.org/
+    name: Domains Project
+    description: World’s single largest Internet domains dataset
+    tags:
+      - web
+      - dataset
+  - url: https://fusionanomaly.net/
+    name: Fusion Anomaly
+    description: |-
+      A surreal website that is either part of a religious-political-conspiracy
+      cult, or an elaborate art project. Either way, it goes very deep and has
+      lots of weird puzzles and easter eggs.
+    tags:
+      - surreal
+      - art
+      - creepy
+  - url: https://www.horg.com/horg/
+    name: The Holotypic Occlupanid Research Group
+    description: |-
+      A Database the of Synthetic Taxonomy of Holotypic Occlupanids. Its a
+      database of bread clips. Yes, bread clips. It doesn't make any sense if
+      you don't see it yourself.
+    tags:
+      - art
+      - surreal
+  - url: https://www.angelfire.com/trek/caver/
+    name: Ted the Caver
+    description: |-
+      Ted tells a story about his discovery and exploration of a cave. His
+      explorations lead him to discover that he is not alone.
+    tags:
+      - creepy
+  - url: https://ptable.com/
+    name: Ptable
+    description: A fantastic periodic table.
+    tags:
+      - tools
+      - science
+  - url: https://www.google.com/maps/d/u/0/viewer?ie=UTF8&hl=en&msa=0&om=1&t=h&ll=34.21839898706371%2C32.20058905873327&spn=152.034942%2C326.25&z=3&mid=1Fwm1gUxJNkF0HqMGUrSrCmwjTU0
+    name: Meteor Craters
+    description: A map of huge craters found all across the world.
+    tags:
+      - science
+      - geography
+  - url: https://www.rdegges.com/2020/my-personal-financial-strategy/
+    name: My Personal Financial Strategy
+    description: A blog post about this guys personal finance strategy.
+    tags:
+      - finance
+      - article
+      - blog
+  - url: https://1kb.club/
+    name: The 1kB Club
+    description: A list of web pages weighing less than 1 kilobyte (1,024 bytes).
+    tags:
+      - web
+  - url: https://www.he.net/3d-map/
+    name: HE 3D Network Map
+    description: A 3D map of underwater internet cables.
+    tags:
+      - geography
+  - url: https://syotr.org/
+    name: syotr flows
+    description: A live monitor of the water levels of 69 rivers.
+    tags:
+      - science
+      - geography
+      - tools
+  - url: https://oopsallmarquees.com/
+    name: oops all marquees
+    description: Its all marquee
+    tags:
+      - silly
+      - web
+  - url: https://sjmulder.nl/en/textonly.html
+    name: Hyperlinked Text
+    description: A list of websites that only use text.
+    tags:
+      - web
+  - url: https://sdf.org/
+    name: SDF
+    description: A free public access UNIX system. Just login and ssh.
+    tags:
+      - computers
+      - tools
+  - url: https://soulja-boy-told.me/
+    name: Welcome to NGINX
+    description: '-'
+    tags:
+      - surreal
+      - silly
+  - url: https://bt.ht/1kb/
+    name: Making a Website Under 1kB
+    description: A blog post describing how to create a website that's under 1kB.
+    tags:
+      - web
+      - blog
+      - article
+  - url: http://tolweb.org/tree/
+    name: Tree of Life
+    description: |-
+      Information about biodiversity, the characteristics of different groups of
+      organisms, and their evolutionary history
+    tags:
+      - science
+      - library
+  - url: https://cr.yp.to/
+    name: cr.yp.to
+    description: |-
+      Daniel J. Bernstein's personal webpage that has lots of cryptography
+      research papers, algorithm implementations, and general information. He
+      also really hates United Airlines lol.
+    tags:
+      - cryptography
+      - blog
+      - math
+  - url: https://thepiratebay.org/index.html
+    name: The Pirate Bay
+    description: For pirate's booty
+    tags:
+      - tools
+      - library
+  - url: https://midnight.pub/
+    name: The MidnightPub
+    description: Public blogging forum.
+    tags:
+      - blog
+  - url: http://wwwwwwwww.jodi.org/
+    name: jodi
+    description: A strange exploration site
+    tags:
+      - surreal
+      - art
+  - url: https://www.chronophoto.app/game.html
+    name: chronophoto
+    description: Gives a random picture, you guess the year.
+    tags:
+      - games
+      - history
+  - url: https://billsworld.neocities.org/
+    name: Bill's World
+    description: Its like geocities on netscape.
+    tags:
+      - 90s
+      - history
+      - web
+  - url: https://arxiv.org/
+    name: arXiv
+    description: open-access archive for 2,317,488 scholarly articles
+    tags:
+      - science
+      - library
+      - archive
+  - url: https://hemansings.com/
+    name: HEYYEYAAEYAAAEYAEYAA
+    description: He-Man Sings HEYYEYAAEYAAAEYAEYAA
+    tags:
+      - silly
+  - url: https://xyproblem.info/
+    name: The XY Problem
+    description: The XY problem is asking about your attempted solution rather than your actual problem
+    tags:
+      - blog
+      - article
+      - computers
+  - url: http://www.ccru.net/archive/burroughs.htm
+    name: The Lemurian Time War
+    description: |-
+      One of the weirder texts of an "experimental cultural theorist collective"
+      of academics and professors from Warwick University called the CCRU. They
+      have this all-encompassing doctrinal philisophical theory that I describe
+      as "critical theory via accelerationist cyberpunk gothic horror" that has
+      an eclectic online cult following.
+    tags:
+      - philosophy
+      - surreal
+  - url: https://sci-hub.se/
+    name: Sci-Hub
+    description: |-
+      A shadow library that provides free access to millions of research
+      papers by bypassing the publishers' paywalls. If the link is broken, use
+      one of .st, .ru, .ee, .tw, .shop, .se, .cc, .do, .si, .vk
+    tags:
+      - science
+      - library
+  - url: https://cooltexts.github.io/
+    name: cooltexts
+    description: Some cool texts
+    tags:
+      - article
+      - politics

@@ -2,39 +2,48 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "bookmarks.json",
   "description": "Schema definition for my bookmarks file.",
-  "additionalProperties": false,
   "definitions": {
     "tag": {
       "description": "Content label tag.",
       "type": "string",
       "enum": [
         "90s",
+        "archive",
         "art",
         "article",
         "blog",
         "books",
         "computers",
         "creepy",
+        "cryptography",
         "dataset",
         "digital-garden",
         "economics",
+        "finance",
         "games",
+        "geography",
         "history",
-        "networking",
+        "homelab",
+        "k8s",
+        "library",
         "math",
         "multiplayer",
+        "networking",
         "people",
         "personal-site",
+        "philosophy",
         "politics",
         "programming",
         "science",
         "silly",
+        "surreal",
         "tools",
         "web"
       ]
     },
     "link": {
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "url",
         "name",
@@ -61,6 +70,7 @@
     }
   },
   "type": "object",
+  "additionalProperties": false,
   "required": [
     "links"
   ],
