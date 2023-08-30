@@ -1,0 +1,41 @@
+---
+import type { SEOImage } from "../Meta.astro";
+export type Card = "summary_large_image" | "summary_small_image";
+
+export interface Props {
+  /**
+   * Page title
+   */
+  title: string;
+  description?: string;
+  card?: Card;
+  username?: string;
+  image?: SEOImage;
+}
+
+const { title, description, card, username, image } = Astro.props;
+---
+
+<>
+  {card && <meta property="twitter:card" content={card} />}
+  <meta property="twitter:url" content={Astro.url} />
+  <meta property="twitter:domain" content={Astro.url.hostname} />
+  <meta property="twitter:title" content={title} />
+  {description && <meta property="twitter:description" content={description} />}
+  {
+    username && (
+      <>
+        <meta name="twitter:creator" content={username} />
+        <meta name="twitter:site" content={username} />
+      </>
+    )
+  }
+  {
+    image && (
+      <meta
+        property="twitter:image"
+        content={new URL(image.url, Astro.site).toString()}
+      />
+    )
+  }
+</>

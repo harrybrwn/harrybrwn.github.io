@@ -1,4 +1,4 @@
-import path from "path";
+import path from "~/lib/path";
 import rss from "@astrojs/rss";
 import { SITE_TITLE, SITE_DESCRIPTION, gardenBasePath } from "../config";
 import { getPosts, slug } from "~/lib/blog";

@@ -14,7 +14,7 @@ const totitle = (s: string): string => {
 };
 ---
 
-<nav id={id} title={title} class={className}>
+<nav id={id} title={title} class:list={[className]}>
   <ul>
     {
       pages.map((p) => (

@@ -16,21 +16,21 @@ import Help from "../components/Help.astro";
 import StarBackground from "../components/backgrounds/StarBackground.astro";
 import SpinningEarth from "../components/img/SpinningEarth.astro";
 import UnderConstruction from "../components/img/UnderConstruction.astro";
+import All88x31Cards from "~/components/All88x31Cards.astro";
 
 import { SITE_DESCRIPTION, links, twitterUser, mastodon, git } from "../config";
 import LoadTheme from "~/components/LoadTheme.astro";
 import { humanDate } from "~/lib/dates.js";
-import { HEAD_SHA } from "~/lib/git.js";
 
-import All88x31Cards from "~/components/All88x31Cards.astro";
+const HEAD_SHA = "development";
 
-// const icons = await getIcons();
 const built = new Date();
 const themeToggle = "tt"; // theme toggle
 const buildHash =
   import.meta.env.GITHUB_SHA || // github actions
   import.meta.env.COMMIT_REF || // netlify builds
-  HEAD_SHA; // result of running `git rev-parse HEAD`
+  import.meta.env.CF_PAGES_COMMIT_SHA || // cloudflare pages
+  HEAD_SHA;
 ---
 
 <!DOCTYPE html>

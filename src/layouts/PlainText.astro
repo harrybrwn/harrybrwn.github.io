@@ -1,0 +1,31 @@
+---
+import Head from "../components/Head.astro";
+
+export interface Props {}
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <Head title="text" description="hello there">
+    <style is:global>
+      [data-theme="purple"] body {
+        background-color: #2f1f2f;
+      }
+      [data-theme="gray"] body {
+        background-color: #2a2a2a;
+      }
+      [data-theme="green"] body {
+        background-color: #1f2f2f;
+      }
+      body {
+        color: #fff;
+      }
+    </style>
+  </Head>
+  <body>
+    <slot />
+    <script>
+      document.documentElement.setAttribute("data-theme", "green");
+    </script>
+  </body>
+</html>

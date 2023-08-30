@@ -1,5 +1,6 @@
 ---
 import OpenGraph, { Props as OpenGraphProps } from "./seo/OpenGraph.astro";
+import { findFaviconType } from "../lib/favicon";
 
 interface TwitterProps {
   username: string;
@@ -58,10 +59,7 @@ const {
   og,
 } = Object.assign({}, Astro.props);
 
-let iconType = "image/x-icon";
-if (favicon.endsWith(".svg")) {
-  iconType = "image/svg+xml";
-}
+const iconType = findFaviconType(favicon);
 if (twitter) {
   if (!twitter.username.startsWith("@")) {
     twitter.username = `@${twitter.username}`;
@@ -141,3 +139,5 @@ if (og) {
 
 {onion && <meta http-equiv="onion-location" content={onion} />}
 {sitemap && <link rel="sitemap" type="application/xml" href={sitemap} />}
+
+<slot />

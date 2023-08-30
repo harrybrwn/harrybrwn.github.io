@@ -26,5 +26,4 @@
   "exclude": [
     "packages/**/*"
   ],
-  "ignoreDeprecations": "5.0"
 }

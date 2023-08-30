@@ -3,7 +3,7 @@ export const prerender = true;
 
 import type { GetStaticPathsResult } from "astro";
 import BookmarkCard from "~/components/BookmarkCard.astro";
-import Subpage from "~/layouts/Subpage.astro";
+import Base from "~/layouts/Base.astro";
 import Nav from "~/components/Nav.astro";
 import bookmarks from "~/bookmarks.yml";
 import type { Bookmark } from "~/types";
@@ -47,13 +47,10 @@ export interface Props {
 
 const props = Astro.props;
 const title = `Bookmarks | ${Astro.params.tag}`;
-const description = `Harry Brown's bookmarks and interesting sites related to ${Astro.params.tag}.`
+const description = `Harry Brown's bookmarks and interesting sites related to ${Astro.params.tag}.`;
 ---
 
-<Subpage
-  title={title}
-  description={description}
->
+<Base title={title} description={description}>
   <main>
     <header>
       <Nav
@@ -61,10 +58,11 @@ const description = `Harry Brown's bookmarks and interesting sites related to ${
           { href: "/", name: "home" },
           { href: "/about/", name: "about" },
           { href: "/blog/", name: "blog" },
+          { href: "/bookmarks/", name: "bookmarks" },
         ]}
       />
     </header>
-    <h2>Bookmarks</h2>
+    <h2>Bookmarks ({Astro.params.tag})</h2>
     <section>
       <div id="bookmarks" class="bookmarks">
         {
@@ -80,23 +78,25 @@ const description = `Harry Brown's bookmarks and interesting sites related to ${
       </div>
     </section>
   </main>
-</Subpage>
+</Base>
 
 <style is:global>
+  header {
+    font-size: 16px !important;
+  }
   main {
-    max-width: 850px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 1000px !important;
+    font-size: 18px !important;
   }
 
   nav ul {
     list-style: none;
   }
 
-  @media only screen and (min-width: 700px) {
+  @media only screen and (min-width: 800px) {
     .bookmarks {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 10px;
       grid-auto-rows: minmax(100px, auto);
     }

@@ -2,13 +2,13 @@
 export const prerender = true;
 
 import BookmarkCard from "~/components/BookmarkCard.astro";
-import Subpage from "~/layouts/Subpage.astro";
+import Base from "~/layouts/Base.astro";
 import Nav from "~/components/Nav.astro";
 import bookmarks from "~/bookmarks.yml";
 import type { Bookmark } from "~/types";
 ---
 
-<Subpage
+<Base
   title="Bookmarks"
   description="Harry Brown's bookmarks and interesting sites."
 >
@@ -19,6 +19,7 @@ import type { Bookmark } from "~/types";
           { href: "/", name: "home" },
           { href: "/about/", name: "about" },
           { href: "/blog/", name: "blog" },
+          { href: "/bookmarks/", name: "bookmarks" },
         ]}
       />
     </header>
@@ -38,23 +39,25 @@ import type { Bookmark } from "~/types";
       </div>
     </section>
   </main>
-</Subpage>
+</Base>
 
 <style is:global>
+  header {
+    font-size: 16px !important;
+  }
   main {
-    max-width: 850px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 1000px !important;
+    font-size: 18px !important;
   }
 
   nav ul {
     list-style: none;
   }
 
-  @media only screen and (min-width: 700px) {
+  @media only screen and (min-width: 800px) {
     .bookmarks {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 10px;
       grid-auto-rows: minmax(100px, auto);
     }

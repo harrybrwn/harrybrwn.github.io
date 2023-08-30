@@ -16,34 +16,36 @@ const { href, name, description, tags } = Astro.props;
     transition: 0.1s;
   }
 
+  html[data-theme="dark"] section {
+    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2);
+  }
+
   section:hover {
-    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.3);
   }
 
   html[data-theme="dark"] section:hover {
-    box-shadow: 0 6px 12px 0 rgba(255, 255, 255, 0.2);
+    box-shadow: 0 6px 12px 0 rgba(255, 255, 255, 0.3);
   }
 
-  footer :global(span) {
-    font-size: 11px;
-    background-color: cadetblue;
-    color: white;
-    border-radius: 50px;
-    margin-left: 5px;
-    padding: 3px;
-  }
-
-  footer span a[href] {
+  .bk-tags :global(span) :global(a[href]) {
+    font-size: 14px;
+    background-color: dimgray;
+    border-radius: 10px;
     text-decoration: none;
+    text-align: center;
+    color: white;
+    padding: 2px 5px 2px 5px;
+    white-space: nowrap;
   }
 </style>
 
 <section>
-  <header>
+  <div>
     <a href={href} target="_blank" rel="noopener, noreferrer">{name}</a>
-  </header>
+  </div>
   {description}
-  <footer>
+  <div class="bk-tags">
     {
       tags.map((tag) => (
         <span>
@@ -51,5 +53,5 @@ const { href, name, description, tags } = Astro.props;
         </span>
       ))
     }
-  </footer>
+  </div>
 </section>
