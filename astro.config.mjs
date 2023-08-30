@@ -20,7 +20,8 @@ const site = `https://${domain}`;
 const outDir = "./dist";
 const siteMapFilter = new Set(["admin"]);
 
-const isNetlify = process.env.NETLIFY === "false" ? false : true;
+//const isNetlify = process.env.NETLIFY === "false" ? false : true;
+const isNetlify = process.env.NETLIFY === "true" ? true : false;
 const isCloudflare = process.env.CLOUDFLARE_ACCOUNT_ID ? true : false;
 let output = process.env.ASTRO_OUTPUT || "static";
 if (isNetlify) {
@@ -33,13 +34,18 @@ export default defineConfig({
   site: site,
   outDir: outDir,
   output: output,
+  // adapter: isNetlify
+  //   ? netlify()
+  //   : isCloudflare
+  //     ? cloudflare()
+  //     : output === "server"
+  //       ? node({ mode: "middleware" })
+  //       : undefined,
   adapter: isNetlify
     ? netlify()
-    : isCloudflare
-      ? cloudflare()
-      : output === "server"
-        ? node({ mode: "middleware" })
-        : undefined,
+    : output == "server"
+      ? node({ mode: "middleware" })
+      : undefined,
   build: {
     assets: "a",
   },

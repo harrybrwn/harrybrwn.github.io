@@ -8,14 +8,16 @@ const { title, description } = Astro.props.frontmatter;
 
 <Base title={title} description={description}>
   <Neko />
-  <header>
-    <Nav
-      pages={[
-        { href: "/", name: "home" },
-        { href: "/about/", name: "about" },
-        { href: "/blog/", name: "blog" },
-      ]}
-    />
-  </header>
-  <slot />
+  <main>
+    <header>
+      <Nav
+        pages={[
+          { href: "/", name: "home" },
+          { href: "/about/", name: "about" },
+          { href: "/blog/", name: "blog" },
+        ]}
+      />
+    </header>
+    <slot />
+  </main>
 </Base>
