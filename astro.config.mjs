@@ -24,9 +24,8 @@ const siteMapFilter = new Set(["admin"]);
 const isNetlify = process.env.NETLIFY === "false" ? false : true;
 const isCloudflare = process.env.CLOUDFLARE_ACCOUNT_ID ? true : false;
 let output = process.env.ASTRO_OUTPUT || "static";
-if (isNetlify) {
-  output = "hybrid";
-  console.log("building for netlify");
+if (isNetlify || isCloudflare) {
+  output = "server"; // TODO hybrid does not work in netlify
 }
 
 // https://astro.build/config
@@ -34,13 +33,17 @@ export default defineConfig({
   site: site,
   outDir: outDir,
   output: output,
-  adapter: isNetlify
-    ? netlify()
-    : isCloudflare
-      ? cloudflare()
-      : output === "server"
+  adapter: isCloudflare
+    ? cloudflare()
+    : isNetlify
+      ? netlify({
+        functionPerRoute: false,
+        edgeMiddleware: false,
+      })
+      : output === "server" || output === "hybrid"
         ? node({ mode: "middleware" })
         : undefined,
+  compressHTML: true,
   build: {
     assets: "a",
     inlineStylesheets: "auto",
@@ -51,23 +54,20 @@ export default defineConfig({
   server: {
     port: 3000,
   },
-  compressHTML: true,
+  redirects: {
+    "/help": { destination: "/about/index.html", status: 301 },
+  },
   vite: {
     plugins: [ViteYaml()],
     build: {
-      // request/response header size is around 500 bytes
-      assetsInlineLimit: 512,
       rollupOptions: {
         output: {
           assetFileNames: "a/[hash][extname]",
         },
       },
       // https://github.com/Ernxst/astro-cssbundle
-      cssCodeSplit: true,
+      //cssCodeSplit: true,
     },
-  },
-  redirects: {
-    "/help": { destination: "/about/index.html", status: 301 },
   },
   integrations: [
     mdx(),
