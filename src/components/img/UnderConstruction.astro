@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import UnderConstructionIconSrc from "../../img/under_construction.gif";
 
 export interface Props {
@@ -6,10 +7,10 @@ export interface Props {
   height?: number;
   id?: string;
 }
-const { width = 110, height = 60, id } = Astro.props;
+const { width, height, id } = Astro.props;
 ---
 
-<img
+<Image
   src={UnderConstructionIconSrc}
   alt="Under Construction"
   id={id}

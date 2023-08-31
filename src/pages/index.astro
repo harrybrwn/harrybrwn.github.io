@@ -42,7 +42,7 @@ const buildHash =
       author="Harry Brown"
       description={SITE_DESCRIPTION}
       image={{
-        url: GoofyImg,
+        url: GoofyImg.src,
         alt: "A picture of me looking goofy and drinking hot cocoa.",
       }}
       robots={["index", "archive", "follow"]}
@@ -65,7 +65,7 @@ const buildHash =
       <header>
         <center>
           <WelcomeBanner />
-          <SpinningEarth id="show-login-btn" width={128} height={128} />
+          <SpinningEarth id="show-login-btn" />
           <p>I do computers and stuff.</p>
         </center>
       </header>

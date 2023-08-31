@@ -1,10 +1,18 @@
 ---
 import Icon88x31 from "./Icon88x31.astro";
 
+interface Icon {
+  alt: string;
+  title: string;
+  href: string;
+  src: any,
+  disabled?: boolean;
+}
+
 // I would usually be using getIcons in 'src/lib/icons.ts' to dynamically import
 // all the icons but the cloudflare integration does not allow import.meta.glob
 // to be used. This is all the imports done by hand.
-const icons = {
+const icons: Record<string, Icon> = {
   "theoldnet.gif": {
     alt: "The Old Net",
     title: "Are you tired of this new Internet yet? Time to Get TheOldNet!",
@@ -84,6 +92,7 @@ const icons = {
     href: "https://minugahana.neocities.org/",
     src: (await Astro.glob("../img/88x31/not-seeing-is-a-flower.png"))[0]
       .default,
+    disabled: true,
   },
   "neovim.png": {
     alt: "neovim",
@@ -97,10 +106,10 @@ const icons = {
 <section class="cards">
   {
     Object.values(icons).map((icon) => (
-      <Icon88x31
+      !icon.disabled && <Icon88x31
         href={icon.href}
         title={icon.title}
-        src={icon.src || ""}
+        src={icon.src.src || ""}
         alt={icon.alt}
       />
     ))

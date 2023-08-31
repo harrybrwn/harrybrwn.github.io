@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import WaitWhatIcon from "../img/88x31/me/wait-what.gif";
 import MeButton from "../img/88x31/me/button.gif";
 ---
@@ -9,12 +10,12 @@ import MeButton from "../img/88x31/me/button.gif";
     id="web-btn-1-tooltip"
     data-text="Copy code"
   >
-    <img
+    <Image
       id="web-button-1"
       src={WaitWhatIcon}
       alt="Harry"
-      width="88"
-      height="31"
+      width={88}
+      height={31}
     />
   </span>
   <span
@@ -22,7 +23,7 @@ import MeButton from "../img/88x31/me/button.gif";
     id="web-btn-2-tooltip"
     data-text="Copy code"
   >
-    <img id="web-button-2" src={MeButton} alt="Harry" width="88" height="31" />
+    <Image id="web-button-2" src={MeButton} alt="Harry" width={88} height={31} />
   </span>
 </>
 

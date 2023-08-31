@@ -76,6 +76,12 @@ const beforeCompress = (ast: StyleSheet, _options: CompressOptions) => {
 };
 
 /**
+ * Astro 3.0 breaks all the stuff I've done here. This is a toggle to enable it
+ * if I go back for some reason.
+ */
+const oldCleanClassnames = false;
+
+/**
  *
  * @param {*} settings
  * @returns {import("astro").AstroIntegration}
@@ -88,7 +94,7 @@ const compress = (settings: any): AstroIntegration => {
     hooks: {
       "astro:config:setup": ({ config }) => {
         output = config.output;
-        if (config.output === "static") {
+        if (oldCleanClassnames && config.output === "static") {
           // Only remove 'astro-' for static sites because we can't remove the
           // prefix on SSR routes.
           if (!settings.css) settings.css = {};
@@ -104,7 +110,7 @@ const compress = (settings: any): AstroIntegration => {
         }
       },
       "astro:build:done": async ({ pages, dir }) => {
-        if (output !== "static") {
+        if (!oldCleanClassnames || output !== "static") {
           // Only remove 'astro-' for static sites because we can't remove the
           // prefix on SSR routes.
           return Promise.resolve();
