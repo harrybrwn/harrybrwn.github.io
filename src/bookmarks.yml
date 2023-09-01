@@ -698,3 +698,16 @@ links:
     tags:
       - article
       - politics
+  - url: https://monoskop.org/Monoskop
+    name: Monoskop
+    description: A wiki for arts and studies. Has a focus on internet culture.
+    tags:
+      - web
+      - library
+  - url: https://theanarchistlibrary.org/
+    name: The Anarchist Library
+    description: Library of left anarchist essays, articles, and books.
+    tags:
+      - library
+      - archive
+      - politics

@@ -44,7 +44,7 @@
     "@astrojs/sitemap": "^3.0",
     "@astrojs/solid-js": "^3",
     "@hrry.me/api": "0.0.1",
-    "astro": "^3.0.2",
+    "astro": "^3.0.6",
     "astro-purgecss": "^2.3",
     "github-slugger": "^2.0.0",
     "prism-themes-scss": "github:harrybrwn/prism-themes-scss#main",
