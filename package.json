@@ -11,7 +11,7 @@
   "scripts": {
     "dev": "node scripts/generate.js && astro dev",
     "build": "astro build",
-    "build:netlify": " astro build",
+    "build:netlify": " astro build && scripts/fix-netlify-functions.sh",
     "build:all": "yarn workspaces run build && astro build",
     "preview": "astro preview",
     "astro": "astro",
