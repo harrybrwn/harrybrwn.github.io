@@ -25,9 +25,7 @@ const isNetlify = process.env.NETLIFY === "false" ? false : true;
 const isCloudflare = process.env.CLOUDFLARE_ACCOUNT_ID ? true : false;
 let output = process.env.ASTRO_OUTPUT || "static";
 if (isNetlify || isCloudflare) {
-  output = "server"; // TODO hybrid does not work in netlify
-  // output = "static";
-  // output = "hybrid";
+  output = "hybrid"; // TODO hybrid does not work in netlify
 }
 
 // https://astro.build/config
@@ -38,12 +36,7 @@ export default defineConfig({
   adapter: isCloudflare
     ? cloudflare()
     : isNetlify
-      ? netlify({
-        // dist: new URL('./dist/', import.meta.url),
-        // builders: true,
-        // functionPerRoute: false,
-        // edgeMiddleware: false,
-      })
+      ? netlify()
       : output === "server" || output === "hybrid"
         ? node({ mode: "middleware" })
         : undefined,
@@ -67,7 +60,6 @@ export default defineConfig({
       rollupOptions: {
         output: {
           assetFileNames: "a/[hash][extname]",
-          // assetFileNames: "a/[name][extname]",
         },
       },
       // https://github.com/Ernxst/astro-cssbundle

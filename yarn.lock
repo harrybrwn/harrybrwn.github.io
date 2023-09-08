@@ -73,10 +73,10 @@
     unist-util-visit "^4.1.2"
     vfile "^5.3.7"
 
-"@astrojs/netlify@^3.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@astrojs/netlify/-/netlify-3.0.0.tgz#0f60c62e7dd6ef6abd200ded9d0236c316656ece"
-  integrity sha512-v76HpoaEAK9uZHRJCCA8LV51e344ZhChfSMTlvNRvYa+ExJvPZCusBW3EaiyUFKpVozjs9AkIf3xmZ6cc+hFgQ==
+"@astrojs/netlify@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@astrojs/netlify/-/netlify-3.0.1.tgz#a1fa0bfec55bb51937f33a710862309fa86a3420"
+  integrity sha512-CFSF10+xyNXqb2oFYVJMRB6AdilwgKrB3Iyf0+sAXZZM7GqITc0H98hoWUQfawxgmzi6aXqv+DC8mvEvCoCRlg==
   dependencies:
     "@astrojs/underscore-redirects" "0.3.0"
     "@netlify/functions" "^2.0.1"
@@ -120,10 +120,10 @@
   dependencies:
     vite-plugin-solid "^2.7.0"
 
-"@astrojs/telemetry@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@astrojs/telemetry/-/telemetry-3.0.0.tgz#1af7e508f752805a52f44160723d1347ac07ca4e"
-  integrity sha512-RhFlEXTiT0gbWX1osMuPS9IWm1SwhQmCZVAdAixrPyZ0xiLlHfw3Nkw3z6IYuzX3hqbx24G4XmkT/akBMBqxPg==
+"@astrojs/telemetry@3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@astrojs/telemetry/-/telemetry-3.0.1.tgz#4baee14a7c4271f461e4e080dffa26f09c39afa6"
+  integrity sha512-7zJMuikRDQ0LLLivteu0+y4pqdgznrChFiRrY3qmKlOEkLWD1T3u1a5M970lvpErP7Vgh4P298JBPjv8LTj+sw==
   dependencies:
     ci-info "^3.8.0"
     debug "^4.3.4"
@@ -1117,15 +1117,15 @@ astro-purgecss@^2.3:
   dependencies:
     purgecss "^5.0.0"
 
-astro@^3.0.6:
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/astro/-/astro-3.0.6.tgz#3ae15bdf2fd3285b0189a5ab10bd5ed33ecc0e00"
-  integrity sha512-I4W71g/IzRp1dYHKbQGKp44TSlR+vO3z1c2TscMMJPCyQ3b15o0DVLWibd4zdDDeAQ1JqM8jvQy+nOYMIlacpg==
+astro@^3.0.10:
+  version "3.0.10"
+  resolved "https://registry.yarnpkg.com/astro/-/astro-3.0.10.tgz#635872d10fc218bcb238b002ea6711828edb0172"
+  integrity sha512-LxLlFksTUn3B3Xi3KBirRBg1QI8t2lvOijfODor1OSpAnlEZUzToyLxbdzR2dBVLF5reAoi7LJNKsQouPnMXlg==
   dependencies:
     "@astrojs/compiler" "^2.0.1"
     "@astrojs/internal-helpers" "0.2.0"
     "@astrojs/markdown-remark" "3.0.0"
-    "@astrojs/telemetry" "3.0.0"
+    "@astrojs/telemetry" "3.0.1"
     "@babel/core" "^7.22.10"
     "@babel/generator" "^7.22.10"
     "@babel/parser" "^7.22.10"
@@ -1159,13 +1159,12 @@ astro@^3.0.6:
     ora "^7.0.1"
     p-limit "^4.0.0"
     path-to-regexp "^6.2.1"
-    preferred-pm "^3.0.3"
+    preferred-pm "^3.1.2"
     prompts "^2.4.2"
     rehype "^12.0.1"
     resolve "^1.22.4"
     semver "^7.5.4"
     server-destroy "^1.0.1"
-    sharp "^0.32.5"
     shiki "^0.14.3"
     string-width "^6.1.0"
     strip-ansi "^7.1.0"
@@ -1175,9 +1174,11 @@ astro@^3.0.6:
     vfile "^5.3.7"
     vite "^4.4.9"
     vitefu "^0.2.4"
-    which-pm "^2.0.0"
+    which-pm "^2.1.1"
     yargs-parser "^21.1.1"
     zod "3.21.1"
+  optionalDependencies:
+    sharp "^0.32.5"
 
 b4a@^1.6.4:
   version "1.6.4"
@@ -3693,10 +3694,10 @@ prebuild-install@^7.1.1:
     tar-fs "^2.0.0"
     tunnel-agent "^0.6.0"
 
-preferred-pm@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/preferred-pm/-/preferred-pm-3.0.3.tgz#1b6338000371e3edbce52ef2e4f65eb2e73586d6"
-  integrity sha512-+wZgbxNES/KlJs9q40F/1sfOd/j7f1O9JaHcW5Dsn3aUUOZg3L2bjpVUcKV2jvtElYfoTuQiNeMfQJ4kwUAhCQ==
+preferred-pm@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/preferred-pm/-/preferred-pm-3.1.2.tgz#aedb70550734a574dffcbf2ce82642bd1753bdd6"
+  integrity sha512-nk7dKrcW8hfCZ4H6klWcdRknBOXWzNQByJ0oJyX97BOupsYD+FzLS4hflgEu/uPUEHZCuRfMxzCBsuWd7OzT8Q==
   dependencies:
     find-up "^5.0.0"
     find-yarn-workspace-root2 "1.2.16"
@@ -4792,10 +4793,18 @@ which-pm-runs@^1.1.0:
   resolved "https://registry.yarnpkg.com/which-pm-runs/-/which-pm-runs-1.1.0.tgz#35ccf7b1a0fce87bd8b92a478c9d045785d3bf35"
   integrity sha512-n1brCuqClxfFfq/Rb0ICg9giSZqCS+pLtccdag6C2HyufBrh3fBOiy9nb6ggRMvWOVH5GrdJskj5iGTZNxd7SA==
 
-which-pm@2.0.0, which-pm@^2.0.0:
+which-pm@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/which-pm/-/which-pm-2.0.0.tgz#8245609ecfe64bf751d0eef2f376d83bf1ddb7ae"
   integrity sha512-Lhs9Pmyph0p5n5Z3mVnN0yWcbQYUAD7rbQUiMsQxOJ3T57k7RFe35SUwWMf7dsbDZks1uOmw4AecB/JMDj3v/w==
+  dependencies:
+    load-yaml-file "^0.2.0"
+    path-exists "^4.0.0"
+
+which-pm@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/which-pm/-/which-pm-2.1.1.tgz#0be2b70c67e94a32e87b9768a94a7f0954f2dcfa"
+  integrity sha512-xzzxNw2wMaoCWXiGE8IJ9wuPMU+EYhFksjHxrRT8kMT5SnocBPRg69YAMtyV4D12fP582RA+k3P8H9J5EMdIxQ==
   dependencies:
     load-yaml-file "^0.2.0"
     path-exists "^4.0.0"
