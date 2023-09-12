@@ -24,7 +24,8 @@
     "preview:server": "ASTRO_OUTPUT=server astro preview",
     "container": "docker container run --rm -it -p 3000:3000 -e PORT=3000 --name astro-server harrybrwn/harrybrwn.github.io-server:latest",
     "image": "docker buildx bake -f docker-bake.hcl",
-    "proxy": "docker compose -f docker-compose.yml -f docker-compose.local.yml up dev dev-tls-proxy"
+    "proxy": "docker compose -f docker-compose.yml -f docker-compose.local.yml up dev dev-tls-proxy",
+    "bun:install": "bun install && cd node_modules/sharp && bun install"
   },
   "workspaces": [
     "./packages/astro/*",

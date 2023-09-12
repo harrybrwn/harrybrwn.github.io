@@ -1,11 +1,13 @@
 ---
 import type { HTMLAttributes } from "~/lib/html";
 
-export interface Props extends HTMLAttributes {
-  pages: Array<{
+interface Page {
     name: string;
     href: string;
-  }>;
+}
+
+export interface Props extends HTMLAttributes {
+  pages: Array<Page>;
 }
 const { pages, id, class: className, title } = Astro.props;
 
@@ -17,7 +19,7 @@ const totitle = (s: string): string => {
 <nav id={id} title={title} class:list={[className]}>
   <ul>
     {
-      pages.map((p) => (
+      pages.map((p: Page) => (
         <li>
           <a href={p.href}>{totitle(p.name)}</a>
         </li>
@@ -39,6 +41,5 @@ const totitle = (s: string): string => {
   }
   a:visited {
     text-decoration: none;
-    color: var(--theme-light-fg);
   }
 </style>

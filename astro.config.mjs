@@ -76,8 +76,8 @@ export default defineConfig({
       filter: (page) => !siteMapFilter.has(path.basename(page)),
     }),
     compress({
-      path: outDir,
-      html: {
+      Path: outDir,
+      HTML: {
         removeComments: true,
         removeAttributeQuotes: false,
         // sorting does not effect size but can improve text compression
@@ -85,7 +85,7 @@ export default defineConfig({
         sortClassName: true,
         removeRedundantAttributes: true,
       },
-      img: {
+      Image: {
         gif: false, // compressing gifs removes the animation
       },
       logger: 0,

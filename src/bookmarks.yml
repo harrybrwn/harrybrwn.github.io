@@ -438,7 +438,9 @@ links:
     tags: [ games, silly ]
   - url: https://www.lysator.liu.se/c/
     name: Programming in C
-    description: An absolutly massive collection of free guides and reference material for C programming.
+    description: |-
+      An absolutly massive collection of free guides and reference material for
+      C programming.
     tags:
       - programming
       - books
@@ -450,7 +452,8 @@ links:
       - dataset
   - url: https://12ft.io/
     name: 12ft
-    description: Paywall bypass site, Show me a 10ft paywall, I’ll show you a 12ft ladder.
+    description: |-
+      Paywall bypass site, Show me a 10ft paywall, I’ll show you a 12ft ladder.
     tags:
       - tools
       - web
@@ -497,7 +500,9 @@ links:
       - history
   - url: http://dunfield.classiccmp.org/
     name: Daves Old Computers
-    description: Tools, documentation, photos, resources, and more as part of the computers Dave has used starting from 1973.
+    description: |-
+      Tools, documentation, photos, resources, and more as part of the computers
+      Dave has used starting from 1973.
     tags:
       - computers
       - history
@@ -667,7 +672,9 @@ links:
       - silly
   - url: https://xyproblem.info/
     name: The XY Problem
-    description: The XY problem is asking about your attempted solution rather than your actual problem
+    description: |-
+      The XY problem is asking about your attempted solution rather than your
+      actual problem.
     tags:
       - blog
       - article
@@ -710,4 +717,13 @@ links:
     tags:
       - library
       - archive
+      - politics
+  - url: https://www.cla.purdue.edu/academic/english/theory/marxism/
+    name: Introduction To Marxism
+    description: |-
+      A good starting point if you don't want to try decoding the 3 massive
+      volumes of Capital. The web design is also really cute.
+    tags:
+      - books
+      - economics
       - politics

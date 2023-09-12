@@ -54,27 +54,21 @@ import type { Bookmark } from "~/types";
     list-style: none;
   }
 
-  @media only screen and (min-width: 800px) {
-    .bookmarks {
-      display: grid;
-      /* grid-template-columns: repeat(2, 1fr); */
+  .bookmarks {
+    display: grid;
       gap: 10px;
       grid-auto-rows: minmax(100px, auto);
-    }
   }
+
   @media only screen and (min-width: 800px) and (max-width: 1200px) {
     .bookmarks {
       grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      grid-auto-rows: minmax(100px, auto);
     }
   }
+
   @media only screen and (min-width: 1200px) {
     .bookmarks {
-      display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      grid-auto-rows: minmax(100px, auto);
     }
   }
 </style>
