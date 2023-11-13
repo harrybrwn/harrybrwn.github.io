@@ -25,7 +25,8 @@
     "container": "docker container run --rm -it -p 3000:3000 -e PORT=3000 --name astro-server harrybrwn/harrybrwn.github.io-server:latest",
     "image": "docker buildx bake -f docker-bake.hcl",
     "proxy": "docker compose -f docker-compose.yml -f docker-compose.local.yml up dev dev-tls-proxy",
-    "bun:install": "bun install && cd node_modules/sharp && bun install"
+    "bun:install": "bun install && (cd node_modules/sharp && bun run install)",
+    "postinstall": "command -v bun && (cd node_modules/sharp && bun run install) || true"
   },
   "workspaces": [
     "./packages/astro/*",
@@ -37,15 +38,15 @@
     "@astro.hrry.dev/obsidian": "0.0.1",
     "@astro.hrry.dev/robots.txt": "0.0.1",
     "@astro.hrry.dev/wikilink": "0.0.1",
-    "@astrojs/cloudflare": "^7.0",
-    "@astrojs/mdx": "^1.0",
+    "@astrojs/cloudflare": "^7.1",
+    "@astrojs/mdx": "^1.0.3",
     "@astrojs/netlify": "^3.0.1",
     "@astrojs/node": "^6.0",
     "@astrojs/rss": "^3.0",
     "@astrojs/sitemap": "^3.0",
-    "@astrojs/solid-js": "^3",
+    "@astrojs/solid-js": "^3.0.1",
     "@hrry.me/api": "0.0.1",
-    "astro": "^3.0.10",
+    "astro": "^3.0.13",
     "astro-purgecss": "^2.3",
     "github-slugger": "^2.0.0",
     "prism-themes-scss": "github:harrybrwn/prism-themes-scss#main",
@@ -56,6 +57,7 @@
     "sass": "^1.57.1",
     "walkdir": "^0.4.1"
   },
+  "trustedDependencies": ["sharp", "compress", "astro-compress"],
   "files": [
     "./dist/**/*"
   ]
