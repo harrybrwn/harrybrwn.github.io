@@ -14,7 +14,7 @@ export const mastodon = {
 
 export const links = {
   github: "https://github.com/harrybrwn",
-  linkedin: "https://www.linkedin.com/in/harrison-brown-88823b185/",
+  linkedin: "https://www.linkedin.com/in/harrybrwn/",
   worldOfText: "https://www.yourworldoftext.com/~harrybrwn/",
   mastodon: `https://${mastodon.instance}/@${mastodon.username}`,
 };
