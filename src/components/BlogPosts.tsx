@@ -26,7 +26,7 @@ const BlogPosts: Component<Props> = (props) => {
             <time datetime={fm.pubDate}>{format(fm.pubDate)}</time>
           </td>
           <td>
-            <a href={url}>{fm.title}</a>
+            <a href={url || ''}>{fm.title}</a>
           </td>
         </tr>
       ))}

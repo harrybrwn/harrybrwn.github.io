@@ -11,12 +11,13 @@
     "exactOptionalPropertyTypes": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
+    "moduleResolution": "node",
     "paths": {
       "~/*": ["./src/*"],
       "@/content/*": ["./content/*"]
     },
     "typeRoots": ["./node_modules/@types", "./src/@types"],
-    "types":  [
+    "types": [
       "@modyfi/vite-plugin-yaml/modules"
     ],
     "strictNullChecks": true,
@@ -25,5 +26,5 @@
   },
   "exclude": [
     "packages/**/*"
-  ],
+  ]
 }
