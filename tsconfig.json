@@ -25,6 +25,7 @@
     "jsxImportSource": "solid-js"
   },
   "exclude": [
-    "packages/**/*"
+    "packages/**/*",
+    "dist"
   ]
 }

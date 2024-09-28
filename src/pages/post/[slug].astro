@@ -4,10 +4,14 @@ import BlogPost, {type Props as BlogProps } from "~/layouts/BlogPost.astro";
 
 export async function getStaticPaths() {
   const entries = await getCollection('blog');
-  return entries.filter((e) => !e.data.draft).map((entry) => ({
-    params: { slug: entry.slug || entry.id.replace(/.md$/, "") },
-    props: { entry }
-  }));
+  return entries.filter((e) => !e.data.draft).map((entry) => {
+    let slug: string = entry.slug;
+    if (!slug) slug = entry.id.replace(/.md$/, "");
+    return {
+      params: { slug },
+      props: { entry }
+    };
+  });
 }
 
 interface Props {

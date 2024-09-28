@@ -1,8 +1,8 @@
 // https://www.youtube.com/watch?v=HSoRtowmOEY
 
 import {
-  Component,
-  JSX,
+  type Component,
+  type JSX,
   Show,
   createSignal,
   createEffect,
@@ -39,7 +39,8 @@ export const Modal: Component<ModalProps> = (props) => {
       const focusTrap = (e: KeyboardEvent) => {
         const { key, code, shiftKey } = e;
         if ((key || code) === "Escape") {
-          return setOpen(false);
+          setOpen(false);
+          return;
         } else if ((key || code) !== "Tab") {
           return;
         }
@@ -66,7 +67,7 @@ export const Modal: Component<ModalProps> = (props) => {
   return (
     <Show
       when={open()}
-      fallback={() => <button onClick={() => setOpen(!open())}>Open</button>}
+      fallback={<button onClick={() => setOpen(!open())}>Open</button>}
     >
       <div
         role="presentation"

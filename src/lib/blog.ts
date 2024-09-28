@@ -49,7 +49,7 @@ const getPubDate = (p: markdown) => {
   // there then use the os file stat.
   let name = p.file.replace(process.cwd() + "/", "");
   if (name in modified) {
-    const dates = (modified as { [key: string]: string[] })[name];
+    const dates = (modified as { [key: string]: string[]; })[name];
     if (dates.length === 0) {
       return new Date();
     }
@@ -116,7 +116,7 @@ let postsCache: Array<markdown>;
  */
 export const getPosts = async (opts?: GetPostOptions) => {
   if (!postsCache) {
-    const posts = await import.meta.glob<markdown>("../../content/**/*.md");
+    const posts = import.meta.glob<markdown>("../../content/**/*.md");
     postsCache = await Promise.all(Object.values(posts).map((p) => p()));
   }
   return preparePosts(postsCache, opts);
