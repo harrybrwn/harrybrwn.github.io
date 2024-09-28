@@ -34,7 +34,7 @@ export class Modal extends HTMLElement {
     if (this.dataset.btnid) {
       const btnid = this.dataset.btnid;
       const btn = document.getElementById(btnid);
-      btn?.addEventListener("click", (ev: MouseEvent) => {
+      btn?.addEventListener("click", (_ev: MouseEvent) => {
         this.toggle();
       });
     }

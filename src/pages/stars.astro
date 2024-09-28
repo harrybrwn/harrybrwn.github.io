@@ -4,7 +4,8 @@ console.log("stars page load");
 let counter = 0;
 if (Astro.cookies.has("counter")) {
   const cookie = Astro.cookies.get("counter");
-  counter = cookie.number() + 1;
+  if (!cookie) counter = 0;
+  else counter = cookie.number() + 1;
 }
 Astro.cookies.set("counter", counter.toString());
 ---

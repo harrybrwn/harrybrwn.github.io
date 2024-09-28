@@ -7,13 +7,11 @@ export interface Props {
   height?: number;
   id?: string;
 }
-const { width, height, id } = Astro.props;
+const props = Astro.props;
 ---
 
 <Image
   src={UnderConstructionIconSrc}
   alt="Under Construction"
-  id={id}
-  width={width}
-  height={height}
+  {...props}
 />
