@@ -90,6 +90,6 @@ export default defineConfig({
       },
       logger: 0,
     }),
-    obsidian({ urlBase: gardenBasePath, baseDir: "./content" }),
+    // obsidian({ urlBase: gardenBasePath, baseDir: "./content" }),
   ],
 });

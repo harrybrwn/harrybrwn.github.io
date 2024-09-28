@@ -38,26 +38,32 @@
     "@astro.hrry.dev/obsidian": "0.0.1",
     "@astro.hrry.dev/robots.txt": "0.0.1",
     "@astro.hrry.dev/wikilink": "0.0.1",
-    "@astrojs/cloudflare": "^7.1",
-    "@astrojs/mdx": "^1.0.3",
-    "@astrojs/netlify": "^3.0.1",
-    "@astrojs/node": "^6.0",
-    "@astrojs/rss": "^3.0",
-    "@astrojs/sitemap": "^3.0",
-    "@astrojs/solid-js": "^3.0.1",
+    "@astrojs/cloudflare": "^11.0.5",
+    "@astrojs/mdx": "^2.3",
+    "@astrojs/netlify": "^5.5.3",
+    "@astrojs/node": "^8.3.4",
+    "@astrojs/rss": "^4.0.7",
+    "@astrojs/sitemap": "^3.1.6",
+    "@astrojs/solid-js": "^4.4.2",
     "@hrry.me/api": "0.0.1",
-    "astro": "^3.0.13",
-    "astro-purgecss": "^2.3",
+    "astro": "^4",
+    "astro-purgecss": "^4.6",
     "github-slugger": "^2.0.0",
     "prism-themes-scss": "github:harrybrwn/prism-themes-scss#main",
-    "solid-js": "^1.4.3"
+    "solid-js": "^1.9"
   },
   "devDependencies": {
     "@modyfi/vite-plugin-yaml": "^1.0.4",
+    "purgecss": "^6.0.0",
     "sass": "^1.57.1",
+    "typescript": "^5.6.2",
     "walkdir": "^0.4.1"
   },
-  "trustedDependencies": ["sharp", "compress", "astro-compress"],
+  "trustedDependencies": [
+    "sharp",
+    "compress",
+    "astro-compress"
+  ],
   "files": [
     "./dist/**/*"
   ]
