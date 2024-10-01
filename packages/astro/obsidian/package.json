@@ -12,7 +12,7 @@
   "private": true,
   "scripts": {
     "test": "true",
-    "test:ci": "yarn test",
+    "test:ci": "true",
     "build": "tsc",
     "clean": "rm -rf ./dist"
   },
@@ -21,6 +21,6 @@
     "remark-wiki-link-plus": "^1.1.1"
   },
   "devDependencies": {
-    "typescript": "^4.9.4"
+    "typescript": "^5"
   }
 }

@@ -28,7 +28,7 @@ services:
       dockerfile: Dockerfile
       context: .
       target: dev
-    command: ["yarn", "dev", "--host"]
+    command: ["pnpm", "dev", "--host"]
     working_dir: /opt/harrybrwn.github.io
     volumes:
       - .:/opt/harrybrwn.github.io

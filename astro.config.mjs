@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, passthroughImageService } from "astro/config";
 import path from "path";
 import fs from "fs";
 
@@ -47,6 +47,9 @@ export default defineConfig({
   },
   markdown: {
     syntaxHighlight: "prism",
+  },
+  image: {
+    service: passthroughImageService(),
   },
   server: {
     port: 3000,

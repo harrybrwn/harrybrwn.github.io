@@ -1,0 +1,3 @@
+packages:
+  - 'packages/astro/*'
+  - 'packages/hrry.me/api'

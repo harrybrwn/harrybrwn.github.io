@@ -20,11 +20,11 @@
     "clean": "rm -rf ./dist"
   },
   "dependencies": {
-    "astro-compress": "^2.0.15"
+    "astro-compress": "^2.3"
   },
   "devDependencies": {
     "css-tree": "^2.3.1",
-    "typescript": "^4.9.4",
+    "typescript": "^5",
     "vitest": "^0.30.1"
   }
 }

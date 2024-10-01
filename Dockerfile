@@ -1,44 +1,52 @@
 # syntax=docker/dockerfile:1.4
 
-ARG NODE_VERSION=18.14.2
+ARG NODE_VERSION=22.4.1
 ARG NGINX_VERSION=1.23.3
 
 # Development
 FROM node:${NODE_VERSION}-bullseye as dev
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 RUN apt-get update && \
 	apt-get upgrade -yqq && \
-	npm update --global npm
+	npm update --global npm && \
+    corepack enable
 
+#
 # Builder
+#
 FROM --platform=$BUILDPLATFORM node:${NODE_VERSION}-bullseye as builder
 ARG GITHUB_REF_NAME=""
 ARG GITHUB_SHA=""
 ENV GITHUB_REF_NAME=${GITHUB_REF_NAME}
 ENV GITHUB_SHA=${GITHUB_SHA}
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 
+RUN corepack enable
 # RUN apk update && apk upgrade && npm update -g npm
 RUN --mount=type=cache,target=/var/cache/apt \
-	--mount=type=cache,target=/root/.npm,id=harrybrwn.github.io-npm-cache \
+	--mount=type=cache,target=/pnpm/store,id=harrybrwn.github.io-npm-cache \
 	apt-get update && \
 	apt-get upgrade -yqq && \
 	npm update --global npm
 WORKDIR /opt/harrybrwn.github.io
-COPY ./package.json ./yarn.lock ./
+COPY ./package.json ./pnpm-workspace.yaml ./pnpm-lock.yaml ./
 COPY packages ./packages
-RUN yarn install
+RUN pnpm install
 COPY .git .git
 COPY astro.config.mjs tsconfig.json ./
 COPY src/ src
 COPY public/ public
 COPY content/ content
-RUN yarn astro sync
+RUN pnpm run astro sync
 
 FROM builder as server-builder
 COPY . .
-RUN yarn build:server
+RUN pnpm build:server
 
 FROM builder as static-builder
-RUN yarn build
+RUN pnpm build
 
 #
 # Static files
