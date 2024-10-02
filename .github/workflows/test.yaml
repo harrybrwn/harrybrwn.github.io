@@ -17,5 +17,27 @@ jobs:
       uses: ./.github/actions/setup
     - name: Build
       run: pnpm build
-    - name: Check
-      run: pnpm run astro check
+
+  lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup
+      - name: Lint
+        run: pnpm run astro check
+
+  test:
+    runs-on: ubuntu-22.04
+    needs: [build, lint]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup
+      - name: Lint
+        run: pnpm run astro check
+      - name: Test
+        run: pnpm --recursive test:ci
+

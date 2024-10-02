@@ -9,8 +9,6 @@ runs:
       id: nvm
       shell: bash
     - uses: pnpm/action-setup@v4
-      with:
-        version: 9
     - name: Setup Node
       uses: actions/setup-node@v3
       with:
