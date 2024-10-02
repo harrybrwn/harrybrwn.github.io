@@ -15,43 +15,32 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-    - name: Read .nvmrc
-      run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
-      id: nvm
-    - name: Install, build, and upload your site
-      uses: withastro/action@v0
-      with:
-        node-version: '${{ steps.nvm.outputs.NVMRC }}'
+    - name: Setup
+      uses: ./.github/actions/setup
+    - name: Build
+      run: pnpm build
+
+  lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup
+      - name: Lint
+        run: pnpm run astro check
 
   test:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Read .nvmrc
-        run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
-        id: nvm
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ steps.nvm.outputs.NVMRC }}
-      - name: Install Dependencies
-        run: yarn
+      - name: Setup
+        uses: ./.github/actions/setup
       - name: Lint
-        run: yarn run astro check
+        run: pnpm run astro check
       - name: Test
-        run: yarn test
-
-  # publish:
-  #   needs: [build]
-  #   runs-on: ubuntu-latest
-  #   environment:
-  #     name: github-pages
-  #     url: ${{ steps.deployment.outputs.page_url }}
-  #   steps:
-  #     - name: Deploy to GitHub Pages
-  #       id: deployment
-  #       uses: actions/deploy-pages@v1
+        run: pnpm --recursive test:ci
 
   docker:
     runs-on: ubuntu-22.04
@@ -68,5 +57,5 @@ jobs:
       with:
         username: harrybrwn
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    # - name: Push Images
-    #   run: docker buildx bake --file docker-bake.hcl --push
+    - name: Push Images
+      run: docker buildx bake --file docker-bake.hcl --push

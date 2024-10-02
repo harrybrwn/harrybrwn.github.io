@@ -12,11 +12,11 @@
     "dev": "node scripts/generate.js && astro dev",
     "build": "astro build",
     "build:netlify": " astro build",
-    "build:all": "yarn workspaces run build && astro build",
+    "build:all": "pnpm -r run build && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "yarn workspaces run test:ci",
-    "clean": "rm -rf ./dist/ ./.vercel/ ./.netlify/ *.tar.gz *.zip && yarn workspaces run clean",
+    "test": "pnpm -r run test:ci",
+    "clean": "rm -rf ./dist/ ./.vercel/ ./.netlify/ *.tar.gz *.zip && pnpm -r run clean",
     "new": "node packages/astro/new/index.js",
     "gen": "node scripts/generate.js",
     "dev:server": "node scripts/generate.js && ASTRO_OUTPUT=server astro dev",
@@ -33,11 +33,11 @@
     "./packages/hrry.me/api"
   ],
   "dependencies": {
-    "@astro.hrry.dev/compress": "0.0.1",
-    "@astro.hrry.dev/new": "0.0.1",
-    "@astro.hrry.dev/obsidian": "0.0.1",
-    "@astro.hrry.dev/robots.txt": "0.0.1",
-    "@astro.hrry.dev/wikilink": "0.0.1",
+    "@astro.hrry.dev/compress": "workspace:*",
+    "@astro.hrry.dev/new": "workspace:*",
+    "@astro.hrry.dev/obsidian": "workspace:*",
+    "@astro.hrry.dev/robots.txt": "workspace:*",
+    "@astro.hrry.dev/wikilink": "workspace:*",
     "@astrojs/check": "^0.9.3",
     "@astrojs/cloudflare": "^11.0.5",
     "@astrojs/mdx": "^2.3",
@@ -46,7 +46,7 @@
     "@astrojs/rss": "^4.0.7",
     "@astrojs/sitemap": "^3.1.6",
     "@astrojs/solid-js": "^4.4.2",
-    "@hrry.me/api": "0.0.1",
+    "@hrry.me/api": "workspace:*",
     "astro": "^4",
     "astro-purgecss": "^4.6",
     "github-slugger": "^2.0.0",
@@ -67,5 +67,6 @@
   ],
   "files": [
     "./dist/**/*"
-  ]
+  ],
+  "packageManager": "pnpm@9.11.0+sha512.0a203ffaed5a3f63242cd064c8fb5892366c103e328079318f78062f24ea8c9d50bc6a47aa3567cabefd824d170e78fa2745ed1f16b132e16436146b7688f19b"
 }

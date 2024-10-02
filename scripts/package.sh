@@ -6,7 +6,7 @@ zip=dist.zip
 tarball=harrybrwn.github.io.tar.gz
 
 rm -f "$tarball" "$zip"
-yarn build
+pnpm build
 
 tar \
 	-czf "$tarball" \

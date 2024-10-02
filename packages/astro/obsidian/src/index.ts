@@ -34,23 +34,35 @@ const newMarkdownPlugin = (opts: Options) => {
   ];
 };
 
+import { type Plugin } from "vite";
+
 const plugin = (opts: Options): AstroIntegration => {
   if (!opts) opts = {};
   if (!opts.baseDir) opts.baseDir = defaultBaseDir;
   if (!opts.urlBase) opts.urlBase = defaultURLBase;
 
-  const vitePlugin = {
+  const vitePlugin: Plugin = {
     name: "astro-markdown-assets",
     enforce: "pre",
-    transform(_code: string, id: string) {
+    // transform(_code: string, id: string) {
+    //   // TODO: resolve image imports and document embeds that are imported into markdown
+    //   // TODO:
+    //   //  - ![[Document Name]]
+    //   //  - ![[image.png]]
+    //   //  - ![](image.png)
+    //   // See: https://vkbansal.me/blog/resolving-images-astro-md/
+    //   if (!markdownExts.has(path.extname(id))) return null;
+    //   return null;
+    // },
+    transform(_code, id, _options) {
       // TODO: resolve image imports and document embeds that are imported into markdown
       // TODO:
       //  - ![[Document Name]]
       //  - ![[image.png]]
       //  - ![](image.png)
       // See: https://vkbansal.me/blog/resolving-images-astro-md/
-      if (!markdownExts.has(path.extname(id))) return;
-      return;
+      if (!markdownExts.has(path.extname(id))) return null;
+      return null;
     },
   };
   const md = newMarkdownPlugin(opts);

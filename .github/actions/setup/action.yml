@@ -1,0 +1,18 @@
+name: Setup
+description: Setup node and pnpm
+
+runs:
+  using: composite
+  steps:
+    - name: Read .nvmrc
+      run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+      id: nvm
+      shell: bash
+    - uses: pnpm/action-setup@v4
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '${{ steps.nvm.outputs.NVMRC }}'
+    - name: Install Dependencies
+      run: pnpm install
+      shell: bash

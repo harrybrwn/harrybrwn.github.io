@@ -13,16 +13,31 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-    - name: Read .nvmrc
-      run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
-      id: nvm
-    - name: Setup Node
-      uses: actions/setup-node@v3
-      with:
-        node-version: '${{ steps.nvm.outputs.NVMRC }}'
-    - name: Install deps
-      run: yarn install
+    - name: Setup
+      uses: ./.github/actions/setup
     - name: Build
-      run: yarn build
-    - name: Check
-      run: yarn astro check
+      run: pnpm build
+
+  lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup
+      - name: Lint
+        run: pnpm run astro check
+
+  test:
+    runs-on: ubuntu-22.04
+    needs: [build, lint]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup
+      - name: Lint
+        run: pnpm run astro check
+      - name: Test
+        run: pnpm --recursive test:ci
+
