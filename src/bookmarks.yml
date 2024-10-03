@@ -727,3 +727,10 @@ links:
       - books
       - economics
       - politics
+  - url: https://github.com/godotengine/godot-docs/commit/3fa4cc3355e32a1893c39a7e9bd9e8baa065a78e
+    name: Encrypting save games
+    description: |-
+      A commit from the Godot documentation that I love.
+    tags:
+      - silly
+      - politics

@@ -4,7 +4,7 @@ import { SITE_TITLE, SITE_DESCRIPTION, gardenBasePath } from "../config";
 import { getPosts, slug } from "~/lib/blog";
 import GithubSlugger from "github-slugger";
 
-export const get = async () => {
+export const GET = async () => {
   const posts = await getPosts({ drafts: import.meta.env.DEV });
   const slugger = new GithubSlugger();
   return rss({

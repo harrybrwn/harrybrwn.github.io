@@ -1,6 +1,6 @@
 import { robots } from "@astro.hrry.dev/robots.txt";
 
-export const get = robots({
+export const GET = robots({
   sitemap: ["sitemap-index.xml", "sitemap-0.xml"],
   crawlers: [
     {

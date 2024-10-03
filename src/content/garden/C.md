@@ -1,14 +1,12 @@
 ---
-title: "C"
-description: "Rare snippets of C"
+title: "C (Programming Language)"
+description: "Rare C snippets and features."
 #pubDate: Tue 12 Sep 2023 03:52:38 PM PDT
 pubDate: 2023-09-12T23:24:17.710Z
 tags:
 - programming
 slug: C
 ---
-
-# C (Programming language)
 
 ## Contents
 

@@ -41,9 +41,7 @@ export const robots = (opts: Options): APIRoute => {
       }
       lines.push("");
     }
-    return {
-      body: lines.join("\n"),
-    };
+    return new Response(lines.join("\n"));
   };
 };
 
