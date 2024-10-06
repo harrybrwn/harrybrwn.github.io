@@ -112,9 +112,9 @@ importers:
       astro:
         specifier: ^4
         version: 4.15.9(@types/node@22.7.4)(lightningcss@1.25.1)(rollup@4.22.5)(sass@1.79.4)(terser@5.31.3)(typescript@5.6.2)
-      remark-wiki-link-plus:
-        specifier: ^1.1.1
-        version: 1.1.1
+      remark-wiki-link:
+        specifier: ^2.0.1
+        version: 2.0.1
     devDependencies:
       typescript:
         specifier: ^5
@@ -2585,6 +2585,9 @@ packages:
   mdast-util-wiki-link@0.0.2:
     resolution: {integrity: sha512-lSsR10/dPuYIxzjGZIGA4oYzsnEnqcsD6DTXL0pqdbBzNB9teKVZB2aIzZcUsdg31v/NoHOstkVwzbN6VrQLtw==}
 
+  mdast-util-wiki-link@0.1.2:
+    resolution: {integrity: sha512-DTcDyOxKDo3pB3fc0zQlD8myfQjYkW4hazUKI9PUyhtoj9JBeHC2eIdlVXmaT22bZkFAVU2d47B6y2jVKGoUQg==}
+
   mdn-data@2.0.28:
     resolution: {integrity: sha512-aylIc7Z9y4yzHYAJNuESG3hfhC+0Ibp/MAMiaOZgNv4pmEdFyfZhhhny4MNiAfWdBQ1RQ2mfDWmM1x8SvGyp8g==}
 
@@ -3099,6 +3102,9 @@ packages:
 
   remark-wiki-link-plus@1.1.1:
     resolution: {integrity: sha512-zSnIF3MrGQN+Bckl0+83pScJkhQe02OCAmbkgKqbhLkjnJSOJZk/UuyCRA6FNLkcAK9fhERUvwtsQKxEI/M76w==}
+
+  remark-wiki-link@2.0.1:
+    resolution: {integrity: sha512-F8Eut1E7GWfFm4ZDTI6/4ejeZEHZgnVk6E933Yqd/ssYsc4AyI32aGakxwsGcEzbbE7dkWi1EfLlGAdGgOZOsA==}
 
   repeat-string@1.6.1:
     resolution: {integrity: sha512-PV0dzCYDNfRi1jCDbJzpW7jNNDRuCOG/jI5ctQcGKt/clZD+YcPS3yIlWuTJMmESC8aevCFmWJy5wjAFgNqN6w==}
@@ -6729,6 +6735,11 @@ snapshots:
       '@babel/runtime': 7.25.6
       mdast-util-to-markdown: 0.6.5
 
+  mdast-util-wiki-link@0.1.2:
+    dependencies:
+      '@babel/runtime': 7.25.6
+      mdast-util-to-markdown: 0.6.5
+
   mdn-data@2.0.28: {}
 
   mdn-data@2.0.30: {}
@@ -7455,6 +7466,12 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.25.6
       mdast-util-wiki-link: 0.0.2
+      micromark-extension-wiki-link: 0.0.4
+
+  remark-wiki-link@2.0.1:
+    dependencies:
+      '@babel/runtime': 7.25.6
+      mdast-util-wiki-link: 0.1.2
       micromark-extension-wiki-link: 0.0.4
 
   repeat-string@1.6.1: {}

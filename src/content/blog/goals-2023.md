@@ -1,7 +1,7 @@
 ---
 title: "Goals for 2023"
 description: "My goals for the new year."
-pubDate: 2023-01-07
+pubDate: 2023-01-07T03:11:58.000Z
 tags:
   - journal
   - goals
