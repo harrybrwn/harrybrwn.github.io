@@ -3,9 +3,9 @@ import path from "~/lib/path";
 import Base from "~/layouts/Base.astro";
 import Nav from "~/components/Nav.astro";
 import BlogPosts from "~/components/BlogPosts";
-import GithubSlugger from "github-slugger";
-import { getPosts, slug } from "~/lib/blog";
 import { SITE_TITLE } from "~/config";
+
+import { getCollection } from "astro:content";
 
 export interface Props {
   blog: boolean;
@@ -15,21 +15,20 @@ export interface Props {
 
 const { subTitle, blog, description } = Astro.props;
 
-const allPosts = await getPosts({
-  blog: blog,
-  drafts: import.meta.env.DEV,
-});
-const slugger = new GithubSlugger();
-
+const allPosts = await getCollection(blog ? "blog" : "garden");
 // TODO Build a search index for content and tags
 const posts = allPosts.map((p) => {
-  const s = slug(p, true, slugger);
-  if (!p.frontmatter.slug) p.frontmatter.slug = s;
   return {
-    url: p.url || path.join(Astro.url.pathname, s),
-    frontmatter: p.frontmatter,
+    url: path.join(Astro.url.pathname, p.slug),
+    entry: p,
   };
+}).filter((post) => !post.entry.data.draft);
+
+posts.sort((a, b) => {
+  if (!a.entry.data.pubDate || !b.entry.data.pubDate) return 0;
+  return b.entry.data.pubDate.getTime() - a.entry.data.pubDate.getTime();
 });
+
 const title = `${SITE_TITLE} | ${subTitle}`;
 const props = { title, description }
 ---
