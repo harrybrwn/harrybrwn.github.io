@@ -1,31 +1,63 @@
 ---
 export const prerender = true;
-import type { MarkdownInstance, GetStaticPathsResult } from "astro";
-import { type Frontmatter, getPosts, slug } from "~/lib/blog";
+
+import BlogPost from "~/layouts/BlogPost.astro";
+import type { GetStaticPathsResult } from "astro";
 import GithubSlugger from "github-slugger";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 
 export interface Props {
-  post: MarkdownInstance<Frontmatter>;
+  post: CollectionEntry<"blog" | "garden">;
 }
 
 export const getStaticPaths = async (): Promise<GetStaticPathsResult> => {
   const slugger = new GithubSlugger();
-  const posts = await getPosts({ drafts: import.meta.env.DEV });
-  return posts.map((post) => {
-    let date: Date = new Date(post.frontmatter.pubDate);
-    return {
-      params: {
-        slug: slug(post, true, slugger),
-        date: date.toLocaleDateString().replaceAll("/", "-"),
-      },
-      props: { post },
-    };
-  });
+  const posts = (await getCollection("blog")).filter((p) => !p.data.draft);
+  const garden = (await getCollection("garden")).filter((p) => !p.data.draft);
+  let paths = [
+    ...posts.map((post) => {
+      let date = new Date(post.data.pubDate || "");
+      const slug = slugger.slug(post.id.replace(".md", ""), false);
+      return {
+        params: {
+          slug,
+          date: date.toLocaleDateString().replaceAll("/", "-"),
+        },
+        props: { post },
+      };
+    }),
+    ...garden.map((post) => {
+      let date = new Date(post.data.pubDate || "");
+      const slug = slugger.slug(post.id.replace(".md", ""), false);
+      return {
+        params: {
+          slug,
+          date: date.toLocaleDateString().replaceAll("/", "-"),
+        },
+        props: { post },
+      };
+    }),
+  ];
+  return paths;
 };
 
 const {
-  post: { Content },
+  post: {
+    render,
+    data: { title, description, tags, pubDate },
+  },
 } = Astro.props;
+
+const { Content } = await render();
+const info = {
+  title,
+  tags,
+  pubDate,
+  description: description || "",
+};
 ---
 
-<Content />
+<BlogPost content={info}>
+  <Content />
+</BlogPost>
