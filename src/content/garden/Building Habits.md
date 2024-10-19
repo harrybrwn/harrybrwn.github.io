@@ -3,6 +3,7 @@ title: Building Habits
 description: Ideas about habit building.
 pubDate: 2023-01-09T18:48:15.000Z
 tags: []
+slug: Building-Habits
 ---
 
 Habits are a common topic among self help gurus and its understandable, we all

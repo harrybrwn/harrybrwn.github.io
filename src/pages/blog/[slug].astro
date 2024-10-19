@@ -1,20 +1,19 @@
 ---
 export const prerender = true;
-import type { MarkdownInstance, GetStaticPathsResult } from "astro";
-import { type Frontmatter, getPosts, slug } from "~/lib/blog";
-import GithubSlugger from "github-slugger";
+import type { GetStaticPathsResult } from "astro";
+import { type CollectionEntry, getCollection } from "astro:content";
+import BlogPost from "~/layouts/BlogPost.astro";
 
 export interface Props {
-  post: MarkdownInstance<Frontmatter>;
+  post: CollectionEntry<"blog">;
 }
 
 export const getStaticPaths = async (): Promise<GetStaticPathsResult> => {
-  const slugger = new GithubSlugger();
-  const posts = await getPosts({ blog: true });
+  const posts = (await getCollection("blog")).filter((p) => !p.data.draft);
   return posts.map((post) => {
     return {
       params: {
-        slug: slug(post, true, slugger),
+        slug: post.slug,
       },
       props: { post },
     };
@@ -22,8 +21,21 @@ export const getStaticPaths = async (): Promise<GetStaticPathsResult> => {
 };
 
 const {
-  post: { Content },
+  post: {
+    data: { title, description, tags, pubDate },
+    render,
+  },
 } = Astro.props;
+const rendered = await render();
+const Content = rendered.Content;
+const info = {
+  title,
+  description,
+  tags,
+  pubDate: new Date(pubDate || ""),
+};
 ---
 
-<Content />
+<BlogPost content={info}>
+  <Content />
+</BlogPost>

@@ -6,5 +6,5 @@ export const humanDate = (d: Date) =>
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
-    timeZoneName: "longGeneric",
+    timeZoneName: "shortGeneric",
   });

@@ -8,12 +8,13 @@ export interface Props {
   content: {
     title: string;
     description: string;
-    pubDate: Date;
     tags?: string[];
+    pubDate: Date;
+    modDate?: Date | undefined;
   };
 }
 const {
-  content: { title, description, tags, pubDate },
+  content: { title, description, tags, pubDate, modDate },
 } = Astro.props;
 const date = new Date(pubDate);
 ---
@@ -38,7 +39,11 @@ const date = new Date(pubDate);
     <hr />
     <footer>
       {tags && tags.length > 0 && <pre>tags: [{tags?.join(" ")}]</pre>}
-      published: {humanDate(date)}
+      <pre>published: {humanDate(date)}</pre>
+      {modDate !== undefined && !isNaN(modDate.getTime())
+        ? <pre>modified: {humanDate(modDate)}</pre>
+        : <></>
+      }
     </footer>
   </main>
 </Base>
