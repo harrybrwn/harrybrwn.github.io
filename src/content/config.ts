@@ -10,6 +10,7 @@ const blog = defineCollection({
       "goals",
     ])),
     pubDate: z.date(),
+    modDate: z.date().optional(),
     blog: z.boolean().optional(),
     draft: z.boolean().optional(),
   }),
