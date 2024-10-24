@@ -6,8 +6,12 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     tags: z.array(z.enum([
-      "journal",
       "goals",
+      "golang",
+      "journal",
+      "opinion",
+      "tech",
+      "web",
     ])),
     pubDate: z.date(),
     modDate: z.date().optional(),

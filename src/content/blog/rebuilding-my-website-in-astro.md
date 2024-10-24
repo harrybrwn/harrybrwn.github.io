@@ -1,7 +1,7 @@
 ---
 title: "Rebuilding my Website in Astro"
 description: ""
-pubDate: Jan 10, 2023
+pubDate: 2023-01-10T05:36:03.939Z
 tags:
   - web
   - tech
