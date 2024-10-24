@@ -47,13 +47,16 @@ const getPubDate = (p: markdown) => {
 
   // Find the markdown file in our prebuilt modified times json file. If its not
   // there then use the os file stat.
-  let name = p.file.replace(process.cwd() + "/", "");
+  let name = p.file.replace(process.cwd() + "/src/content/", "");
   if (name in modified) {
-    const dates = (modified as { [key: string]: string[]; })[name];
-    if (dates.length === 0) {
-      return new Date();
-    }
-    return new Date(dates[dates.length - 1]);
+    type DatesType = {
+      [key: string]: {
+        pubDate: string;
+        modDate: string | null;
+      };
+    };
+    const dates = (modified as DatesType)[name];
+    return new Date(dates.pubDate);
   } else {
     return new Date();
   }

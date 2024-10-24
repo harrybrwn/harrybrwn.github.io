@@ -1,45 +1,76 @@
 {
-  "content/Abstractions.md": [
-    "2023-01-24T17:12:55.000Z"
-  ],
-  "content/Building Habits.md": [
-    "2023-01-11T04:58:30.000Z",
-    "2023-01-09T18:48:15.000Z"
-  ],
-  "content/C.md": [
-    "2023-01-11T21:08:36.000Z",
-    "2023-01-11T04:58:30.000Z"
-  ],
-  "content/Free Will.md": [
-    "2024-10-02T20:05:21.076Z"
-  ],
-  "content/GPG.md": [
-    "2023-01-12T18:21:03.000Z"
-  ],
-  "content/Information Retrieval.md": [
-    "2023-01-12T18:21:03.000Z"
-  ],
-  "content/Kubernetes Tooling.md": [
-    "2023-01-11T05:54:40.000Z",
-    "2023-01-10T02:27:29.000Z",
-    "2023-01-09T18:48:15.000Z"
-  ],
-  "content/Open Source Closed Contribution.md": [
-    "2023-01-12T18:21:03.000Z"
-  ],
-  "content/blog/against-golang-templates.md": [
-    "2023-01-11T04:58:30.000Z",
-    "2023-01-09T03:11:58.000Z"
-  ],
-  "content/blog/goals-2023.md": [
-    "2023-01-09T03:11:58.000Z"
-  ],
-  "content/blog/rebuilding-my-website-in-astro.md": [
-    "2023-01-11T04:58:30.000Z",
-    "2023-01-09T03:11:58.000Z"
-  ],
-  "content/flagship projects.md": [
-    "2023-01-11T21:08:36.000Z",
-    "2023-01-09T03:11:58.000Z"
-  ]
+  "garden/Abstractions.md": {
+    "pubDate": "2023-01-24T17:12:55.000Z",
+    "modDate": null,
+    "modified": []
+  },
+  "garden/Building Habits.md": {
+    "pubDate": "2023-01-09T18:48:15.000Z",
+    "modDate": null,
+    "modified": [
+      "2023-01-11T04:58:30.000Z",
+      "2024-10-19T19:51:51.000Z"
+    ]
+  },
+  "garden/C.md": {
+    "pubDate": "2023-01-11T04:58:30.000Z",
+    "modDate": null,
+    "modified": [
+      "2023-01-11T21:08:36.000Z"
+    ]
+  },
+  "garden/Free Will.md": {
+    "pubDate": "2024-10-02T20:05:21.076Z",
+    "modDate": null,
+    "modified": []
+  },
+  "garden/GPG.md": {
+    "pubDate": "2023-01-12T18:21:03.000Z",
+    "modDate": null,
+    "modified": []
+  },
+  "garden/Information Retrieval.md": {
+    "pubDate": "2023-01-12T18:21:03.000Z",
+    "modDate": null,
+    "modified": []
+  },
+  "garden/Kubernetes Tooling.md": {
+    "pubDate": "2023-01-09T18:48:15.000Z",
+    "modDate": null,
+    "modified": [
+      "2023-01-11T05:54:40.000Z",
+      "2023-01-10T02:27:29.000Z"
+    ]
+  },
+  "garden/Open Source Closed Contribution.md": {
+    "pubDate": "2023-01-12T18:21:03.000Z",
+    "modDate": null,
+    "modified": []
+  },
+  "blog/against-golang-templates.md": {
+    "pubDate": "2023-01-09T03:11:58.000Z",
+    "modDate": null,
+    "modified": [
+      "2023-01-11T04:58:30.000Z"
+    ]
+  },
+  "blog/goals-2023.md": {
+    "pubDate": "2023-01-09T03:11:58.000Z",
+    "modDate": null,
+    "modified": []
+  },
+  "blog/rebuilding-my-website-in-astro.md": {
+    "pubDate": "2023-01-09T03:11:58.000Z",
+    "modDate": null,
+    "modified": [
+      "2023-01-11T04:58:30.000Z"
+    ]
+  },
+  "garden/flagship projects.md": {
+    "pubDate": "2023-01-09T03:11:58.000Z",
+    "modDate": null,
+    "modified": [
+      "2023-01-11T21:08:36.000Z"
+    ]
+  }
 }
