@@ -15,6 +15,7 @@ import ToggleSwitch from "../components/ToggleSwitch.astro";
 import Help from "../components/Help.astro";
 import StarBackground from "../components/backgrounds/StarBackground.astro";
 import SpinningEarth from "../components/img/SpinningEarth.astro";
+import ExternalLinkIcon from "~/components/img/ExternalLinkIcon.astro";
 import UnderConstruction from "../components/img/UnderConstruction.astro";
 import All88x31Cards from "~/components/All88x31Cards.astro";
 
@@ -33,7 +34,7 @@ const buildHash =
   HEAD_SHA;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <LoadTheme key="theme" button={themeToggle} />
@@ -110,23 +111,21 @@ const buildHash =
         <h2>My Projects</h2>
         <ul>
           <li>
-            <a href="/projects/remora">remora</a>: A distributed web crawler and
-            search engine.
+            <a href="/projects/remora">remora<ExternalLinkIcon /></a>:
+            Adistributed web crawler and search engine.
           </li>
           <li>
             <a
               target="_blank"
               href="https://github.com/harrybrwn/apizza"
-              rel="noopener,noreferrer">apizza</a
+              rel="noopener,noreferrer">apizza<ExternalLinkIcon /></a
             >: Download dominos pizza from the command line.
           </li>
           <li>
             <a
               target="_blank"
               href="https://github.com/harrybrwn/yt"
-              rel="noopener,noreferrer"
-            >
-              yt</a
+              rel="noopener,noreferrer">yt<ExternalLinkIcon /></a
             >: Youtube video/audio downloader.
           </li>
         </ul>
@@ -179,7 +178,7 @@ const buildHash =
       const toggle = document.getElementById("tt") as HTMLInputElement;
       document.addEventListener(
         "keydown",
-        listener(() => window.themeToggle(toggle), help)
+        listener(() => window.themeToggle(toggle), help),
       );
       window
         .matchMedia("(prefers-color-scheme: dark)")

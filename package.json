@@ -16,6 +16,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "pnpm -r run test:ci",
+    "lint": "pnpm run astro check",
+    "sync": "astro sync",
     "clean": "rm -rf ./dist/ ./.vercel/ ./.netlify/ *.tar.gz *.zip && pnpm -r run clean",
     "new": "node packages/astro/new/index.js",
     "gen": "node scripts/generate.js",
@@ -55,6 +57,8 @@
   },
   "devDependencies": {
     "@modyfi/vite-plugin-yaml": "^1.1.0",
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1",
     "purgecss": "^6.0.0",
     "sass": "^1.57.1",
     "typescript": "^5.6.2",
