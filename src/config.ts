@@ -12,11 +12,17 @@ export const mastodon = {
   instance: "hachyderm.io",
 };
 
+export const bsky = {
+  handle: "hrry.me",
+  did: "did:plc:kzvsijt4365vidgqv7o6wksi",
+};
+
 export const links = {
   github: "https://github.com/harrybrwn",
   linkedin: "https://www.linkedin.com/in/harrybrwn/",
   worldOfText: "https://www.yourworldoftext.com/~harrybrwn/",
   mastodon: `https://${mastodon.instance}/@${mastodon.username}`,
+  bsky: `https://bsky.app/profile/${bsky.did}`,
 };
 
 export const git = {

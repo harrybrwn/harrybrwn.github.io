@@ -27,7 +27,7 @@ jobs:
           --transform 's/dist/h3y.sh/' \
           ./dist/
     - name: Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         files: |
           harrybrwn.github.io.tar.gz

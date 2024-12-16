@@ -19,7 +19,14 @@ import ExternalLinkIcon from "~/components/img/ExternalLinkIcon.astro";
 import UnderConstruction from "../components/img/UnderConstruction.astro";
 import All88x31Cards from "~/components/All88x31Cards.astro";
 
-import { SITE_DESCRIPTION, links, twitterUser, mastodon, git } from "../config";
+import {
+  SITE_DESCRIPTION,
+  links,
+  twitterUser,
+  mastodon,
+  git,
+  bsky,
+} from "../config";
 import LoadTheme from "~/components/LoadTheme.astro";
 import { humanDate } from "~/lib/dates.js";
 
@@ -97,6 +104,7 @@ const buildHash =
         class="links"
         links={[
           { href: links.github, text: "github", title: "All my projects" },
+          { href: links.bsky, text: `at://${bsky.handle}`, title: "BlueSky" },
           { href: links.linkedin, text: "linkedin", title: "My LinkedIn" },
           { href: links.mastodon, text: "mastodon", title: "Mastodon" },
           {

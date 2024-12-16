@@ -6,6 +6,16 @@ import Base from "~/layouts/Base.astro";
 import Nav from "~/components/Nav.astro";
 import bookmarks from "~/bookmarks.yml";
 import type { Bookmark } from "~/types";
+
+let tagset = new Set<string>();
+for (let bk of bookmarks.links) {
+  for (let tag of bk.tags) {
+    if (!tagset.has(tag)) {
+      tagset.add(tag as string);
+    }
+  }
+}
+const tags = new Array(...tagset);
 ---
 
 <Base
@@ -24,6 +34,17 @@ import type { Bookmark } from "~/types";
       />
     </header>
     <h2>Bookmarks</h2>
+    <h3>Tags</h3>
+    <section class="tags">
+      {
+        tags.sort().map((t) => (
+          <span class="bk-tags">
+            <a href={`/bookmarks/tag/${t}`}>{t}</a>{" "}
+          </span>
+        ))
+      }
+    </section>
+    <h3>Bookmarks</h3>
     <section>
       <div id="bookmarks" class="bookmarks">
         {
@@ -56,8 +77,13 @@ import type { Bookmark } from "~/types";
 
   .bookmarks {
     display: grid;
-      gap: 10px;
-      grid-auto-rows: minmax(100px, auto);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+  }
+
+  .tags {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
   }
 
   @media only screen and (min-width: 800px) and (max-width: 1200px) {
