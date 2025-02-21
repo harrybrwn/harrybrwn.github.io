@@ -37,10 +37,52 @@ Host router.lan
 # Firewall
 
 ## References
+
 - [Securing your router](https://help.mikrotik.com/docs/spaces/ROS/pages/328353/Securing+your+router)
 - [Building an Advanced Firewall](https://help.mikrotik.com/docs/spaces/ROS/pages/328513/Building+Advanced+Firewall)
+- [Getting Started: MikroTik Firewall](https://www.youtube.com/watch?v=6boYA7xdjZY)
 
-...
+## Filter
+
+The firewall filters are a list of commands executed in order that describe how
+to handle packets in the firewall.
+
+Filter Concepts:
+
+1. [Chains](#chains)
+2. [Actions](#actions)
+3. [Other Filter Options...](#other-filter-options)
+
+### Chains
+
+Chains describe the logical flow that the router uses to handle specific types
+of packets.
+
+| chain     | description |
+| ---       | --- |
+| `input`   | handles packets going **into** the router |
+| `output`  | handles packets going **out** of the router (originating from router) |
+| `forward` | handles packets going **through** the router |
+
+### Actions
+
+The action tells a filter what do do with a packet at the current filter step.
+
+| action                    | description                           |
+| ---                       | ---                                   |
+| `reject`                  | Respond with a reject "error message" |
+| `drop`                    | Silently drop the packet. Clients will assume router is unreachable. |
+| `accept`                  | Accept the packet |
+| `fasttrack connection`    | Skip all next firewall rules and push packet out quickely. |
+| `passthrough`             | ... |
+| `return`                  | ... |
+| `tarpit`                  | ... |
+| `jump`                    | ... |
+| `log`                     | ... |
+| `add dst to address list` | ... |
+| `add src to address list` | ... |
+
+### Other Filter Options
 
 # Scripting
 
