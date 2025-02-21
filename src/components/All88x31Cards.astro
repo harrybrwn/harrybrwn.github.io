@@ -5,7 +5,7 @@ interface Icon {
   alt: string;
   title: string;
   href: string;
-  src: any,
+  src: any;
   disabled?: boolean;
 }
 
@@ -56,12 +56,6 @@ const icons: Record<string, Icon> = {
     href: "/static/files/amd-athlon-64-x2-datasheet.pdf",
     src: (await Astro.glob("../img/88x31/amd_powered.gif"))[0].default,
   },
-  "madville.gif": {
-    alt: "A beautifully retro site",
-    title: "A beautifully retro site",
-    href: "https://madville.neocities.org",
-    src: (await Astro.glob("../img/88x31/madville.gif"))[0].default,
-  },
   "netnow2.gif": {
     alt: "Netscape Navigator",
     title: "Netscape Navigator",
@@ -105,13 +99,16 @@ const icons: Record<string, Icon> = {
 
 <section class="cards">
   {
-    Object.values(icons).map((icon) => (
-      !icon.disabled && <Icon88x31
-        href={icon.href}
-        title={icon.title}
-        src={icon.src.src || ""}
-        alt={icon.alt}
-      />
-    ))
+    Object.values(icons).map(
+      (icon) =>
+        !icon.disabled && (
+          <Icon88x31
+            href={icon.href}
+            title={icon.title}
+            src={icon.src.src || ""}
+            alt={icon.alt}
+          />
+        ),
+    )
   }
 </section>
