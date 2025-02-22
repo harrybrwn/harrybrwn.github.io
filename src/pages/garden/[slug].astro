@@ -10,15 +10,16 @@ export interface Props {
 }
 
 export const getStaticPaths = async (): Promise<GetStaticPathsResult> => {
-  const posts = (await getCollection("garden")).filter((p) => !p.data.draft);
-  return posts.map((post) => {
-    return {
-      params: {
-        slug: post.slug,
-      },
-      props: { post },
-    };
-  });
+  return (await getCollection("garden"))
+    .filter((p) => import.meta.env.DEV || !p.data.draft)
+    .map((post) => {
+      return {
+        params: {
+          slug: post.slug,
+        },
+        props: { post },
+      };
+    });
 };
 
 const {

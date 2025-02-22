@@ -31,15 +31,20 @@ const garden = defineCollection({
       "homelab",
       "ideas",
       "kubernetes",
+      "linux",
       "opsec",
       "philosophy",
       "programming",
       "security",
     ])),
-    pubDate: z.date(),
+    pubDate: z.date().optional(), // validation happens in .refine
     modDate: z.date().optional(),
     draft: z.boolean().optional(),
-  }),
+  })
+    .refine(
+      (s) => s.pubDate !== undefined || s.draft,
+      { message: `pubDate is required for non-drafts` },
+    ),
 });
 
 export const collections = {
