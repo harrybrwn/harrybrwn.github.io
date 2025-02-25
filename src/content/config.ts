@@ -37,14 +37,15 @@ const garden = defineCollection({
       "programming",
       "security",
     ])),
-    pubDate: z.date().optional(), // validation happens in .refine
+    // pubDate: z.date().optional(), // validation happens in .refine
+    pubDate: z.date().default(() => new Date()),
     modDate: z.date().optional(),
     draft: z.boolean().optional(),
-  })
-    .refine(
-      (s) => s.pubDate !== undefined || s.draft,
-      { message: `pubDate is required for non-drafts` },
-    ),
+  }),
+  // .refine(
+  //   (s) => s.pubDate !== undefined || s.draft,
+  //   { message: `pubDate is required for non-drafts` },
+  // ),
 });
 
 export const collections = {

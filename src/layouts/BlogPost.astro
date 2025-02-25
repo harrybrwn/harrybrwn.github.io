@@ -16,7 +16,7 @@ export interface Props {
 const {
   content: { title, description, tags, pubDate, modDate },
 } = Astro.props;
-const date = new Date(pubDate);
+const date = new Date(pubDate || new Date());
 ---
 
 <Base title={title} description={description}>
