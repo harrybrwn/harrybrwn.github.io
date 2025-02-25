@@ -5,6 +5,7 @@ tags:
 - linux
 - hobbies
 pubDate: 2025-02-24T18:57:53-08:00
+modDate: 2025-02-24T20:39:09-08:00
 ---
 
 # Packages
@@ -25,9 +26,11 @@ sudo apt install \
     xfce4-whiskermenu-plugin \
     xfce4-panel-profiles \
     xfce4-screensaver \
+    xfce4-screenshooter \
     thunar-volman \
-    nm-tray \
-    lightdm
+    network-manager-gnome \
+    lightdm \
+    blueman
 ```
 
 # Chigago95
@@ -36,6 +39,7 @@ sudo apt install \
 git clone https://github.com/grassmunk/Chicago95.git
 sudo cp -r Chicago95/Theme/Chicago95 /usr/share/themes/
 sudo cp -r Chicago95/Icons/* /usr/share/icons/
+sudo cp -r Chicago95/Cursors/* /usr/share/icons/
 sudo cp -v Chicago95/Fonts/vga_font/LessPerfectDOSVGA.ttf /usr/share/fonts/
 sudo fc-cache -f
 sudo cp -r Chicago95/Plymouth/Chicago95 /usr/share/plymouth/themes/
