@@ -105,7 +105,7 @@ const compress = (settings: any): AstroIntegration => {
       "astro:build:setup": (options) => {
         for (const [name, page] of options.pages.entries()) {
           if (page.route.type === 'page' && page.route.prerender === true) {
-            prerendered.push(name)
+            prerendered.push(name);
           }
         }
       },

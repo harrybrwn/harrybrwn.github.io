@@ -23,7 +23,7 @@
     "astro-compress": "^2.3"
   },
   "devDependencies": {
-    "css-tree": "^2.3.1",
+    "css-tree": "^3.1",
     "typescript": "^5",
     "vitest": "^0.30.1"
   }

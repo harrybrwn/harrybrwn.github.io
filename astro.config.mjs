@@ -24,9 +24,6 @@ const siteMapFilter = new Set(["admin"]);
 const isNetlify = process.env.NETLIFY === "false" ? false : true;
 const isCloudflare = process.env.CLOUDFLARE_ACCOUNT_ID ? true : false;
 let output = process.env.ASTRO_OUTPUT || "static";
-if (isNetlify || isCloudflare) {
-  output = "hybrid"; // TODO hybrid does not work in netlify
-}
 
 // https://astro.build/config
 export default defineConfig({
@@ -37,7 +34,7 @@ export default defineConfig({
     ? cloudflare()
     : isNetlify
       ? netlify()
-      : output === "server" || output === "hybrid"
+      : output === "server"
         ? node({ mode: "middleware" })
         : undefined,
   compressHTML: true,

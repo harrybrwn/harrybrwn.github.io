@@ -17,7 +17,7 @@
     "clean": "true"
   },
   "dependencies": {
-    "github-slugger": "^2.0.0",
+    "github-slugger": "^2",
     "remark-wiki-link-plus": "^1.1.1"
   }
 }
