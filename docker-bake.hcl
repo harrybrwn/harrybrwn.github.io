@@ -32,7 +32,7 @@ function "tags" {
 	]
 }
 
-variable "NODE_VERSION" { default = "18.14.2" }
+variable "NODE_VERSION" { default = "23.7.0" }
 
 variable "NGINX_VERSION" { default = "1.23.3" }
 

@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.4
 
-ARG NODE_VERSION=22.4.1
+ARG NODE_VERSION=23.7.0
 ARG NGINX_VERSION=1.23.3
 
 # Development

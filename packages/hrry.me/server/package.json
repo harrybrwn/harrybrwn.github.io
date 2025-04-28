@@ -22,7 +22,7 @@
   "devDependencies": {
     "@types/express": "^4.17.16",
     "@types/morgan": "^1.9.4",
-    "@types/node": "^18.11.18",
+    "@types/node": "^23.7.0",
     "typescript": "^5"
   },
   "dependencies": {
