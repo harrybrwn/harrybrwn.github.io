@@ -39,7 +39,7 @@ const {
 const themeId = "tt";
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang={lang}>
   <head>
     <LoadTheme key="theme" button={themeId} />
@@ -80,7 +80,7 @@ const themeId = "tt";
       const toggle = document.getElementById("tt") as HTMLInputElement;
       document.addEventListener(
         "keydown",
-        listener(() => window.themeToggle(toggle), help)
+        listener(() => window.themeToggle(toggle), help),
       );
       window
         .matchMedia("(prefers-color-scheme: dark)")
@@ -90,3 +90,19 @@ const themeId = "tt";
     </script>
   </body>
 </html>
+
+<style is:global>
+  body {
+    font-size: 16px;
+  }
+  hr {
+    border-color: rgb(172, 172, 172);
+    max-width: 80%;
+  }
+  ::-webkit-scrollbar {
+    width: 0.5em;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: grey;
+  }
+</style>

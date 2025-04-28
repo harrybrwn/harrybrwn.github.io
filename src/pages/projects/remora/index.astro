@@ -1,0 +1,33 @@
+---
+export const prerender = true;
+
+import "~/styles/global.css";
+import Base from "~/layouts/Base.astro";
+import Neko from "~/components/Neko.astro";
+
+const presentation =
+  "presentation/d/1cAmG3Jp6GIuhf2Q40arBQqK2PiWW6WkWd-_e9gZ3fH0/edit?usp=sharing";
+---
+
+<Base title="remora" description="web crawler project." lang="en">
+  <Neko />
+  <main>
+    <h1>Remora</h1>
+    <ul>
+      <li>
+        <a href={"http://docs.google.com/" + presentation} target="_blank"
+          >presentation slides</a
+        >
+      </li>
+      <li><a href="/blog/remora">blog post</a></li>
+      <li><a href="/projects/remora/notes">project notes</a></li>
+      <li><a href="https://github.com/harrybrwn/remora">source code</a></li>
+    </ul>
+  </main>
+</Base>
+
+<style is:global>
+  body {
+    padding: 3em;
+  }
+</style>

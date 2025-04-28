@@ -294,12 +294,6 @@ links:
       - art
       - blog
       - programming
-  - url: https://muskjet.live/
-    name: Musk Jet
-    description: "Track Elon Musk's private jet."
-    tags:
-      - people
-      - tools
   - url: https://www.moneymacro.rocks/
     name: Money & Macro
     description: |-

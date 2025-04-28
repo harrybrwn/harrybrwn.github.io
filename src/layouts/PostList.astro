@@ -17,12 +17,14 @@ const { subTitle, blog, description } = Astro.props;
 
 const allPosts = await getCollection(blog ? "blog" : "garden");
 // TODO Build a search index for content and tags
-const posts = allPosts.map((p) => {
-  return {
-    url: path.join(Astro.url.pathname, p.slug),
-    entry: p,
-  };
-}).filter((post) => !post.entry.data.draft);
+const posts = allPosts
+  .map((p) => {
+    return {
+      url: path.join(Astro.url.pathname, p.slug),
+      entry: p,
+    };
+  })
+  .filter((post) => !post.entry.data.draft);
 
 posts.sort((a, b) => {
   if (!a.entry.data.pubDate || !b.entry.data.pubDate) return 0;
@@ -30,7 +32,7 @@ posts.sort((a, b) => {
 });
 
 const title = `${SITE_TITLE} | ${subTitle}`;
-const props = { title, description }
+const props = { title, description };
 ---
 
 <Base {...props}>
@@ -57,5 +59,8 @@ const props = { title, description }
   }
   time {
     white-space: nowrap;
+  }
+  html {
+    width: 100vw;
   }
 </style>

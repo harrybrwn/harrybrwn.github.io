@@ -1,0 +1,21 @@
+---
+import Base from "./Base.astro";
+import Nav from "~/components/Nav.astro";
+
+const { title, description } = Astro.props.frontmatter;
+---
+
+<Base title={title} description={description}>
+  <main>
+    <header>
+      <Nav
+        pages={[
+          { href: "/", name: "home" },
+          { href: "/about/", name: "about" },
+          { href: "/blog/", name: "blog" },
+        ]}
+      />
+    </header>
+    <slot />
+  </main>
+</Base>

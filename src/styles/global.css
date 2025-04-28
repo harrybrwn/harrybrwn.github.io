@@ -23,4 +23,10 @@ html[data-theme="dark"] body {
 html[data-theme="dark"] a {
   color: rgb(220, 220, 220);
 }
+
+/* Visibility for embedded SVGs in markdown articles */
+html[data-theme="dark"] article p img {
+    background-color: white;
+}
+
 /* end theme */
