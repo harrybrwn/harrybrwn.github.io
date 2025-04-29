@@ -140,10 +140,9 @@ that I didn't need super high accuracy metrics so the timing information embedde
 in traces was sufficient.
 
 For logging I kept it simple, just JSON or logfmt to stdout. For traces I used
-the opentelemetry libraries to send traces to
-[jaeger](https://www.jaegertracing.io/). This allowed me to have good visibility
-into the behavior and performance of the system no matter how distributed it
-became.
+the opentelemetry libraries to send traces to jaeger. This allowed me to have
+good visibility into the behavior and performance of the system no matter how
+distributed it became.
 
 
 # Future Improvements
@@ -182,9 +181,8 @@ file types, support scaleable filtering, and re-crawl old pages with a cron job.
     fast. When crawling Wikipedia, the size of the queue peeked at around 50
     million messages.
 
-    One option here is to use [Kafka](https://kafka.apache.org/) which has its
-    own downsides (routing will get more difficult) but it is designed to handle
-    higher throughput.
+    One option here is to use Kafka which has its own downsides (routing will
+    get more difficult) but it is designed to handle higher throughput.
 
     The last option is to add messages to a simple database (probably postgres
     or sqlite3) and keep track of each end of the queue as you push and pop.
@@ -206,19 +204,17 @@ file types, support scaleable filtering, and re-crawl old pages with a cron job.
     After storing all of Wikipedia, a simple page rank query was on the order of
     minutes which is obviously not ideal.
 
-    The best option for text search is to sprinkle in some
-    [elasticsearch](https://www.elastic.co/elasticsearch) which is a popular
-    solution for text search[^discord-elasticsearch]. Another option is to write
-    a custom full-text search engine which is a fun project but a pretty big
-    lift.
+    The best option for text search is to sprinkle in some elasticsearch which
+    is a popular solution for text search[^discord-elasticsearch]. Another
+    option is to write a custom full-text search engine which is a fun project
+    but a pretty big lift.
 
     I also made the decision to store the raw text and page info in postgres
     which makes the table huge and database scans ridiculously slow. There is
     really no reason to implement it this way and there are a few better options
     like storing page info in a database that is better at clustering like
-    [Cassandra](https://cassandra.apache.org/) or
-    [MongoDB](https://www.mongodb.com/) and storing raw text in an object store
-    like [S3](https://aws.amazon.com/s3/) or [Minio](https://min.io/).
+    Cassandra or MongoDB and storing raw text in an object store like S3 or
+    Minio.
 
 4. Throw it in kubernetes.
 
@@ -280,5 +276,5 @@ on-demand but in the current unfinished state, its not super useful.
 [3]: <https://nlp.stanford.edu/IR-book/html/htmledition/dns-resolution-1.html> "IR DNS Resolver"
 [4]: <https://www.treehugger.com/remora-fish-suckers-sea-inspiring-new-adhesives-4858201> "Remora Fish, Those Suckers of the Sea, Are Inspiring New Adhesives"
 [5]: <https://dl.acm.org/doi/10.1145/1242572.1242592> "Detecting Near-Duplicates for Web Crawling"
-[6]: </remora/notes> "My Crawler Project Notes"
+[6]: </projects/remora/notes> "My Crawler Project Notes"
 
