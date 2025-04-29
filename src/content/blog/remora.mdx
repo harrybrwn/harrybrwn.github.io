@@ -1,0 +1,284 @@
+---
+title: Remora
+description: A distributed web crawler.
+tags:
+- web
+- tech
+draft: true
+pubDate: 2025-04-29T00:29:53.013Z
+slug: remora
+---
+
+import { Image } from "astro:assets";
+import RemoraSharkWebp from "~/img/remora/remora-and-shark.webp";
+
+<div
+  style="display:block;margin-left:auto;margin-right:auto;width:80%;"
+>
+  <a
+    href="https://www.treehugger.com/remora-fish-suckers-sea-inspiring-new-adhesives-4858201"
+    target="_blank"
+  >
+    <Image
+      src={RemoraSharkWebp}
+      alt="Remora Fish under a shark"
+      width="600"
+      height="400"
+    />
+  </a>
+  <a
+    href="https://www.treehugger.com/remora-fish-suckers-sea-inspiring-new-adhesives-4858201"
+    title="Remora Fish, Those Suckers of the Sea, Are Inspiring New Adhesives"
+  >
+    <em style="font-size:11px">photo credit</em>
+  </a>
+</div>
+
+A remora is a type of fish that lives in symbiosis with another larger whale or
+shark that will remove parasites and clean dead skin but benefits from the
+protection of the larger fish. A web crawler crawls the internet, indexing sites
+and pruning dead pages. Much like the remora, a web crawler lives along side the
+internet as a mutually beneficial organism.
+
+> See the [project page](/projects/remora).
+
+# Inspiration
+
+* **Data collection**. The data scientist in me wants to hoover up all the data.
+* **Bookmarks search**. I hate my browser's bookmarks and I want a searchable
+  bookmark tool.
+* **General usefulness**. Having a custom sophisticated webcrawler seems useful
+  for many reasons.
+* **System design**. This is the dumbest reason, but system design interviews seem
+  hard and I wanted hands on experience to inform my studying.
+
+# Design Requirements/Considerations
+
+- Must be able to infinitely crawl a site.
+- Politeness
+    - don't crawl too fast
+    - respect `robots.txt` (you're IP **will** get blocked)
+- Handle and store graphs with a relatively high degree.
+- Will be heavily reliant on routable queuing
+- Custom DNS Resolver[^dns]
+
+### MVP (short term goals)
+
+My short term goals for this project were fairly limited mostly because of time
+but also because there's a ton of possible digressions that distract from
+implementing the core functionality.
+
+1. Halfway usable search.
+2. Page rank.
+
+# Design
+
+![system design diagram](~/img/remora/basic-architecture.svg)
+
+The core components of this design are the crawlers and the frontier queue. Here
+the "Crawler API" is a pretty abstract representation of the breadth of possible
+architectures that the crawler flow can have.
+
+### Crawler Flow
+![crawler workflow diagram](~/img/remora/crawler-flow.svg)
+
+In the simplest case it is just a single thread that handles each stage and in
+the most complex case, it can be a series of micro services.
+
+### Frontier Queue
+![frontier queue design diagram](~/img/remora/frontier.svg)
+
+This is a simplified version the [IR book's][1] frontier queue diagram. Here,
+the priority and routing is simplified because most of that is handled by my
+decision to RabbitMQ which handles most of the routing and prioritization.
+
+
+# Extensibility
+In my inspiration section, I said I wanted a web crawler for "general
+usefulness" which is a pretty open ended requirement. This necessitates a design
+that can be easily collapsible or expandable and for that I designed a `Visitor`
+go interface for objects that would eventually have access to a crawled URL.
+
+```go
+type Visitor interface {
+	// Filter is called after checking page depth
+	// and after checking for a repeated URL.
+	Filter(*PageRequest, *url.URL) error
+	// Visit is called after a page is fetched.
+	Visit(context.Context, *Page)
+}
+```
+
+Using this visitor pattern allowed me to abstract the pipelined operations that
+needed to be applied to each URL pulled from the queue.
+
+This allows a useful degree of compostability and can be used to easily split
+sections up into separate micro services.
+
+Consider this example of chaining multiple visitors.
+
+```go
+type Visitors []Visitor
+
+func (vs Visitors) Filter(p *PageRequest, u *url.URL) (err error) {
+    return Map(vs, func(v Visitor) error { return v.Filter(p, u) })
+}
+
+func (vs Visitors) Visit(ctx context.Context, p *Page) {
+    Map(vs, func(v Visitor) { v.Visit(ctx, p) })
+}
+```
+
+
+# Observability
+
+### Logs, Metrics, Traces
+
+The big three for observability are necessary for any sufficiently large
+project and this project is no different. However, one assumption I made was
+that I didn't need super high accuracy metrics so the timing information embedded
+in traces was sufficient.
+
+For logging I kept it simple, just JSON or logfmt to stdout. For traces I used
+the opentelemetry libraries to send traces to
+[jaeger](https://www.jaegertracing.io/). This allowed me to have good visibility
+into the behavior and performance of the system no matter how distributed it
+became.
+
+
+# Future Improvements
+None of my projects are finished unfortunately and this one is probably one of
+the most unfinished simple due to the number of improvements and configuration
+options I want to add.
+
+### Future Architecture Improvements
+
+As previously mentioned, using a visitor-like pattern makes it pretty easy to
+extend the architecture by adding visitors that make calls out to other
+microservices.
+
+Here's one option for how the architecture could be expanded to handle different
+file types, support scaleable filtering, and re-crawl old pages with a cron job.
+
+![diagram for future system design plans](~/img/remora/future-architecture.svg)
+
+
+### Future Tech Improvements
+1. Implement Near-Duplicate detection.
+
+    This one is a pretty simple, self-explanatory feature that would reduce the
+    number of nodes to visit. This improves both the storage and time efficiency
+    of the crawler. Google published [a paper][5] documenting near-duplicate
+    detection for web crawlers that I would probably follow closely.
+
+2. Swap out the queue.
+
+    I decided to use RabbitMQ which was for the most part a good decision
+    however, because of the nature of the web, each node in the graph has a high
+    degree and causes each queue to build up really fast. For example, the
+    average Wikipedia page has about 100 links. RabbitMQ will only persist
+    queues to disk periodically if they start to get too big. This means that if
+    you are crawling large sites the memory usage of the queue explodes quite
+    fast. When crawling Wikipedia, the size of the queue peeked at around 50
+    million messages.
+
+    One option here is to use [Kafka](https://kafka.apache.org/) which has its
+    own downsides (routing will get more difficult) but it is designed to handle
+    higher throughput.
+
+    The last option is to add messages to a simple database (probably postgres
+    or sqlite3) and keep track of each end of the queue as you push and pop.
+    This would allow **all** messages to be persisted to disk to prevent
+    ballooning memory usage. This option, like Kafka, will require more bespoke
+    solutions to emulate the routing features of RabbitMQ. The downside is that
+    reading everything from disk is going to be pretty slow although you can
+    amortize this performance reduction by reading blocks of entries from the
+    front of the queue.
+
+3. Use better database(s).
+
+    I chose to use Postgres to store page information which ended up being my
+    biggest performance bottleneck even when the crawl speed is throttled.
+
+    Postgres is great as a general use database but I found myself misusing it
+    in a couple ways. First, the built-in full-text search feature is awesome
+    for throwing together a MVP but it quickly slowed down on large sites.
+    After storing all of Wikipedia, a simple page rank query was on the order of
+    minutes which is obviously not ideal.
+
+    The best option for text search is to sprinkle in some
+    [elasticsearch](https://www.elastic.co/elasticsearch) which is a popular
+    solution for text search[^discord-elasticsearch]. Another option is to write
+    a custom full-text search engine which is a fun project but a pretty big
+    lift.
+
+    I also made the decision to store the raw text and page info in postgres
+    which makes the table huge and database scans ridiculously slow. There is
+    really no reason to implement it this way and there are a few better options
+    like storing page info in a database that is better at clustering like
+    [Cassandra](https://cassandra.apache.org/) or
+    [MongoDB](https://www.mongodb.com/) and storing raw text in an object store
+    like [S3](https://aws.amazon.com/s3/) or [Minio](https://min.io/).
+
+4. Throw it in kubernetes.
+
+    I wasted a ton of time implementing my own docker-compose that is better at
+    deploying many containers that have a slightly different configuration.
+    Having learned kubernetes after doing the bulk of the work on this project,
+    I would improve it by using kubernetes primitives to deploy the various
+    parts of the system and to handle replication of the core pieces. I can also
+    see value in implementing a custom kubernetes operator for managing the
+    queue and replicated crawlers since the lines between configuration and
+    infrastructure in this project are fairly blurred.
+
+
+# Notable Digressions
+
+### Custom Search
+
+Custom Tf-Idf[^tf-idf] vectorized search tooling. This is a pretty big project
+and I have not finished it yet. Too see my (pretty slow) progress see my github
+repo [harrybrwn/ts](https://github.com/harrybrwn/ts).
+
+Pros:
+* Super fine-grain control over ranking.
+* Performance issues are my fault (can make assumptions about the structure of
+  search space).
+
+Cons:
+* Its a lot of work and elasticsearch is probably better anyway.
+
+### Orchestration
+
+I built a custom container orchestration tool for this project. It was way too
+overkill but docker-compose didn't work very well and I hadn't learned
+kubernetes yet.
+
+I've also gotten caught up in creating configuration APIs for adding or
+removing site crawlers in new threads. This is something that could be important
+in the future when I have the crawler sitting around and want to crawl a site
+on-demand but in the current unfinished state, its not super useful.
+
+
+# Sources
+
+1. The [Information Retrieval][1] textbook.
+2. Heading image from [treehugger.com][4].
+3. I have a list of other resources that might be useful in my [remora notes page][6].
+
+[^IR]: https://nlp.stanford.edu/IR-book/
+[^tf-idf]: Tf-idf is a document scoring algorithm seen in the [IR][1] chapter 6.
+[^dns]: DNS resolution is a common bottleneck for web crawlers for a variety of
+    reasons described in [IR section 20.2.2][3]. I implemented a custom resolver
+    for this project but did not see any measurable performance improvements so
+    I took it out.
+[^discord-elasticsearch]: Elasticsearch is used by discord to index trillions of
+    messages. They describe this in an [engineering blog post](https://discord.com/blog/how-discord-indexes-trillions-of-messages).
+
+[1]: <https://nlp.stanford.edu/IR-book/> "Introduction to Information Retrieval"
+[2]: <https://nlp.stanford.edu/IR-book/html/htmledition/tf-idf-weighting-1.html> "IR Tf-idf weighting"
+[3]: <https://nlp.stanford.edu/IR-book/html/htmledition/dns-resolution-1.html> "IR DNS Resolver"
+[4]: <https://www.treehugger.com/remora-fish-suckers-sea-inspiring-new-adhesives-4858201> "Remora Fish, Those Suckers of the Sea, Are Inspiring New Adhesives"
+[5]: <https://dl.acm.org/doi/10.1145/1242572.1242592> "Detecting Near-Duplicates for Web Crawling"
+[6]: </remora/notes> "My Crawler Project Notes"
+

@@ -13,6 +13,7 @@ layout: ~/layouts/Basic.astro
 - [Overview of various webcrawler architectures](https://www.microsoft.com/en-us/research/wp-content/uploads/2009/09/EDS-WebCrawlerArchitecture.pdf)
 - [Estimating page freshness](https://www.youtube.com/watch?v=qrBXI_hrWrI)
 - [Compaq Research Paper](https://www.cs.cornell.edu/courses/cs685/2002fa/mercator.pdf) with a [video presentation](https://www.youtube.com/watch?v=i5qLt0ShJSg)
+- [Web Crawler Architecture](https://marc.najork.org/papers/eds2009a.pdf), Marc Najork
 
 
 # Queues
