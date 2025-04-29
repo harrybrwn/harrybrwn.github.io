@@ -30,13 +30,15 @@ export default defineConfig({
   site: site,
   outDir: outDir,
   output: output,
-  adapter: isCloudflare
-    ? cloudflare()
-    : isNetlify
-      ? netlify()
-      : output === "server"
-        ? node({ mode: "middleware" })
-        : undefined,
+  // adapter: isCloudflare
+  //   ? cloudflare()
+  //   : isNetlify
+  //     ? netlify({
+  //       imageCDN: false,
+  //     })
+  //     : output === "server"
+  //       ? node({ mode: "middleware" })
+  //       : undefined,
   compressHTML: true,
   build: {
     assets: "a",

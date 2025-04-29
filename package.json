@@ -28,7 +28,8 @@
     "image": "docker buildx bake -f docker-bake.hcl",
     "proxy": "docker compose -f docker-compose.yml -f docker-compose.local.yml up dev dev-tls-proxy",
     "bun:install": "bun install && (cd node_modules/sharp && bun run install)",
-    "postinstall": "command -v bun && (cd node_modules/sharp && bun run install) || true"
+    "postinstall": "command -v bun && (cd node_modules/sharp && bun run install) || true",
+    "gen:screenshots": "scripts/generate-screenshots.sh"
   },
   "workspaces": [
     "./packages/astro/*",
