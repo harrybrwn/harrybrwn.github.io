@@ -2,6 +2,15 @@
 
 set -eu
 
+if ! command -v wget 2>&1 >/dev/null; then
+	echo 'Error: "wget" not found'
+	exit 1
+fi
+if ! command -v python3 2>&1 >/dev/null; then
+	echo 'Error: "python3" not found'
+	exit 1
+fi
+
 machine="$(uname -m)"
 case "$machine" in
 	x86_64)
@@ -22,7 +31,7 @@ case "$machine" in
 		;;
 esac
 
-release_blob="$(curl -s https://api.github.com/repos/harrybrwn/dots/releases/latest)"
+release_blob="$(wget -O- https://api.github.com/repos/harrybrwn/dots/releases/latest 2>/dev/null)"
 tag="$(
 	printf "%s" "$release_blob" \
 	| python3 -c 'import sys,json; print(json.loads(sys.stdin.read())["tag_name"],end="")'
@@ -35,8 +44,8 @@ TMP="$(mktemp -d)"
 
 case "$ID" in
 	arch|manjaro)
-		wget -O "$TMP/dots.tar.zst" "${dl_url}/dots_${version}_linux_${arch}.tar.zst"
-		pacman -U --noconfirm "$TMP/dots/tar.zst"
+		wget -O "$TMP/dots.tar.zst" "${dl_url}/dots_${version}_linux_${arch}.pkg.tar.zst"
+		pacman -U --noconfirm "$TMP/dots.tar.zst"
 		;;
 	debian|ubuntu|pop|linuxmint|raspbian)
 		wget -O "$TMP/dots.deb" "${dl_url}/dots_${version}_linux_${arch}.deb"
