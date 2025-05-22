@@ -746,3 +746,10 @@ links:
     tags:
       - 90s
       - personal-site
+  - url: https://www.cs.utexas.edu/~EWD/transcriptions/EWD06xx/EWD667.html
+    name: On the foolishness of "natural language programming
+    description: |
+      Essay written by Dijkstra about programming languages who's purpose is to
+      emulate natural language. Has interesting parallels to LLMs today.
+    tags:
+      - computers

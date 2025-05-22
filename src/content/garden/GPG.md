@@ -61,8 +61,38 @@ gpg \
   | gpg --import
 ```
 
+Now if you run `gpg -K` you will see `sec#` indicating that the root key is not
+in the local key storage.
+
 It is best practice to keep a root signing key in an air-gaped environment and to use it
 to sign additional encryption keys called subkeys.
+
+# Edit Keys
+
+### Remove an Email
+
+```
+gpg --edit-key <id/name>
+> uid 2
+> revuid
+> save
+```
+
+# LUKS
+
+Open and mount encrypted drive.
+```sh
+sudo cryptsetup luksOpen /dev/sda mapped_name
+sudo mount /dev/mapper/mapped_name /tmp/mountpoint/
+```
+
+Unmount and lock encrypted drive.
+```sh
+sudo umount /tmp/mountpoint
+sudo cryptsetup close mapped_name
+
+```
+
 
 # References
 
