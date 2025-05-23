@@ -2,14 +2,28 @@
 
 set -eu
 
-if ! command -v wget 2>&1 >/dev/null; then
-	echo 'Error: "wget" not found'
+if ! command -v wget 2>&1 >/dev/null && ! command -v curl 2>&1 >/dev/null; then
+	echo 'Error: neither "wget" or "curl" found. Please install one.'
 	exit 1
 fi
 if ! command -v python3 2>&1 >/dev/null; then
 	echo 'Error: "python3" not found'
 	exit 1
 fi
+
+# get [url]
+get() {
+	command -v wget 2>&1 > /dev/null \
+		&& wget -O- "$@" 2>/dev/null \
+		|| curl -sSLf "$@"
+}
+
+# download [filename] [url]
+download() {
+	command -v wget 2>&1 > /dev/null \
+		&& wget -O "$1" "$2" \
+		|| curl -sSLf "$2" -o "$1"
+}
 
 machine="$(uname -m)"
 case "$machine" in
@@ -31,7 +45,7 @@ case "$machine" in
 		;;
 esac
 
-release_blob="$(wget -O- https://api.github.com/repos/harrybrwn/dots/releases/latest 2>/dev/null)"
+release_blob="$(get https://api.github.com/repos/harrybrwn/dots/releases/latest)"
 tag="$(
 	printf "%s" "$release_blob" \
 	| python3 -c 'import sys,json; print(json.loads(sys.stdin.read())["tag_name"],end="")'
@@ -44,19 +58,23 @@ TMP="$(mktemp -d)"
 
 case "$ID" in
 	arch|manjaro)
-		wget -O "$TMP/dots.tar.zst" "${dl_url}/dots_${version}_linux_${arch}.pkg.tar.zst"
+		download "$TMP/dots.tar.zst" "${dl_url}/dots_${version}_linux_${arch}.pkg.tar.zst"
 		pacman -U --noconfirm "$TMP/dots.tar.zst"
 		;;
 	debian|ubuntu|pop|linuxmint|raspbian)
-		wget -O "$TMP/dots.deb" "${dl_url}/dots_${version}_linux_${arch}.deb"
-		dpkg --install "$TMP/dots.deb"
+		download "$TMP/dots.deb" "${dl_url}/dots_${version}_linux_${arch}.deb"
+		apt install -f "$TMP/dots.deb"
 		;;
 	alpine)
-		wget -O "$TMP/dots.apk" "${dl_url}/dots_${version}_linux_${arch}.apk"
+		download "$TMP/dots.apk" "${dl_url}/dots_${version}_linux_${arch}.apk"
 		apk add --allow-untrusted "$TMP/dots.apk"
 		;;
-	rhel|fedora|rocky|centos)
-		wget -O "$TMP/dots.rpm" "${dl_url}/dots_${version}_linux_${arch}.rpm"
+	fedora|rocky)
+		download "$TMP/dots.rpm" "${dl_url}/dots_${version}_linux_${arch}.rpm"
+		dnf install "$TMP/dots.rpm"
+		;;
+	rhel|centos)
+		download "$TMP/dots.rpm" "${dl_url}/dots_${version}_linux_${arch}.rpm"
 		rpm -i "$TMP/dots.rpm"
 		;;
 	*)
