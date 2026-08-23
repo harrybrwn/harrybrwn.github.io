@@ -73,5 +73,5 @@
   "files": [
     "./dist/**/*"
   ],
-  "packageManager": "pnpm@10.9.0"
+  "packageManager": "pnpm@10.24.0"
 }

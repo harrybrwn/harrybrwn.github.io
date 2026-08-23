@@ -28,6 +28,8 @@ const garden = defineCollection({
     description: z.string().optional(),
     tags: z.array(z.enum([
       "computer-science",
+      "cycling",
+      "games",
       "hobbies",
       "homelab",
       "ideas",
@@ -36,7 +38,10 @@ const garden = defineCollection({
       "opsec",
       "philosophy",
       "programming",
+      "religion",
+      "running",
       "security",
+      "sports",
     ])),
     // pubDate: z.date().optional(), // validation happens in .refine
     pubDate: z.date().default(() => new Date()),

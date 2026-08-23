@@ -79,7 +79,7 @@ links:
     tags:
       - history
   - url: https://www.sbnation.com/a/17776-football
-    name: '17776'
+    name: "17776"
     description: A fictional futuristic web multimedia story.
     tags:
       - art
@@ -107,7 +107,7 @@ links:
     tags:
       - people
   - url: http://cat-v.org/
-    name: 'cat-v: Considered harmful'
+    name: "cat-v: Considered harmful"
     description: Tons of great content ranging from old unix operating systems to economics.
     tags: []
   - url: https://crouton.net/
@@ -234,7 +234,7 @@ links:
       - science
       - networking
   - url: https://bgp.potaroo.net/cidr/autnums.html
-    name: ''
+    name: ""
     description: Gigantic list of registered autonomous systems and whois data.
     tags:
       - computers
@@ -322,8 +322,8 @@ links:
       - 90s
       - personal-site
   - url: https://chasem.co/
-    name: ''
-    description: ''
+    name: ""
+    description: ""
     tags:
       - blog
       - personal-site
@@ -425,11 +425,11 @@ links:
     description: |-
       Archive any website and assign it a sharable link. The archiving crawler
       can help you bypass a paywall.
-    tags: [ tools, web ]
+    tags: [tools, web]
   - url: https://www.foddy.net/Athletics.html
     name: QWOP
     description: An infuriating racing game.
-    tags: [ games, silly ]
+    tags: [games, silly]
   - url: https://www.lysator.liu.se/c/
     name: Programming in C
     description: |-
@@ -593,7 +593,7 @@ links:
       - tools
   - url: https://soulja-boy-told.me/
     name: Welcome to NGINX
-    description: '-'
+    description: "-"
     tags:
       - surreal
       - silly
@@ -753,3 +753,30 @@ links:
       emulate natural language. Has interesting parallels to LLMs today.
     tags:
       - computers
+  - url: https://apod.nasa.gov/apod/astropix.html
+    name: NASA Astronomy Picture of the Day
+    description: |-
+      Every day they put up a new an interesting astronomy picture with lots of
+      great info about what it is, who discovered it, and why it's interesting.
+    tags:
+      - science
+      - astronomy
+  - url: http://www.ccru.net/swarm1/1_melt.htm
+    name: Meltdown
+    description: An interesting CCRU essay that's cited by a couple notable technologists.
+    tags:
+      - surreal
+      - art
+      - politics
+      - economics
+      - computers
+  - url: https://nrdblog.cmosnet.eu/
+    name: NRD Blog
+    description: |-
+      A polish blog dedicated to documenting and teaching about the history of
+      East Germany. There are lots of cool articles about computers, technology,
+      and cars.
+    tags:
+      - blog
+      - history
+      - geography
